@@ -76,11 +76,6 @@ body
 #note-menu
   :float right
 
-#page-menu
-  :float right
-  li
-    :margin 2px 3px
-
 #logo
   :position absolute
   :margin 3px 0 0 5px
@@ -144,6 +139,7 @@ body
         :font-size 1em
 
 #content
+  :width 100%
   :color gray
   :border 0
   #content_for_layout
@@ -167,11 +163,8 @@ body
     :margin-left = !content_margin
 
   .page-header
-    :float left
-    :border-style solid
-    :border-width 5px 2px 1px 20px
+    :margin-left 19%
     h1
-      :float left
       :margin 3px 0 3px 10px
       span.title
         :font-size = !modern_page_font_size + 8px
@@ -193,10 +186,11 @@ body
     :width 100% !important
     :border 0 none
   .page-content
-    :width 80%
-    :float right
-    :padding-left 3px
-    :border-left 1px solid silver
+    :margin-left 19%
+    :border 1px solid silver
+    ul
+      :margin 0 0 0 25px
+      :padding 0
 
 #footer
   :text-align center
@@ -498,11 +492,11 @@ div.labels-form, div.labels
       :padding 3px auto 3px 3px
 
 div.label-navigation
+  :float left
   :background white
   :width 19%
   :height 100%
   :border 1px solid silver
-  :float left
 
   h2
     :font-size = !small_font_size
@@ -875,7 +869,14 @@ table.label-indices
       input[type=submit]
         :font-size = !small_font_size
 
+#page-menu
+  :float right
+  :margin-top 5px
+  li
+    :margin 2px 3px
+
 #content_for_layout table.skipwiki
+#content_for_layout table
   :border-collapse collapse
   tr
     th

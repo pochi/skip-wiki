@@ -19,14 +19,21 @@
           - unless fullscreen_action?
             =render :partial => 'pages/label_traverse'
 
-          .page-header{:style=>"border-color:#{@page.label_index.color}"}
+          - if current_user.page_editable?(current_note)
+            #page-menu
+              %ul.float
+                %li= link_to("表示", note_page_path(current_note, @page))
+                %li= link_to("編集", new_note_page_history_path(current_note, @page))
+                %li= link_to("履歴", note_page_histories_path(current_note, @page))
+                %li= link_to("プロパティ", edit_note_page_path(current_note, @page))
+
+          .page-header{:style=>"background-color:#{@page.label_index.color}"}
             %h1.page-name
               .show
                 %span.title.ipe-trigger&= @page.display_name
                 %span.labeled= sanitize _("Labeled as %{label}") % {:label=>val_tag(@page.label_index.display_name)}
                 - if current_note.label_navigation_style == LabelIndex::NAVIGATION_STYLE_TOGGLE
                   %span.operation.show-label-navi&= _("show label navigation")
-
               - if current_user.page_editable?(current_note)
                 .edit{:style=>"display:none"}
                   - form_for(:page, :url=>note_page_path(current_note, @page), :style=>"display:none") do |f|
@@ -45,18 +52,6 @@
                     );
                     $("h1 span.page-operation select").dropdownNavigation();
                   });
-
-            - if current_user.page_editable?(current_note)
-              #page-menu
-                %ul.float
-                  %li= link_to("表示", note_page_path(current_note, @page))
-                  %li= link_to("編集", new_note_page_history_path(current_note, @page))
-                  %li= link_to("履歴", note_page_histories_path(current_note, @page))
-                  %li= link_to("プロパティ", edit_note_page_path(current_note, @page))
-              .clear
-           
-            .clear
-
           - if fullscreen_action?
             .page-content.fullscreen= yield
           - else
