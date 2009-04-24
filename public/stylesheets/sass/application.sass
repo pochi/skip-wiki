@@ -141,7 +141,7 @@ body
 #content
   :width 100%
   :color gray
-  :border 0
+
   #content_for_layout
     :border 0
 
@@ -164,6 +164,7 @@ body
 
   .page-header
     :margin-left 19%
+
     h1
       :margin 3px 0 3px 10px
       span.title
@@ -178,16 +179,23 @@ body
       span
         :font-size 12px
 
+  .page-header.fullscreen
+    :margin-left 0
+
+
   #new_page
     :width 100%
     :clear both
 
   .page-content.fullscreen
+    :margin-left 0
     :width 100% !important
     :border 0 none
   .page-content
     :margin-left 19%
-    :border 1px solid silver
+    :border-left 1px solid silver
+    :border-right 1px solid silver
+    :border-bottom 1px solid silver
     ul
       :margin 0 0 0 25px
       :padding 0
@@ -433,7 +441,6 @@ span.operation
 
 #content div.page, div.history
   :position relative
-  :border-top 1px solid silver
 
   div.rendered
     :color #555555
