@@ -5,6 +5,6 @@ module LabelIndicesHelper
     content_tag("span",
                 content,
                 :class=>"label_badge",
-                :style=>"border-color:%s" % label_index.color)
+                :style=>"border-color:%s" % label_index.color + ";background-color:%s" % label_index.color)
   end
 end

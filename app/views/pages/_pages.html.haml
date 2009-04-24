@@ -7,8 +7,6 @@
       - if current_user.accessible?(current_note)
         %th.publication&= _("Publication")
       %th.timestamp&= _("Page|Updated at")
-      - if current_user.accessible?(current_note)
-        %th.history&= _("History")
       %th.clippy= _("Copy URL")
   %tbody
     - each_with_histories(pages) do |page, history|
@@ -30,7 +28,5 @@
               =icon_tag("lock")
               %span.not_yet&= _("Not yet")
         %td.timestamp&= page.updated_at.strftime("%Y-%m-%d %H:%M")
-        - if current_user.accessible?(current_note)
-          %td.history= link_to h(_"Show history"), note_page_histories_path(current_note, page)
         %td.clippy= clippy(note_page_url(current_note, page))
 

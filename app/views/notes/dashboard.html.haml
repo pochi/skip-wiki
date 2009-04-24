@@ -5,6 +5,24 @@
   .caption= render :partial => 'search'
 
   .contents
+    #mypage
+      %h2
+        = icon_tag('folder_star') + _("Accessible Note")
+      %h3&= _("User|Notes")
+      %ul.accessible-notes
+        - @notes.each do |note|
+          %li
+            %span.display_name= link_to(h(note.display_name), note_page_path(note, "FrontPage"))
+            - if current_user.accessible?(note)
+              %spn.publicity.accessible&= _("Accessible")
+            - elsif note.public_writable?
+              %spn.publicity.public-writable&= _("Public writable")
+            - else
+              %spn.publicity.public-readable&= _("Public readable")
+
+            .info
+              %span&= note.description
+
     #portal
       #updated-page
         %h2
@@ -25,24 +43,5 @@
 
       -#.search
         = link_to h(_("View All")), :controller => "notes", :action => "search" , :sortto_sym => "updated_on"
-
-    #mypage
-      %h2
-        = icon_tag('folder_star') + _("Dashboard")
-      %h3&= _("Accessible Note")
-      %ul.accessible-notes
-        - @notes.each do |note|
-          %li
-            %span.display_name= link_to(h(note.display_name), note_page_path(note, "FrontPage"))
-            - if current_user.accessible?(note)
-              %spn.publicity.accessible&= _("Accessible")
-            - elsif note.public_writable?
-              %spn.publicity.public-writable&= _("Public writable")
-            - else
-              %spn.publicity.public-readable&= _("Public readable")
-
-            .info
-              %span&= note.description
-
   .clear
 

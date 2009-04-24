@@ -366,7 +366,6 @@ ul.label-indices
         :width 15em
 
 div.app-layout
-  :margin-left 5%
   :font-size 18px
 
   form
@@ -416,13 +415,15 @@ div.note
 
 .index
   .query
-    :margin 2em auto
+    :border 1px dotted silver
+    :margin 1em auto
+    :padding 5px
     :width  70%
     :background #eeeeee
     :_margin-left 20%
 
   .query a.op
-    :float right
+    :margin-bottom 14px
     :font-size = !small_font_size
 
   .query form
@@ -610,9 +611,9 @@ div.caption
       :font-size = !small_font_size
 
 #mypage
+  :float left
   :width 49%
   :_width 100%
-  :margin-left 50%
 
   h3
     :background-color #ccc
@@ -962,6 +963,7 @@ p.history-info
     :color #00cccc
 
 #content .attachments
+  :padding 5px
   table
     td.content_type
       :width 8em
@@ -974,12 +976,13 @@ p.history-info
 .upload
   iframe
     :border 0
-    :overflow hidden
+    :overflow visible
     :width 100%
-    :height 6em
+    :height 100px
   div.form
-    :width 100%
-    :height 5em
+    :margin 0
+    :padding 0
+    :height 100px
   div.target iframe
     :width 0
     :height 0
