@@ -97,7 +97,6 @@ SQL
     (idx = self.label_indexings.first) && idx.page_order
   end
 
-
   def name_editable?
     new_record? || !(published? || name == "FrontPage")
   end
