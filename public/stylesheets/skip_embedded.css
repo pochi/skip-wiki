@@ -15,12 +15,12 @@
     #flash_message div h3 {
       margin: 10px;
       width: 100%; }
-      #flash_message div h3 span {
-        position: static;
-        font-size: 10px;
-        margin-left: 20px;
-        right: 15px;
-        top: 15px; }
+    #flash_message div span {
+      position: static;
+      font-size: 10px;
+      margin-left: 80%;
+      right: 15px;
+      top: 15px; }
   #flash_message div.warn {
     border-color: orange;
     background-color: yellow; }
