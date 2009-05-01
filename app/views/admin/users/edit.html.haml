@@ -3,7 +3,7 @@
   =stylesheet_link_tag "admin/admin"
 
 #contents
-  .note
+  .admin-user-edit
     - form_for(@user, :url=>{:controller => 'admin/users', :action=>'update'}) do |f|
       =f.error_messages      
       

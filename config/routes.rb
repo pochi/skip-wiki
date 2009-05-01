@@ -32,6 +32,8 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace 'admin' do |admin_map|
     admin_map.root :controller=>'users', :action=>'index'
     admin_map.resources :users
+    admin_map.resources :pages
+    admin_map.resources :attachments, :only => %w[index delete]
 
     admin_map.resources :notes do |note|
       note.resources :pages, :new => {:preview => :post} do |page|
@@ -39,13 +41,13 @@ ActionController::Routing::Routes.draw do |map|
         page.resources :attachments
       end
       note.resources :attachments
+      note.resources :label_indices
     end
 
     admin_map.resources :groups do |group|
       group.resources :memberships
     end
 
-    admin_map.resources :accounts
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

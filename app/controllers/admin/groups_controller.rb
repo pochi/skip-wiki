@@ -1,5 +1,5 @@
 class Admin::GroupsController < Admin::ApplicationController
-  layout "admin_notes"
+  layout "admin"
 
   def show 
     @group = Group.find(params[:id])  

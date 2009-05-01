@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::ApplicationController
-  layout "admin_users"
+  layout "admin"
 
   # GET /admin
   def index

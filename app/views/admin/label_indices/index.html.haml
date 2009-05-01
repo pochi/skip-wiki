@@ -1,0 +1,33 @@
+- content_for :header do
+  =stylesheet_link_tag "mypage"
+  =stylesheet_link_tag "admin/admin"
+
+#contents
+  .labels
+    %table.label-indices
+      %tbody
+        - @note.label_indices.each_slice(2) do |labels|
+          %tr
+            - labels.each do |l_idx|
+              %td.inplace-edit
+                - form_opt = {:url=>admin_note_label_index_path(@note, l_idx)}
+                .show
+                  = labelize(l_idx, false, @note)
+                  %span.op.ipe-trigger&= _("Click to edit")
+                .edit{:style=>"display:none"}
+                  - form_for :label_index, l_idx, form_opt.merge(:html=>{:method=>"PUT",:style=>"display:visible"}) do |f|
+                    = f.text_field :display_name, :size=>12, :id=>"#{l_idx.id}_display_name"
+                    = f.submit _("Update")
+                    %span.indicator{:style=>"display:none"}= image_tag("skip/indicator.gif")
+                    %span.op.ipe-cancel&= _("Cancel")
+        / 
+          TODO ラベルは管理者から作成できるようにするのかどうかを確認
+          .new
+            - form_for(LabelIndex.new, :url=>admin_note_label_indices_path(@note)) do |f|
+              = f.label(:display_name, _("add labels"))
+              %br
+              = f.text_field :display_name, :size=>16
+              = f.text_field :color, :size=>7
+              = f.submit _("Create")
+:javascript
+  jQuery(function(){ $("div.labels").manageLabel() });

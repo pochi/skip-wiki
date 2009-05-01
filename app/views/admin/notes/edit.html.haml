@@ -4,7 +4,6 @@
 
 #contents
   - div_for(@note) do
-    %p&= _("edit note properties")
     - form_for(@note, :url=>{:controller=>'admin/notes',:action=>'update'}) do |f|
       =f.error_messages
 
@@ -57,6 +56,5 @@
               =f.radio_button :category_id, c.id
               =f.label h("category_id_#{c.id}"), h(c.display_name)
       %div
-        = back_link_to(_("Note Properties"), admin_note_path(@note.id))
         = f.submit _("Update")
 

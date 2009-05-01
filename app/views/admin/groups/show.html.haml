@@ -22,8 +22,6 @@
           %td
             %label{:for=>id_attr}&= user.name
           %td&= user.display_name
-          %td.identity_url&= user.identity_url
 
-    =back_link_to(_("Note Properties"), admin_note_path(@note.id))
     =submit_tag(_("Update"))
 

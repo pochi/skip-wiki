@@ -1,0 +1,14 @@
+.user_search
+  - path, search_label = (@notes or @note) ? [admin_notes_path, _("Search Note")] : [admin_users_path, _("Search User")]
+  - form_tag(path, :method=>:get) do
+    - val = params[:keyword].blank? ? search_label : params[:keyword]
+    %span{:style=>"vertical-align:middle;"}
+    - if path == admin_notes_path
+      = text_field_tag("keyword", val, :id=>"user_keyword", :class=>"labeled-field")
+    - else
+      = text_field_tag("keyword", val, :id=>"user_keyword", :class=>"labeled-field")
+    = submit_tag _('Search')
+    :javascript
+      jQuery(function(){
+        jQuery("input.labeled-field").labeledTextField(#{{:message => search_label}.to_json});
+      });

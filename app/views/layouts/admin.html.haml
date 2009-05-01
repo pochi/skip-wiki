@@ -1,6 +1,7 @@
 !!! XML
 !!!
 %html{html_attrs("ja")}
+
   %head
     = render :partial => 'shared/common_header'
   
@@ -9,7 +10,6 @@
       = link_to image_tag("logo.gif", :alt=>"SKIP Wiki - logo", :height=>"15px"), root_path
     #header.page-layout
       = render :partial => 'shared/common_body_header'
-      #current-note= render :partial => 'shared/admin/main_operation'
 
     = render :partial=>"shared/flash_message"
     //#top= render :partial => 'shared/top'
@@ -18,10 +18,15 @@
       #content_for_layout
         #content
           .admin-header
-            .user-bar= render :partial => 'shared/admin/user_navi'
+            %h3= "管理者メニュー"
             .clear
-
-          = yield
+          .admin-menu= render :partial => 'shared/admin/menu'
+          .admin-content
+            - child_menu, title = selected_title
+            %h3=title
+            .admin-main-content
+              = yield
+            .child_menu=child_menu if child_menu
 
     #footer
       = render :partial => 'shared/common_body_footer'

@@ -1,19 +1,18 @@
 %table.skipwiki.pages-index
   %thead
     %tr
-      %th.label&= _("LabelIndices")
+      %th.note_name= "ノート名"
       %th.display_name&= _("Page|Display name")
       %th.user&= _("Page|Auther")
       %th.publication&= _("Publication")
-      %th.timestamp&= _("Page|Published at")
-      %th.timestamp&= _("Page|Updated at")
       %th.clippy= _("Copy URL")
       %th.edit&= _('Page|Edit')
       %th.delete&= _('Page|Delete')
   %tbody
     - each_with_histories(pages) do |page, history|
+      - @note = Note.find(page.note_id)
       %tr
-        %td.label= labelize(page.label_index)
+        %td.note_name= @note.display_name
         %td.name= link_to h(page.display_name), admin_note_page_url(@note, page)
         %td&= history.user.name
         %td.publication
@@ -21,8 +20,6 @@
             %span.published&= _("Published")
           - else
             %span.not_yet&= _("Not yet")
-        %td.timestamp&= page.published_at.strftime("%Y-%m-%d %H:%M")
-        %td.timestamp&= page.updated_at.strftime("%Y-%m-%d %H:%M")
         %td.clippy= clippy(admin_note_page_url(@note, page))
         %td.edit= link_to _("Edit"), edit_admin_note_page_path(@note,page)
         %td.delete= link_to _("Delete"), {:controller=>'admin/pages',:action=>'destroy',:note_id=>@note,:id=>page}, :confirm=>_("Are you sure?"), :method=>:delete

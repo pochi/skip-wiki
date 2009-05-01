@@ -1,9 +1,10 @@
 class Admin::NotesController < Admin::ApplicationController
-  layout "admin_notes"
+  layout "admin"
 
   # GET 
   def index
-    @notes = Note.fulltext(params[:keyword])
+    @notes = Note.fulltext(params[:keyword]).
+                  paginate(paginate_option)
   end
 
   def show

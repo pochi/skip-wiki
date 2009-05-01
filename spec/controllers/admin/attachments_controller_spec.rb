@@ -20,36 +20,32 @@ describe Admin::AttachmentsController do
     @mock_attachments ||= (1..3).map {|i| mock_model(Attachment, stubs)}
   end
 
-  describe "POST /admin/notes/our_note/attachments" do
-    before do
-      controller.stub!(:requested_note).and_return(mock_note)
-      mock_note.should_receive(:attachments).and_return(mock_attachments)
-    end    
-
-    describe "添付ファイルが正常に保存できる場合" do
-
-      it "生成した添付ファイルが保存できること" do
-        mock_attachments.should_receive(:build).and_return(mock_attachment(:save=>true))
-        post :create, :note_id=>"our_note"
+  describe "GET /admin/attachments/index" do
+    describe "requested_noteが取得できている場合" do
+      before do
+        # TODO should_receiveにすると２回呼ばれていると怒られる
+        # mock_note.should_receive(:attachments).and_return(mock_attachments)
+        mock_note.stub!(:attachments).and_return(mock_attachments)
+        controller.stub!(:requested_note).and_return(mock_note)
       end
-      it "添付ファイル一覧画面にリダイレクトされること" do
-        mock_attachments.should_receive(:build).and_return(mock_attachment(:save=>true))
-        post :create, :note_id=>"our_note"
-        response.should redirect_to(admin_note_attachments_url(mock_note))        
+
+      it "requested_noteにひもづく添付ファイルが取得できていること" do
+        get :index
+        assigns(:attachments).should == mock_note.attachments
       end
     end
-    describe "添付ファイルが保存に失敗する場合" do
-      it "生成した添付ファイルが保存できないこと" do
-        mock_attachments.should_receive(:build).and_return(mock_attachment(:save=>false))
-        post :create, :note_id=>"our_note"
+
+    describe "requested_noteが取得できていいない場合" do
+      before do
+        controller.stub!(:requested_note).and_return(nil)
       end
-      it "添付ファイル一覧画面にリダイレクトされること" do
-        mock_attachments.should_receive(:build).and_return(mock_attachment(:save=>false))
-        post :create, :note_id=>"our_note"
-        response.should redirect_to(admin_note_attachments_url(mock_note))
+      it "添付ファイルが全て取得できていること" do
+        get :index
+        assigns(:attachments).should == Attachment.find(:all)
       end
     end
-  end 
+  end
+
 
   describe "DELETE /admin/notes/our_note/attachments/our_attachment" do
     it "添付ファイルにリクエストが飛んでいること" do
