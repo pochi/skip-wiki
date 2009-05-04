@@ -23,8 +23,8 @@
     $("div.label-navigation").accordion(#{acordion_opt.to_json});
 
     jQuery("div.label-navigation span.operation").click(function(){
-      jQuery("div.label-navigation").hide().siblings("div.page-header").addClass("fullscreen");
-      jQuery("div.label-navigation").hide().siblings("div.page-content").addClass("fullscreen");
+      jQuery("div.label-navigation").hide().siblings("div.page-header").removeClass("two_pain");
+      jQuery("div.label-navigation").hide().siblings("div.page-content").removeClass("two_pain");
     });
   })
 

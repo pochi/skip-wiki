@@ -26,7 +26,6 @@
                 %li= link_to(_("Edit"), new_note_page_history_path(current_note, @page))
                 %li= link_to(_("History"), note_page_histories_path(current_note, @page))
                 %li= link_to(_("Property"), edit_note_page_path(current_note, @page))
-
           .page-header{:style=>"background-color:#{@page.label_index.color}"}
             %h1.page-name
               .show
@@ -38,12 +37,14 @@
                 :javascript
                   jQuery(document).ready(function(){
                     $("div.page-header span.operation.show-label-navi").click(function(){
-                      jQuery("#content div.label-navigation").show().siblings(".page-header").removeClass("fullscreen")
-                      jQuery("#content div.label-navigation").show().siblings(".page-content").removeClass("fullscreen")
+                      jQuery("#content div.label-navigation").show().siblings(".page-header").addClass("two_pain")
+                      jQuery("#content div.label-navigation").show().siblings(".page-content").addClass("two_pain")
                     });
                   });
-          - if fullscreen_action?
-            .page-content.fullscreen= yield
+          - unless fullscreen_action?
+            :javascript
+              jQuery("#content div.label-navigation").show().siblings(".page-header").addClass("two_pain");
+            .page-content.two_pain= yield
           - else
             .page-content= yield
           .clear
