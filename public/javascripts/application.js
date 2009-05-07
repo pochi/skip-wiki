@@ -344,11 +344,15 @@ application.callbacks = {
 
   refreshAttachments : function(errorMessage){
     return function(){
-      var url = this.contentWindow.document.location.href;
+      var iframe = jQuery(this.contentWindow.document);
+      var url = iframe.get(0).location.href;
       jQuery.getJSON(url, null, function(data, status){
-        var tbody = $("div.attachments table tbody");
+        var tbody = jQuery("div.attachments table tbody");
+        var error = jQuery("#error-explanation").empty();
+
         if(tbody.find("tr:not(.attachment-row-prototype)").length == data.length){
-          alert(errorMessage) // FIXME エラーメッセージ表示の作戦を考える
+          error.append(iframe.find("body #error-explanation ul").clone());
+          jQuery("#flash_message").trigger("error", errorMessage);
           return false;
         }
         var tr = tbody.find("tr:nth-child(1)").clone();
