@@ -21,7 +21,7 @@ jQuery.fn.flashMessage = function(flashes, relativeUrlRoot){
 
   function showFlash(type, message, hideAfterSec){
     jQuery("#ie-select-fix").show();
-    flash.find("div." + type).show().find("h3").text(message).show();
+    flash.find("div." + type).show().find("h3").text(message);
     if(hideAfterSec){
       setTimeout(function(){ flash.find("div." + type).trigger("click"); }, hideAfterSec * 1000);
     };
