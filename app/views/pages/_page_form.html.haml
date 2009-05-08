@@ -1,15 +1,12 @@
 - content_for :header do
   =stylesheet_link_tag "jquery/ui.datepicker.css"
 
-%tr
-  %th= form.label(:name, h(_("Page|Name")))
-  %td
-    - if @page.name_editable?
+- if @page.name_editable?
+  %tr
+    %th= form.label(:name, h(_("Page|Name")))
+    %td
       %label.parrent_url= h(note_pages_url(current_note) + "/")
       =form.text_field :name, :size => 10
-    - else
-      =h( url = note_page_url(current_note, @page))
-      =clippy(url)
 
 %tr
   %th= form.label(:published, h(_("Page|Published")))
@@ -26,5 +23,5 @@
         %li
           = form.radio_button :label_index_id, index.id
           %label{:for=>"page_label_index_id_#{index.id}"}= labelize(index)
-  .clear
+    .clear
 

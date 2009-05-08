@@ -27,12 +27,13 @@
                 %li= link_to(_("History"), note_page_histories_path(current_note, @page))
                 %li= link_to(_("Property"), edit_note_page_path(current_note, @page))
           .page-header{:style=>"background-color:#{@page.label_index.color}"}
+            - if current_note.label_navigation_style == LabelIndex::NAVIGATION_STYLE_TOGGLE
+              .show-label-navi
+                %span.operation.show-label-navi&= _(">")
+
             %h1.page-name
               .show
                 %span.title.ipe-trigger&= @page.display_name
-                %span.labeled= sanitize _("Labeled as %{label}") % {:label=>val_tag(@page.label_index.display_name)}
-                - if current_note.label_navigation_style == LabelIndex::NAVIGATION_STYLE_TOGGLE
-                  %span.operation.show-label-navi&= _("show label navigation")
               - if current_user.page_editable?(current_note)
                 :javascript
                   jQuery(document).ready(function(){

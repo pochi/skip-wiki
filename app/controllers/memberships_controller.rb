@@ -1,10 +1,6 @@
 class MembershipsController < ApplicationController
   before_filter :authenticate, :except=>[:index]
 
-  def index
-    @memberships = requested_user.memberships
-  end
-
   # accessed only via /groups/:group_id/memberships
   #  OR raise error in find(params[:group_id])
   def create

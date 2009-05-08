@@ -1,16 +1,13 @@
-= render :partial => 'users/side_menu'
+%h1= _("Edit user information")
 
-- div_for(@user) do
-  %dl
-    %dt&= _("User|Name")
-    %dd&= @user.name
+.app-layout
+  = error_messages_for :user
+  - form_for @user  do |f|
+    %table.input.user
+      = render :partial => 'form', :locals => {:f => f}
+      %tr.identity-url
+        %th&= _("OpenID URL")
+        %td&= @user.identity_url
 
-    %dt&= _("User|Display name")
-    %dd&= @user.display_name
-
-    %dt&= _("User|Identity url")
-    %dd&= @user.identity_url
-
-  - unless SkipEmbedded::OpFixation.sso_enabled?
-    = link_to _("Edit"), edit_user_path(@user)
+    = submit_tag _("Update")
 

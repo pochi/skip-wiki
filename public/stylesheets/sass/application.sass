@@ -7,6 +7,7 @@
 !wizard_width = 950
 !skip_blue = #D0E0F0
 !link_color = #0080DD
+!navigation_width = 200px
 
 body
   :font-size 13px
@@ -171,6 +172,7 @@ body
       :margin 0 0 3px 10px
       :padding 3px 0
       span.title
+        :padding-left 4px
         :font-size = !modern_page_font_size + 8px
       span.labeled
         :font-size = !small_font_size
@@ -183,7 +185,7 @@ body
         :font-size 12px
 
   .page-header.two_pain
-    :margin-left 19%
+    :margin-left= !navigation_width
 
   #new_page
     :width 100%
@@ -194,7 +196,7 @@ body
     :width 100% !important
     :border 0 none
   .page-content.two_pain
-    :margin-left 19%
+    :margin-left= !navigation_width
     :border-left 1px solid silver
     :border-right 1px solid silver
     :border-bottom 1px solid silver
@@ -524,7 +526,7 @@ div.labels-form, div.labels
 div.label-navigation
   :float left
   :background white
-  :width 19%
+  :width= !navigation_width
   :height 100%
   :border 1px solid silver
 
@@ -1017,3 +1019,8 @@ p.history-info
   :padding 2px
   :border 0 none
   :margin-bottom 0
+
+.show-label-navi
+  :position absolute
+  :left 0
+  :top 0
