@@ -5,7 +5,7 @@
   %th= form.label(:name, h(_("Page|Name")))
   %td
     - if @page.name_editable?
-      =h(note_pages_url(current_note) + "/")
+      %label.parrent_url= h(note_pages_url(current_note) + "/")
       =form.text_field :name, :size => 10
     - else
       =h( url = note_page_url(current_note, @page))

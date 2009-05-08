@@ -6,6 +6,7 @@
 !wizard_steps = 8
 !wizard_width = 950
 !skip_blue = #D0E0F0
+!link_color = #0080DD
 
 body
   :font-size 13px
@@ -44,7 +45,7 @@ body
       :font-size 24px
 
   a
-    :color #0080DD
+    :color = !link_color
     :text-decoration none
 
   #global_navi
@@ -368,6 +369,19 @@ ul.label-indices
       span.label_badge
         :width 15em
 
+#hiki_content
+  textarea
+    :width 90%
+  ul
+    :margin-top 5px
+  li.hide,li.show
+    :margin-left -40px
+    :font-size= !small_font_size
+  div.rendered
+    :border 1px solid silver
+    :margin-bottom 5px
+    :padding 5px
+
 div.app-layout
   :font-size 18px
 
@@ -439,7 +453,7 @@ div.note
 
 span.help, span.operation
   :font-size = !small_font_size
-  :color #333366
+  :color = !link_color
 span.operation
   :cursor pointer
 
@@ -475,6 +489,9 @@ span.operation
     .submit
       :float right
       :margin-right 10%
+
+    .parrent_url
+      :font-size= !small_font_size
 
 #content div.labels-form, #floating div.labels-form
   :position absolute
@@ -805,7 +822,8 @@ table.notes-index, table.pages-index
 
   span.insertLink
     :font-size = !small_font_size
-    :color blue
+    :color= !link_color
+    :cursor pointer
 
   div.palette table
     :width 95%
@@ -864,7 +882,7 @@ table.label-indices
     :width 370px
 
     div span.op
-      :color #0080FF
+      :color = !link_color
 
     div.show
       span.label_badge
