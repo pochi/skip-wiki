@@ -530,15 +530,15 @@ div.label-navigation
 
   h2
     :font-size = !small_font_size
+    :background silver
+    :color white
+    :margin 0
+    :padding-bottom 1px
 
   div.label
-    :border-top 1px solid silver
-    :border-bottom 1px solid silver
-
     h3
       :margin 0
       :width 95%
-      :padding 5px 0 5px 5%
       :border-bottm 1px solid silver
       :background none
       :border 0
@@ -1011,5 +1011,9 @@ p.history-info
     :height 0
 
 .ui-tabs .ui-tabs-hide
-  display: none
+  :display none
 
+.ui-accordion .ui-accordion-content
+  :padding 2px
+  :border 0 none
+  :margin-bottom 0
