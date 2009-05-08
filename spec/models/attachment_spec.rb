@@ -29,6 +29,21 @@ describe Attachment do
     end
   end
 
+  describe "bad content_type" do
+    subject{
+      notes(:our_note).attachments.build(@valid_attributes)
+    }
+    it{
+      subject.content_type = "image/gif"
+      should_not be_valid
+    }
+
+    it{
+      subject.filename, subject.content_type = "foo.html", "text/html"
+      should_not be_valid
+    }
+  end
+
   describe "quota validation" do
     before do
       Attachment.should_receive(:sum).
