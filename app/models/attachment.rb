@@ -47,7 +47,7 @@ class Attachment < ActiveRecord::Base
   # SKIPのバリデーション内容とあわせる。attachment-fuが提供するテーブルは使わない
   def image_ext_for_image_content_type?
     content_types = CONTENT_TYPE_IMAGES[normalized_ext.to_sym]
-    return true unless content_type # not image file.
+    return true unless content_types # not image file.
 
     return content_types.split(',').include?(content_type)
   end

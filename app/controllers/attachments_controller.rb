@@ -38,7 +38,11 @@ class AttachmentsController < ApplicationController
       redirect_to note_attachments_url(current_note, opt)
     else
       logger.warn(@attachment.errors.full_messages)
-      render :action => "new"
+      if ajax_upload?
+        render :template => "attachments/validation_error"
+      else
+        render :action => "new"
+      end
     end
   end
 
