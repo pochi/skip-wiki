@@ -28,5 +28,35 @@ describe Attachment do
       @attachment.should be_valid
     end
   end
+
+  describe "quota validation" do
+    before do
+      Attachment.should_receive(:sum).
+        exactly(2).times.
+        with(:size, kind_of(Hash)).
+        and_return(20.gigabytes, 500.megabytes)
+    end
+
+    subject{
+      notes(:our_note).attachments.build(@valid_attributes)
+    }
+    it{ should have(2).errors_on(:size) }
+  end
+
+  describe "each" do
+    before do
+      File.should_receive(:size).with(kind_of(String)).and_return 10.megabytes + 1
+    end
+
+    subject do
+      uploaded_data = StringIO.new(File.read("spec/fixtures/data/at_small.png"))
+      def uploaded_data.original_filename; "at_small.png" end
+      def uploaded_data.content_type; "image/png" end
+
+      notes(:our_note).attachments.build(:uploaded_data => uploaded_data)
+    end
+
+    it{ should have(1).errors_on(:size) }
+  end
 end
 

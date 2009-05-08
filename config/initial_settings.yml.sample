@@ -21,6 +21,12 @@ default_label:  &label_defaults
     - color: "#ffffbb"
       display_name: "ラベル 9"
 
+quota: &quota
+  attachment:
+    system: 21474836480 #  20GB
+    per_note: 524288000 # 500MB
+    each:      10240000 #  10MB
+
 production:
   skip_collaboration:
     secret_key: "---FIXME----BEFORE---DEPLOYMENT---"
@@ -46,6 +52,8 @@ development:
       fixed_openid_server_url: "http://sso.test.example.com"
       acceptable_op_urls: []
   <<: *label_defaults
+  quota:
+    <<: *quota
 
 test:
   skip_collaboration:
@@ -59,4 +67,6 @@ test:
       fixed_openid_server_url: "http://sso.test.example.com"
       acceptable_op_urls: []
   <<: *label_defaults
+  quota:
+    <<: *quota
 
