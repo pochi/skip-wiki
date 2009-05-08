@@ -1,7 +1,7 @@
 #
 # Added for Ruby-GetText-Package
 #
-
+ENV["MSGMERGE_PATH"] = "msgmerge --no-location"
 desc "Create mo-files for L10n"
 task :makemo do
   require 'gettext/utils'
