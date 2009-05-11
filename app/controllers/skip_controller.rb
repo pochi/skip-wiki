@@ -1,4 +1,4 @@
-class SkipController < SkipSetup::ApplicationController
+class SkipController < Skip::ApplicationController
   def create
     @client_application = ClientApplication.new(params[:skip])
     if @client_application.save

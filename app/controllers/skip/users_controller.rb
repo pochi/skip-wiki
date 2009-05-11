@@ -1,4 +1,4 @@
-class SkipSetup::UsersController < SkipSetup::ApplicationController
+class Skip::UsersController < Skip::ApplicationController
   def create
     client = ClientApplication.families.find(params[:client_application_id])
     @user, token = create_user_and_token(client, params[:user])

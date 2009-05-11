@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe SkipSetup::UsersController do
+describe Skip::UsersController do
   before do
     controller.should_receive(:internal_call_only).and_return true
     @client = ClientApplication.create(:name => "SKIP",
