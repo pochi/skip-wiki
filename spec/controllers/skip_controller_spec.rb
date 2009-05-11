@@ -1,13 +1,13 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe SkipSetup::OauthClientsController do
+describe SkipController do
   before do
     controller.should_receive(:internal_call_only).and_return true
   end
 
   describe "POST :create (success)" do
     before do
-      post :create, :format => "xml", :client_application => {
+      post :create, :format => "xml", :skip => {
               :name => "SKIP",
               :url => "http://skip.example.com",
               :callback_url => "http://skip.example.com/oauth_callback"
@@ -25,7 +25,7 @@ describe SkipSetup::OauthClientsController do
     end
 
     describe "/Parse response" do
-      subject { Hash.from_xml(response.body)["client_application"] }
+      subject { Hash.from_xml(response.body)["skip"] }
 
       it { subject["id"].should == assigns[:client_application].id }
       it { subject["key"].should_not be_blank }
