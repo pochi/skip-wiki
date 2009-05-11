@@ -19,23 +19,6 @@ describe MembershipsController do
     it { response.should be_success }
   end
 
-  describe "POST /users/:user_id/memberships/skip" do
-    fixtures :users
-
-    before do
-      @user = users(:quentin)
-      controller.stub!(:current_user).and_return(@user)
-      @user.should_receive(:build_skip_membership).and_return(true)
-
-      post :skip, :user_id => @user.name, :skip_uid=>"quantin"
-    end
-
-    it "should generates params for membership skip" do
-      params_from(:post, '/users/alice/memberships/skip').should ==
-        {:controller => 'memberships', :action => 'skip', :user_id=>"alice"}
-    end
-  end
-
   describe "POST /groups/1/memberships" do
     fixtures :users, :groups
 

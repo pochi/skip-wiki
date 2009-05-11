@@ -125,32 +125,6 @@ describe User do
         end
       end
     end
-
-    describe "#build_skip_membership" do
-      before do
-        @user = create_user(:name => "alice")
-
-        SkipGroup.should_receive(:fetch_and_store).with("alice").and_return([
-          @a_group = SkipGroup.create!(:name=>"a_group", :display_name=>"display_name", :gid=>"a_group"),
-          @another = SkipGroup.create!(:name=>"another", :display_name=>"SKIP-Wiki", :gid=>"another")
-        ])
-        @user.build_skip_membership
-      end
-
-      it "SKIPグループとの関連ができること" do
-        @user.memberships.map{|m| m.group.backend }.should == [@a_group, @another]
-      end
-
-      describe "自動的に作られたグループ" do
-        before do
-          @created_group = @user.memberships.map(&:group).first
-        end
-
-        it "の名前はbackendの + (SKIP)であること" do
-          @created_group.display_name.should == @created_group.backend.display_name + "(SKIP)"
-        end
-      end
-    end
   end
 
   describe "#admin?" do

@@ -19,14 +19,6 @@ class MembershipsController < ApplicationController
     end
   end
 
-  def skip
-    ActiveRecord::Base.transaction do
-      current_user.skip_uid = params[:skip_uid]
-      current_user.build_skip_membership
-    end
-    redirect_to :action=>"index", :user_id=>current_user.name
-  end
-
   private
   def requested_user
     @requested_user ||= User.find(params[:user_id])
