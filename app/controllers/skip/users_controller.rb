@@ -1,6 +1,7 @@
 class Skip::UsersController < Skip::ApplicationController
   def create
-    client = ClientApplication.families.find(params[:client_application_id])
+    # TODO パラメータ化は必要?
+    client = ClientApplication.families.find(:first, :conditions => {:name => "SKIP"})
     @user, token = create_user_and_token(client, params[:user])
     respond_to do |f|
       f.xml{ render :xml => api_response(@user, token).to_xml(:root => "user") }

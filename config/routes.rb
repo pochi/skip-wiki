@@ -56,6 +56,11 @@ ActionController::Routing::Routes.draw do |map|
 
   end
 
+  map.resource :skip, :controller => "skip" do |skip|
+    skip.resources :users, :controller => "skip/users"
+    skip.resources :groups, :controller => "skip/groups"
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

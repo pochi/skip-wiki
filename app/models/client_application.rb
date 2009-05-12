@@ -5,7 +5,7 @@ class ClientApplication < ActiveRecord::Base
   belongs_to :user
   has_many :tokens, :class_name => "OauthToken"
   validates_presence_of :name, :url, :key, :secret
-  validates_uniqueness_of :key
+  validates_uniqueness_of :name, :key
   before_validation_on_create :generate_keys
   
   attr_protected :family
