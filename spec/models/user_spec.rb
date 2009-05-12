@@ -31,33 +31,6 @@ describe User do
     it{ @it.should have_at_least(1).errors_on(:display_name) }
   end
 
-  describe "#skip_uid=" do
-    before do
-      @user = create_user
-      @user.skip_uid = "alice"
-      @user.save!
-    end
-
-    it "#skip_account.should_not be_nil" do
-      @user.reload.skip_account.should_not be_nil
-    end
-
-    it "#skip_uid.should == 'alice'" do
-      @user.reload.skip_uid.should == 'alice'
-    end
-  end
-
-  describe "#skip_uid" do
-    before do
-      @user = create_user(:name => 'alice')
-    end
-
-    it "#skip_uid.should == 'alice'" do
-      @user.skip_account.should be_nil # 念のため
-      @user.skip_uid.should == 'alice'
-    end
-  end
-
   describe "#build_note" do
     before do
       Page.stub!(:front_page_content).and_return("---FrontPage---")
@@ -154,13 +127,5 @@ describe User do
     it "(nil)で検索すると3件該当すること" do
       User.fulltext(nil).should have(3).items
     end
-  end
-
-protected
-  def create_user(options = {})
-    record = User.new({:name => "a_user", :display_name => "A User"}.merge(options))
-    record.identity_url = "http://openid.example.com/user/"+record.name
-    record.save
-    record
   end
 end

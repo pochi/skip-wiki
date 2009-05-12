@@ -23,4 +23,33 @@ describe SkipGroup do
       @group.should have(1).errors_on(:name)
     end
   end
+
+  describe "#grant(identity_urls)" do
+    subject{ SkipGroup.create!(@valid_attributes) }
+    before do
+      @alice = create_user(:name => "alice")
+      @bob = create_user(:name => "bob")
+
+      subject.grant([
+        {:identity_url => @alice.identity_url, :admin => true},
+        {:identity_url => @bob.identity_url, :admin => false},
+      ])
+      subject.save!
+    end
+
+    it{ subject.group.users.should == [@alice, @bob] }
+
+    context "更新する場合" do
+      before do
+        @charls = create_user(:name => "charls")
+
+        subject.grant([
+          {:identity_url => @charls.identity_url, :admin => true},
+          {:identity_url => @alice.identity_url, :admin => false},
+        ])
+      end
+
+      it{ subject.group.users.should == [@alice, @charls]}
+    end
+  end
 end

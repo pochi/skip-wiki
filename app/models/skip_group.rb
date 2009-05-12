@@ -8,5 +8,14 @@ class SkipGroup < ActiveRecord::Base
   cattr_reader :site
 
   has_one  :group, :as => "backend"
+
+  def grant(user_params)
+    if self.group.nil?
+      create_group(:name=>name, :display_name=>display_name + "(SKIP)")
+    end
+
+    users = User.find_all_by_identity_url(user_params.map{|h| h[:identity_url] })
+    self.group.memberships = users.map{|u| u.memberships.build } # FIXME add admin flag here
+  end
 end
 
