@@ -13,6 +13,7 @@ class Note < ActiveRecord::Base
   validates_presence_of :owner_group, :name, :display_name, :description
   validates_uniqueness_of :name
   validates_inclusion_of :publicity, :in => (PUBLICITY_READABLE..PUBLICITY_MEMBER_ONLY)
+  validates_exclusion_of :name, :in => %w[new edit]
 
   belongs_to :owner_group, :class_name => "Group"
   belongs_to :category

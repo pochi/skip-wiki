@@ -21,6 +21,17 @@ describe Note do
     Note.create!(@valid_attributes)
   end
 
+  describe "validation" do
+    %w[new edit].each do |name|
+      context "#{name}という識別子はつけられない" do
+        subject{ Note.new(@valid_attributes) }
+        before{ subject.name = "new" }
+        it{ should_not be_valid }
+        it{ should have(1).errors_on(:name) }
+      end
+    end
+  end
+
   describe ".fulltext" do
     fixtures :notes
     it "'Our' should hit 1 notes" do

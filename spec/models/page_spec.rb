@@ -20,6 +20,17 @@ describe Page do
     }
   end
 
+  describe "validation" do
+    %w[new edit].each do |name|
+      context "#{name}という識別子はつけられない" do
+        subject{ Page.new(@valid_attributes) }
+        before{ subject.name = "new" }
+        it{ should_not be_valid }
+        it{ should have(1).errors_on(:name) }
+      end
+    end
+  end
+
   describe "#label_index_id = an_label.id" do
     before do
       @note = mock_model(Note)

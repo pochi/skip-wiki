@@ -15,6 +15,7 @@ class Page < ActiveRecord::Base
   validates_presence_of :content, :on => :create
 
   validates_presence_of :name
+  validates_exclusion_of :name, :in => %w[new edit]
   validates_inclusion_of :format_type, :in => %w[hiki html]
 
   validate_on_update :frontpage_cant_rename
