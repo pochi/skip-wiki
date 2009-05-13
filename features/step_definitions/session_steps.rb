@@ -11,6 +11,10 @@ Given(/ユーザ"(\w+)"を登録する/) do |name|
   @user = User.new(:name => name, :display_name => name.humanize)
 end
 
+Given(/ユーザ"([^\"]*)"の権限で前提処理をする/) do |name|
+  @user = User.find_by_name(name)
+end
+
 Given(/ユーザのIdentity URLを"(.+)"として登録する/) do |url|
   @user.identity_url = url
   @user.save!
