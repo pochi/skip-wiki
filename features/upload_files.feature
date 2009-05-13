@@ -9,7 +9,7 @@
 
   シナリオ: ノートにファイルをアップロードする
     もし   "添付ファイル一覧"リンクをクリックする
-    かつ   "ファイルを添付"としてファイル"spec/fixtures/data/at_small.png"を添付する
+    かつ   "ファイルを添付"としてファイル"spec/fixtures/data/at_small.png"をContent-Type"image/png"として添付する
     かつ   "アップロード"ボタンをクリックする
 
     ならば "A noteの添付ファイル"と表示されていること
@@ -24,7 +24,7 @@
     かつ   "更新"ボタンをクリックする
 
     かつ   "添付ファイル一覧"リンクをクリックする
-    かつ   "ファイルを添付"としてファイル"spec/fixtures/data/at_small.png"を添付する
+    かつ   "ファイルを添付"としてファイル"spec/fixtures/data/at_small.png"をContent-Type"image/png"として添付する
     かつ   "アップロード"ボタンをクリックする
 
     もし   "ログアウト"リンクをクリックする

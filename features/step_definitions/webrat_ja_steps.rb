@@ -58,6 +58,10 @@ When /^"(.*)"としてファイル"(.*)"を添付する$/ do |field, path|
   attach_file(field, path)
 end
 
+When /^"(.*)"としてファイル"(.*)"をContent-Type"([^\"]*)"として添付する$/ do |field, path, content_type|
+  attach_file(field, path, content_type)
+end
+
 Then /^"(.*)"と表示されていること$/ do |text|
   response_body_text.should =~ /#{Regexp.escape(text)}/m
 end
