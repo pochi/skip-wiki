@@ -39,6 +39,7 @@ production:
       fixed_openid_server_url: "http://sso.test.example.com"
       acceptable_op_urls: []
   <<: *label_defaults
+  asset_path: "/Users/moro/tmp/skip-wiki-assets/production"
 
 development:
   skip_collaboration:
@@ -54,6 +55,7 @@ development:
   <<: *label_defaults
   quota:
     <<: *quota
+  asset_path: "/Users/moro/tmp/skip-wiki-assets/development"
 
 test:
   skip_collaboration:
@@ -69,4 +71,5 @@ test:
   <<: *label_defaults
   quota:
     <<: *quota
+  asset_path: "/Users/moro/tmp/skip-wiki-assets/test"
 

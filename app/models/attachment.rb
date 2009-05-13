@@ -29,6 +29,12 @@ class Attachment < ActiveRecord::Base
     self.display_name = new_name
   end
 
+  def full_filename(thumbnail=nil)
+    base = SkipEmbedded::InitialSettings["asset_path"] ||
+           File.expand_path("assets/uploaded_data/#{::Rails.env}", ::Rails.root)
+    File.join(base, *partitioned_path(thumbnail_name_for(thumbnail)))
+  end
+
   private
   def validate_on_create
     unless(allowed_extention? && allowed_content_type? && image_ext_for_image_content_type?)

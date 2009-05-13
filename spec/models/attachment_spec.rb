@@ -58,6 +58,11 @@ describe Attachment do
     it{ should have(2).errors_on(:size) }
   end
 
+  describe "full_filename" do
+    subject{ notes(:our_note).attachments.build(@valid_attributes).full_filename }
+    it{ should match Regexp.new("\\A#{SkipEmbedded::InitialSettings["asset_path"]}") }
+  end
+
   describe "each" do
     before do
       File.should_receive(:size).with(kind_of(String)).and_return 10.megabytes + 1
