@@ -31,7 +31,7 @@ When /^SKIPファミリのコンシューマ"([^\"]*)"を登録する$/ do |name
   @application.grant_as_family!
 end
 
-When /^"([^\"]*)"のアクセストークンを取得する$/ do |name|
+When /^"([^\"]*)"のアクセストークン取得ページを表示する$/ do |name|
   visit "/"
 
   @application = ClientApplication.find_by_name(name)
@@ -43,15 +43,21 @@ When /^"([^\"]*)"のアクセストークンを取得する$/ do |name|
   req_token_param = parse_response(response.body)
   req_token = OAuth::RequestToken.new(consumer, req_token_param[:oauth_token], req_token_param[:oauth_token_secret])
   visit req_token.authorize_url
+end
+
+When /^"([^\"]*)"をチェックし、アクセストークンを発行する\Z/ do |check|
+  check(check)
+  click_button("Save changes")
 
   authorized_req_token = URI(response.headers["Location"]).query
   visit [access_token_path, authorized_req_token].join("?")
 
-  access_token_params = parse_response
+  access_token_params = parse_response(response.body)
+  consumer = get_consumer(@application)
   @access_token = OAuth::AccessToken.from_hash(consumer, access_token_params)
 end
 
-When /^OAuth経由でノートのRSSを取得できること$/ do
+When /^OAuth経由でノートのRSSを取得する\Z/ do
   assign_authorization_header(get_consumer){ create_signed_request(:get, "/notes.rss", @access_token) }
 
   visit "/notes.rss"
