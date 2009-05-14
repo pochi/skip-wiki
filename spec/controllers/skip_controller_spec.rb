@@ -8,9 +8,7 @@ describe SkipController do
   describe "POST :create (success)" do
     before do
       post :create, :format => "xml", :skip => {
-              :name => "SKIP",
               :url => "http://skip.example.com",
-              :callback_url => "http://skip.example.com/oauth_callback"
             }
     end
     it { response.should be_success }
@@ -20,6 +18,7 @@ describe SkipController do
 
       it { should be_granted_by_service_contract }
       it { should_not be_new_record }
+      it { subject.name.should == Skip::ApplicationController::SKIP_NAME }
       it { subject.key.should_not be_blank }
       it { subject.secret.should_not be_blank }
     end
