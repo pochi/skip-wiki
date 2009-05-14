@@ -1,7 +1,7 @@
 module Admin::ApplicationHelper
 
   def selected_title
-    child_menu, title, *links = case request.headers['PATH_INFO']
+    child_menu, title, *links = case (request.headers['PATH_INFO'] || request.request_uri)
                                   when admin_root_path, admin_users_path
                                     [nil, "ユーザ一覧"]
                                   when (@user and edit_admin_user_path(@user.id))
