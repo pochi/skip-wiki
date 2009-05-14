@@ -83,3 +83,7 @@ Then /^"(.*?)"がリンクになっていないこと$/ do |label|
   response_body_text.should =~ /#{Regexp.escape(label)}/m
 end
 
+Then /^テキストフィールドに"([^\"]*)"と表示されていること$/ do |text|
+  response.should have_tag("input[type=text][value=#{text}]")
+end
+
