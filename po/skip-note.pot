@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: skip-note 0.1.0\n"
-"POT-Creation-Date: 2009-05-14 16:26+0900\n"
+"POT-Creation-Date: 2009-05-14 17:09+0900\n"
 "PO-Revision-Date: 2008-11-04 16:29+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -288,6 +288,39 @@ msgstr ""
 msgid "Category|Updated at"
 msgstr ""
 
+msgid "client application"
+msgstr ""
+
+msgid "ClientApplication|Name"
+msgstr ""
+
+msgid "ClientApplication|Url"
+msgstr ""
+
+msgid "ClientApplication|Support url"
+msgstr ""
+
+msgid "ClientApplication|Callback url"
+msgstr ""
+
+msgid "ClientApplication|Key"
+msgstr ""
+
+msgid "ClientApplication|Secret"
+msgstr ""
+
+msgid "ClientApplication|User"
+msgstr ""
+
+msgid "ClientApplication|Created at"
+msgstr ""
+
+msgid "ClientApplication|Updated at"
+msgstr ""
+
+msgid "ClientApplication|Family"
+msgstr ""
+
 msgid "content"
 msgstr ""
 
@@ -391,6 +424,51 @@ msgid "Confirm"
 msgstr ""
 
 msgid "%{name} group"
+msgstr ""
+
+msgid "oauth nonce"
+msgstr ""
+
+msgid "OauthNonce|Nonce"
+msgstr ""
+
+msgid "OauthNonce|Timestamp"
+msgstr ""
+
+msgid "OauthNonce|Created at"
+msgstr ""
+
+msgid "OauthNonce|Updated at"
+msgstr ""
+
+msgid "oauth token"
+msgstr ""
+
+msgid "OauthToken|User"
+msgstr ""
+
+msgid "OauthToken|Type"
+msgstr ""
+
+msgid "OauthToken|Client application"
+msgstr ""
+
+msgid "OauthToken|Token"
+msgstr ""
+
+msgid "OauthToken|Secret"
+msgstr ""
+
+msgid "OauthToken|Authorized at"
+msgstr ""
+
+msgid "OauthToken|Invalidated at"
+msgstr ""
+
+msgid "OauthToken|Created at"
+msgstr ""
+
+msgid "OauthToken|Updated at"
 msgstr ""
 
 msgid "Page|Note"
@@ -816,6 +894,60 @@ msgid ""
 "Wikipediaのようにみんなでコンテンツを作っていくノートにしたい場合に選びます。"
 msgstr ""
 
+msgid "Issued client applications."
+msgstr ""
+
+msgid "AccessToken|Family"
+msgstr ""
+
+msgid "AccessToken|Authorized at"
+msgstr ""
+
+msgid "Revoke"
+msgstr ""
+
+msgid "User added client app"
+msgstr ""
+
+msgid "Granted by service contract"
+msgstr ""
+
+msgid "Applications you registerd"
+msgstr ""
+
+msgid "for Application Developers"
+msgstr ""
+
+msgid "show credentials"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Register a new %{entity}"
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Registered"
+msgstr ""
+
+msgid "Service explanation"
+msgstr ""
+
+msgid "Request Token URL"
+msgstr ""
+
+msgid "Access Token URL"
+msgstr ""
+
+msgid "Authorize URL"
+msgstr ""
+
+msgid " We support hmac-sha1 (recommended) as well as plain text in ssl mode."
+msgstr ""
+
 msgid "Keyword in a page"
 msgstr ""
 
@@ -942,6 +1074,15 @@ msgid "Search User"
 msgstr ""
 
 msgid "404 Not Found"
+msgstr ""
+
+msgid "User|Informations"
+msgstr ""
+
+msgid "User|Skip Account"
+msgstr ""
+
+msgid "User|Memberships"
 msgstr ""
 
 msgid "Edit user information"

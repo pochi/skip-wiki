@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: skip-note 0.1.0\n"
-"POT-Creation-Date: 2009-05-14 16:26+0900\n"
+"POT-Creation-Date: 2009-05-14 17:09+0900\n"
 "PO-Revision-Date: 2008-11-04 16:29+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -294,6 +294,39 @@ msgstr "カテゴリー作成日"
 msgid "Category|Updated at"
 msgstr "カテゴリー更新日"
 
+msgid "client application"
+msgstr "連携アプリ(OAuthコンシューマ)"
+
+msgid "ClientApplication|Name"
+msgstr "識別子"
+
+msgid "ClientApplication|Url"
+msgstr "メインURL"
+
+msgid "ClientApplication|Support url"
+msgstr "サポートURL"
+
+msgid "ClientApplication|Callback url"
+msgstr "コールバックURL"
+
+msgid "ClientApplication|Key"
+msgstr "トークン"
+
+msgid "ClientApplication|Secret"
+msgstr "シークレット"
+
+msgid "ClientApplication|User"
+msgstr ""
+
+msgid "ClientApplication|Created at"
+msgstr "作成日"
+
+msgid "ClientApplication|Updated at"
+msgstr "更新日"
+
+msgid "ClientApplication|Family"
+msgstr ""
+
 msgid "content"
 msgstr "内容"
 
@@ -400,6 +433,55 @@ msgstr "確認"
 
 msgid "%{name} group"
 msgstr "%{name}グループ"
+
+msgid "oauth nonce"
+msgstr ""
+
+msgid "OauthNonce|Nonce"
+msgstr ""
+
+msgid "OauthNonce|Timestamp"
+msgstr ""
+
+#, fuzzy
+msgid "OauthNonce|Created at"
+msgstr "カテゴリー作成日"
+
+#, fuzzy
+msgid "OauthNonce|Updated at"
+msgstr "更新日時"
+
+msgid "oauth token"
+msgstr ""
+
+msgid "OauthToken|User"
+msgstr ""
+
+msgid "OauthToken|Type"
+msgstr ""
+
+msgid "OauthToken|Client application"
+msgstr ""
+
+msgid "OauthToken|Token"
+msgstr ""
+
+msgid "OauthToken|Secret"
+msgstr ""
+
+msgid "OauthToken|Authorized at"
+msgstr ""
+
+msgid "OauthToken|Invalidated at"
+msgstr ""
+
+#, fuzzy
+msgid "OauthToken|Created at"
+msgstr "ファイル作成日"
+
+#, fuzzy
+msgid "OauthToken|Updated at"
+msgstr "更新日時"
 
 msgid "Page|Note"
 msgstr ""
@@ -825,6 +907,63 @@ msgid ""
 "Wikipediaのようにみんなでコンテンツを作っていくノートにしたい場合に選びます。"
 msgstr ""
 
+msgid "Issued client applications."
+msgstr ""
+
+msgid "AccessToken|Family"
+msgstr ""
+
+msgid "AccessToken|Authorized at"
+msgstr ""
+
+msgid "Revoke"
+msgstr ""
+
+msgid "User added client app"
+msgstr ""
+
+msgid "Granted by service contract"
+msgstr ""
+
+msgid "Applications you registerd"
+msgstr ""
+
+msgid "for Application Developers"
+msgstr ""
+
+msgid "show credentials"
+msgstr ""
+
+#, fuzzy
+msgid "Show"
+msgstr "すべて表示"
+
+#, fuzzy
+msgid "Register a new %{entity}"
+msgstr "%{entity}を復旧する"
+
+msgid "Back"
+msgstr ""
+
+msgid "Registered"
+msgstr ""
+
+msgid "Service explanation"
+msgstr ""
+
+msgid "Request Token URL"
+msgstr ""
+
+msgid "Access Token URL"
+msgstr ""
+
+#, fuzzy
+msgid "Authorize URL"
+msgstr "最終更新者"
+
+msgid " We support hmac-sha1 (recommended) as well as plain text in ssl mode."
+msgstr ""
+
 msgid "Keyword in a page"
 msgstr "ページ内のキーワード"
 
@@ -955,6 +1094,15 @@ msgstr "ユーザ検索"
 msgid "404 Not Found"
 msgstr ""
 
+msgid "User|Informations"
+msgstr "プロフィール"
+
+msgid "User|Skip Account"
+msgstr "SKIP連携"
+
+msgid "User|Memberships"
+msgstr "所属グループ"
+
 msgid "Edit user information"
 msgstr "ユーザ情報を修正"
 
@@ -1021,15 +1169,6 @@ msgstr "登録する"
 
 #~ msgid "User|Edit(%{user})"
 #~ msgstr "%{user} の編集"
-
-#~ msgid "User|Informations"
-#~ msgstr "プロフィール"
-
-#~ msgid "User|Skip Account"
-#~ msgstr "SKIP連携"
-
-#~ msgid "User|Memberships"
-#~ msgstr "所属グループ"
 
 #~ msgid "User|Identity url"
 #~ msgstr "Identity URL"
