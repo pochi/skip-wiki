@@ -104,7 +104,7 @@
     ならば "ファイルを添付"と表示されていること
     かつ   "添付ファイル一覧"と表示されていること
 
-    もし   "ファイルを添付"としてファイル"spec/fixtures/data/at_small.png"を添付する
+    かつ   "ファイルを添付"としてファイル"spec/fixtures/data/at_small.png"をContent-Type"image/png"として添付する
     かつ   "アップロード"ボタンをクリックする
 
     ならば "A noteの添付ファイル"と表示されていること
