@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: skip-note 0.1.0\n"
-"POT-Creation-Date: 2009-05-08 17:50+0900\n"
+"POT-Creation-Date: 2009-05-14 16:26+0900\n"
 "PO-Revision-Date: 2008-11-04 16:29+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,12 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-msgid "Attachment was created successfully."
-msgstr ""
-
-msgid "Attachment can't created."
-msgstr ""
 
 msgid "Attachment was deleted successfully"
 msgstr ""
@@ -95,28 +89,13 @@ msgid ""
 "Cannot modify user information manually. Logout and login again to update."
 msgstr ""
 
+msgid "Are you sure?"
+msgstr ""
+
 msgid "menu"
 msgstr ""
 
 msgid "manage users"
-msgstr ""
-
-msgid "manage notes"
-msgstr ""
-
-msgid "manage pages"
-msgstr ""
-
-msgid "manage attachments"
-msgstr ""
-
-msgid "User|Notes"
-msgstr ""
-
-msgid "manage property"
-msgstr ""
-
-msgid "manage page"
 msgstr ""
 
 msgid "Account|Index"
@@ -132,6 +111,9 @@ msgid "Min"
 msgstr ""
 
 msgid "Back to %{page}"
+msgstr ""
+
+msgid "manage notes"
 msgstr ""
 
 msgid "manage common files"
@@ -342,6 +324,21 @@ msgstr ""
 msgid "History|Description"
 msgstr ""
 
+msgid "label index"
+msgstr ""
+
+msgid "LabelIndex|Display name"
+msgstr ""
+
+msgid "LabelIndex|Color"
+msgstr ""
+
+msgid "LabelIndex|Note"
+msgstr ""
+
+msgid "LabelIndex|Default label"
+msgstr ""
+
 msgid "label indexing"
 msgstr ""
 
@@ -358,21 +355,6 @@ msgid "LabelIndexing|Updated at"
 msgstr ""
 
 msgid "LabelIndexing|Page order"
-msgstr ""
-
-msgid "label index"
-msgstr ""
-
-msgid "LabelIndex|Display name"
-msgstr ""
-
-msgid "LabelIndex|Color"
-msgstr ""
-
-msgid "LabelIndex|Note"
-msgstr ""
-
-msgid "LabelIndex|Default label"
 msgstr ""
 
 msgid "No Labels"
@@ -513,22 +495,10 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-msgid "Attached files"
-msgstr ""
-
 msgid "Download"
 msgstr ""
 
 msgid "Delete"
-msgstr ""
-
-msgid "Attach file(s)"
-msgstr ""
-
-msgid "Attachment|Upload Data"
-msgstr ""
-
-msgid "Upload"
 msgstr ""
 
 msgid "Group|Users"
@@ -538,9 +508,6 @@ msgid "Users who can access to this note."
 msgstr ""
 
 msgid "Users who belongs to this note."
-msgstr ""
-
-msgid "Note Properties"
 msgstr ""
 
 msgid "Show link palette"
@@ -558,7 +525,16 @@ msgstr ""
 msgid "Modified, need to save."
 msgstr ""
 
-msgid "edit note properties"
+msgid "Click to edit"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "add labels"
+msgstr ""
+
+msgid "Create"
 msgstr ""
 
 msgid "Note|GroupBackendType"
@@ -579,10 +555,10 @@ msgstr ""
 msgid "Note|Discription"
 msgstr ""
 
-msgid "Note|Updated at"
+msgid "Note Properties"
 msgstr ""
 
-msgid "Are you sure?"
+msgid "edit note properties"
 msgstr ""
 
 msgid "Users and Groups"
@@ -594,28 +570,10 @@ msgstr ""
 msgid "add groups"
 msgstr ""
 
-msgid "Click to edit"
-msgstr ""
-
-msgid "Cancel"
-msgstr ""
-
-msgid "add labels"
-msgstr ""
-
-msgid "Create"
-msgstr ""
-
-msgid "LabelIndices"
-msgstr ""
-
 msgid "Page|Auther"
 msgstr ""
 
 msgid "Publication"
-msgstr ""
-
-msgid "Page|Published at"
 msgstr ""
 
 msgid "Copy URL"
@@ -633,9 +591,6 @@ msgstr ""
 msgid "Not yet"
 msgstr ""
 
-msgid "Apply filter.."
-msgstr ""
-
 msgid "The query find no pages."
 msgstr ""
 
@@ -651,19 +606,28 @@ msgstr ""
 msgid "User|Edit"
 msgstr ""
 
-msgid "%{title}'s attachments"
+msgid "Attachment|Upload Data"
+msgstr ""
+
+msgid "Upload"
+msgstr ""
+
+msgid "note attachments"
+msgstr ""
+
+msgid "Attached files"
 msgstr ""
 
 msgid "Upload failed. Please inquire admin."
+msgstr ""
+
+msgid "Attach file(s)"
 msgstr ""
 
 msgid "Link Palette"
 msgstr ""
 
 msgid "close"
-msgstr ""
-
-msgid "note attachments"
 msgstr ""
 
 msgid "note pages"
@@ -732,25 +696,16 @@ msgstr ""
 msgid "new note"
 msgstr ""
 
-msgid "Labeled as %{label}"
+msgid "View"
 msgstr ""
 
-msgid "show label navigation"
+msgid "History"
 msgstr ""
 
-msgid "%{fn}'s groups index"
+msgid "Property"
 msgstr ""
 
-msgid "BuiltinGroup"
-msgstr ""
-
-msgid "No builtin groups for the note."
-msgstr ""
-
-msgid "SkipGroup"
-msgstr ""
-
-msgid "SKIPのユーザ情報が存在しないか、同期されていません。"
+msgid ">"
 msgstr ""
 
 msgid "Updated"
@@ -765,13 +720,10 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-msgid "Updated pages"
-msgstr ""
-
-msgid "more..."
-msgstr ""
-
 msgid "Accessible Note"
+msgstr ""
+
+msgid "User|Notes"
 msgstr ""
 
 msgid "Accessible"
@@ -781,6 +733,12 @@ msgid "Public writable"
 msgstr ""
 
 msgid "Public readable"
+msgstr ""
+
+msgid "Updated pages"
+msgstr ""
+
+msgid "more..."
 msgstr ""
 
 msgid "Note|LabelNavigationStyle"
@@ -793,6 +751,9 @@ msgid "The query find no notes."
 msgstr ""
 
 msgid "Updated page"
+msgstr ""
+
+msgid "Note|Updated at"
 msgstr ""
 
 msgid "No page exists"
@@ -876,22 +837,19 @@ msgstr ""
 msgid "Label navigation"
 msgstr ""
 
+msgid "LabelIndices"
+msgstr ""
+
 msgid "Page|Label indices"
 msgstr ""
 
 msgid "edit labels"
 msgstr ""
 
-msgid "History"
-msgstr ""
-
 msgid "Deleted"
 msgstr ""
 
 msgid "Recover %{entity}"
-msgstr ""
-
-msgid "Show history"
 msgstr ""
 
 msgid "Really recover?"
@@ -901,6 +859,9 @@ msgid "Really delete?"
 msgstr ""
 
 msgid "%{name}'s accessible pages."
+msgstr ""
+
+msgid "Apply filter.."
 msgstr ""
 
 msgid "New Page"
@@ -977,34 +938,10 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-msgid "Search pages in %{note}"
-msgstr ""
-
-msgid "manage note(%{note})"
-msgstr ""
-
-msgid "manage page(%{page})"
-msgstr ""
-
 msgid "Search User"
 msgstr ""
 
-msgid "User|Index"
-msgstr ""
-
-msgid "User|Edit(%{user})"
-msgstr ""
-
 msgid "404 Not Found"
-msgstr ""
-
-msgid "User|Informations"
-msgstr ""
-
-msgid "User|Skip Account"
-msgstr ""
-
-msgid "User|Memberships"
 msgstr ""
 
 msgid "Edit user information"
@@ -1017,7 +954,4 @@ msgid "Sign up as a new user"
 msgstr ""
 
 msgid "Sign up"
-msgstr ""
-
-msgid "User|Identity url"
 msgstr ""
