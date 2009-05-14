@@ -147,3 +147,7 @@ end
 Given(/トップページを表示している/) do
   visit root_path
 end
+
+Then /^flashメッセージに"([^\"]*)"と表示されていること$/ do |message|
+  response.body.should =~ /#{Regexp.escape(message.to_json)}/m
+end
