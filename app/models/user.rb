@@ -36,6 +36,11 @@ class User < ActiveRecord::Base
     {:conditions => ["name LIKE ? OR display_name LIKE ?", w, w]}
   }
 
+  def self.create_with_token!(skip, user_param)
+    u = create!(user_param){|u| u.identity_url = user_param[:identity_url] }
+    return [u, skip.publish_access_token(u)]
+  end
+
   def name=(value)
     write_attribute :name, (value ? value.downcase : nil)
   end

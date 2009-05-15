@@ -156,4 +156,32 @@ describe User do
       User.fulltext(nil).should have(3).items
     end
   end
+
+  context "SKIP連携の一括作成メソッド" do
+    before do
+      @client = ClientApplication.create(:name => "SKIP", :url => "http://skip.example.com")
+      @client.grant_as_family!
+    end
+
+    describe ".create_with_token!" do
+      before do
+        @user, @token = User.create_with_token!(@client, {:name => "alice",
+                                                          :display_name => "アリス",
+                                                          :identity_url => "http://op.example.com/user/alice"})
+        @user.reload; @token.reload
+      end
+
+      describe "で作られたユーザ" do
+        subject{ @user }
+        it{ should_not be_new_record }
+      end
+
+      describe "で作られたアクセストークン" do
+        subject{ @user.access_token_for(@client) }
+
+        it{ should_not be_blank }
+        it{ should == @token }
+      end
+    end
+  end
 end
