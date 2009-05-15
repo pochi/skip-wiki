@@ -29,14 +29,12 @@
                   -form_tag(note_page_path(current_note, @page), :method => "delete") do
                     = submit_tag _("Page|Deleted") % {:entity => _("page")}, :confirm => _("Really delete?")
                 %li
-                  - form_for(:page, :url=>note_page_path(current_note, @page), :html=>{:id=>"page_update"}) do |f|
-                    = hidden_field_tag "_method", "PUT"
+                  - form_for([current_note, @page]) do |f|
                     = hidden_field :page, :published, :value=>(@page.published? ? 0 : 1)
                     = submit_tag((@page.published? ? _("Page|Unpublished") : _("Page|Published")))
                 %li
                   = select_tag("label_change", label_navi(current_note))
-                  - form_for(:page, :url=>note_page_path(current_note, @page), :html=>{:id=>"page_update"}) do |f|
-                    = hidden_field_tag "_method", "PUT"
+                  - form_for([current_note, @page], :html=>{:id=>"page_update"}) do |f|
                     = hidden_field :page, :label_index_id
               .clear
               .status
@@ -54,20 +52,16 @@
                 %span.title.ipe-trigger&= @page.display_name
               - if current_user.page_editable?(current_note)
                 :javascript
-                  jQuery(document).ready(function(){
-                    jQuery("div.page-header span.operation.show-label-navi").hide();
-                    $("div.page-header span.operation.show-label-navi").click(function(){
-                      jQuery("#content div.label-navigation").show().siblings(".page-header").addClass("two_pain")
-                      jQuery("#content div.label-navigation").show().siblings(".page-content").addClass("two_pain")
-                      jQuery("div.page-header span.operation.show-label-navi").hide();
+                  $(function(){
+                    $("div.page-header span.operation.show-label-navi").hide().click(function(){
+                      $("#content div.label-navigation").show()
+                      .siblings(".page-header").addClass("two_pain").end()
+                      .siblings(".page-content").addClass("two_pain");
+                      $(this).hide();
                     });
                     $("select.#label_change").change(function(){
-                      $("form.#page_update > #page_label_index_id").val($("select.#label_change option:selected").val());
-                      $("form.#page_update").submit();
-                    });
-                    $("#publish_change").click(function(){
-                      var hidden = $("form.#page_update > #page_published");
-                      hidden.val(!eval(hidden.val()));
+                      $("form.#page_update > #page_label_index_id").
+                      val($("select.#label_change option:selected").val());
                       $("form.#page_update").submit();
                     });
                   });
