@@ -12,14 +12,14 @@ describe Skip::GroupsController do
   describe "POST :create (success)" do
     before do
       alice, bob = %w[alice bob].map{|n|
-        User.create!(:name => n, :display_name => n, :identity_url => "http://openid.example.com/#{n}")
+        create_user(:name => n, :display_name => n, :identity_url => "http://openid.example.com/#{n}")
       }
 
       post :create, :format => "xml",
         :group => {
-          :name => "group_a",
-          :display_name => "グループA",
-          :gid => "gid:12345",
+          :name => "group_x",
+          :display_name => "グループX",
+          :gid => "12345",
           :members =>[alice, bob].map(&:identity_url)
         }
     end
@@ -29,6 +29,7 @@ describe Skip::GroupsController do
     describe "assigned group" do
       subject{ assigns[:skip_group].reload }
 
+      it{ subject.name.should == "group_x" }
       it{ subject.group.should have(2).users }
     end
 
@@ -36,6 +37,46 @@ describe Skip::GroupsController do
       subject{ Hash.from_xml(response.body)["group"] }
 
       it{ subject["members"].should be_instance_of Array }
+      it{ subject["url"].should == skip_group_url("12345") }
+    end
+  end
+
+  describe "PUT :update (success)" do
+    before do
+      @alice, @bob, @charls = %w[alice bob charls].map{|n|
+        create_user(:name => n, :display_name => n, :identity_url => "http://openid.example.com/#{n}")
+      }
+      @group = SkipGroup.create!( :name => "group_a", :display_name => "グループA", :gid => "12345")
+      @group.grant([@alice, @bob].map(&:identity_url))
+
+      put :update, :id => @group.gid, :format => "xml",
+        :group => {
+          :name => "group_a",
+          :display_name => "グループA",
+          :gid => "23456",
+          :members =>[@alice, @charls].map(&:identity_url)
+        }
+    end
+
+    it("response should be success") { response.should be_success }
+    describe "response [group]" do
+      subject{ Hash.from_xml(response.body)["group"] }
+
+      it{ subject["url"].should == skip_group_url("23456") }
+    end
+
+    describe "assigned group" do
+      subject{ assigns[:skip_group].reload }
+
+      it{ subject.name.should == "group_a" }
+    end
+
+    describe "assigned group's users" do
+      subject{ assigns[:skip_group].reload.group.users }
+
+      it{ should include @alice }
+      it{ should include @charls }
+      it{ should_not include @bob }
     end
   end
 end
