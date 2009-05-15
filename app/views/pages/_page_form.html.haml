@@ -7,7 +7,6 @@
     %td
       %label.parrent_url= h(note_pages_url(current_note) + "/")
       =form.text_field :name, :size => 10
-
 %tr
   %th= form.label(:published, h(_("Page|Published")))
   %td= form.check_box(:published)

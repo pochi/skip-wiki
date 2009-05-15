@@ -21,20 +21,28 @@
 
           - if current_user.page_editable?(current_note)
             #page-menu
-              - form_for(:page, :url=>note_page_path(current_note, @page), :html=>{:id=>"label_update"}) do |f|
-                = hidden_field_tag "_method", "PUT"
-                = hidden_field_tag "label_index", "", :name=>"page[label_index_id]"
+              .status
+                = @page.published? ? _("Published") : _("Not yet")
+                &= _("Last updated at %{time}") % {:time => @page.updated_at.strftime("%Y/%m/%d %H:%M")}
 
+              - form_for(:page, :url=>note_page_path(current_note, @page), :html=>{:id=>"page_update"}) do |f|
+                = hidden_field_tag "_method", "PUT"
+                = hidden_field :page, :label_index_id
+                = hidden_field :page, :published
               %ul.float
                 %li= select_tag("label_change", label_navi(current_note))
                 %li= link_to(_("View"), note_page_path(current_note, @page))
                 %li= link_to(_("Edit"), new_note_page_history_path(current_note, @page))
                 %li= link_to(_("History"), note_page_histories_path(current_note, @page))
-                %li= link_to(_("Property"), edit_note_page_path(current_note, @page))
+                %li
+                  %span#publish_change.operation
+                    = @page.published? ? _("Page|Unpublished") : _("Page|Published")
+
           .page-header{:style=>"background-color:#{@page.label_index.color}"}
             - if current_note.label_navigation_style == LabelIndex::NAVIGATION_STYLE_TOGGLE
               .show-label-navi
                 %span.operation.show-label-navi&= _(">")
+
 
             %h1.page-name
               .show
@@ -47,8 +55,13 @@
                       jQuery("#content div.label-navigation").show().siblings(".page-content").addClass("two_pain")
                     });
                     $("select.#label_change").change(function(){
-                      $("form.#label_update > #label_index").val($("select.#label_change option:selected").val());
-                      $("form.#label_update").submit();
+                      $("form.#page_update > #page_label_index_id").val($("select.#label_change option:selected").val());
+                      $("form.#page_update").submit();
+                    });
+                    $("#publish_change").click(function(){
+                      var hidden = $("form.#page_update > #page_published");
+                      hidden.val(!eval(hidden.val()));
+                      $("form.#page_update").submit();
                     });
                   });
           - unless fullscreen_action?

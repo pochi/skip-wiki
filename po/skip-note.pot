@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: skip-note 0.1.0\n"
-"POT-Creation-Date: 2009-05-15 11:29+0900\n"
+"POT-Creation-Date: 2009-05-15 15:55+0900\n"
 "PO-Revision-Date: 2008-11-04 16:29+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -228,7 +228,7 @@ msgstr ""
 msgid "page"
 msgstr ""
 
-msgid "label_change"
+msgid "label change"
 msgstr ""
 
 msgid "history"
@@ -792,12 +792,6 @@ msgstr ""
 msgid "Create %{entity}"
 msgstr ""
 
-msgid "Page|Label indices"
-msgstr ""
-
-msgid "edit labels"
-msgstr ""
-
 msgid "Recover %{entity}"
 msgstr ""
 
@@ -995,10 +989,16 @@ msgstr ""
 msgid "new note"
 msgstr ""
 
+msgid "Last updated"
+msgstr ""
+
 msgid "View"
 msgstr ""
 
 msgid "History"
+msgstr ""
+
+msgid "Page|Unpublished"
 msgstr ""
 
 msgid ">"
