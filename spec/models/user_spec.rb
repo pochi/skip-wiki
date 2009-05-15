@@ -183,5 +183,79 @@ describe User do
         it{ should == @token }
       end
     end
+
+    describe ".sync!" do
+      before do
+        @removes = User.find(:all) # fixture users
+        data = (1..5).map do |x|
+          {:name => "user-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+        end
+        User.sync!(@client, data)
+      end
+      it{ User.should have(5).records }
+
+      it "同期に含まれないユーザは消されていること" do
+        User.should satisfy{
+          @removes.all?{|r| User.find_by_id(r.id).nil? }
+        }
+      end
+
+      it "同期されたすべてのユーザのアクセストークンが生成されていること" do
+        User.should satisfy{
+          User.find(:all).all?{|u| u.access_token_for(@client) }
+        }
+      end
+
+      describe "nameの命名規則を変更し、一部レコードを保持したまま再更新" do
+        before do
+          data = (3..9).map do |x|
+            {:name => "user-no-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+          end
+          @remained_token_attr = User.find_by_name("user-3").access_token_for(@client).attributes
+          User.sync!(@client, data)
+        end
+
+        it{ User.should have(7).records }
+
+        it "既存ユーザの名前が更新されていること" do
+          User.should satisfy{
+            User.find(:all).all?{|u| u.name =~ /\Auser-no-\d\Z/ }
+          }
+        end
+
+        it "保持されているユーザのAccessTokenは変わらないこと" do
+          remained_users_token = User.find_by_name("user-no-3").access_token_for(@client)
+          remained_users_token.attributes.should == @remained_token_attr
+        end
+      end
+    end
+
+    describe ".sync! のベンチ" do
+      Spec::Matchers.define :complete_within do |sec|
+        match do |lambda|
+          start = Time.now
+          lambda.call
+          (@real = Time.now - start) < sec
+        end
+
+        description do
+          "completed in #{expected} sec.".tap{|x| x<<"(#{@real} sec in real)" if (@real && (sec > @real)) }
+        end
+
+        failure_message_for_should do |actual|
+          "expected to complete in #{sec} sec, but takes #{@real} sec."
+        end
+      end
+
+      before do
+        @data = (1..100).map do |x|
+          {:name => "user-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+        end
+      end
+
+      it do
+        lambda{ User.transaction{ User.sync!(@client, @data) } }.should complete_within 3.second
+      end
+    end
   end
 end

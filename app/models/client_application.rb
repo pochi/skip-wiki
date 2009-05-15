@@ -57,12 +57,10 @@ class ClientApplication < ActiveRecord::Base
     RequestToken.create :client_application => self
   end
 
+  # TODO RequestTokenを生成する必要がないか再考する
   def publish_access_token(user)
     raise ArgumentError unless granted_by_service_contract?
-
-    req_token = create_request_token
-    req_token.authorize!(user)
-    req_token.exchange!
+    AccessToken.create(:user => user, :client_application => self)
   end
 
 protected

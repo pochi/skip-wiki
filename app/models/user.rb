@@ -36,8 +36,22 @@ class User < ActiveRecord::Base
     {:conditions => ["name LIKE ? OR display_name LIKE ?", w, w]}
   }
 
+  def self.sync!(skip, users_update_data)
+    id2var = users_update_data.inject({}) do |r, data|
+      r[data[:identity_url]] = data; r
+    end
+    keeps, removes = find(:all).partition{|u| id2var[u.identity_url] }
+
+    removes.each(&:destroy)
+    keeps.each{|k| k.update_attributes!(id2var.delete(k.identity_url)) }
+    id2var.each{|_id_,var| create_with_token!(skip, var){|u|u.bach_mode=true} }
+  end
+
   def self.create_with_token!(skip, user_param)
-    u = create!(user_param){|u| u.identity_url = user_param[:identity_url] }
+    u = create!(user_param) do |u|
+      yield u if block_given?
+      u.identity_url = user_param[:identity_url]
+    end
     return [u, skip.publish_access_token(u)]
   end
 
