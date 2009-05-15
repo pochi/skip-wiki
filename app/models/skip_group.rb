@@ -7,7 +7,7 @@ class SkipGroup < ActiveRecord::Base
 
   cattr_reader :site
 
-  has_one  :group, :as => "backend"
+  has_one  :group, :as => "backend", :dependent => :destroy
 
   def grant(identity_urls)
     if self.group.nil?

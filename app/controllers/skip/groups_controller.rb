@@ -21,6 +21,13 @@ class Skip::GroupsController < Skip::ApplicationController
     rendor_validation_error(@skip_group)
   end
 
+  def destroy
+    unless @skip_group = SkipGroup.find_by_gid(params[:id])
+      raise ActiveRecord::RecordNotFound
+    end
+    @skip_group.destroy ?  head(:ok) : head(:bad_request)
+  end
+
   private
   def api_response(group)
     returning group.attributes.slice(*%w[id gid name display_name]) do |hash|

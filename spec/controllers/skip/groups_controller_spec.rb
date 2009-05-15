@@ -59,15 +59,14 @@ describe Skip::GroupsController do
     end
 
     it("response should be success") { response.should be_success }
+
     describe "response [group]" do
       subject{ Hash.from_xml(response.body)["group"] }
-
       it{ subject["url"].should == skip_group_url("23456") }
     end
 
     describe "assigned group" do
       subject{ assigns[:skip_group].reload }
-
       it{ subject.name.should == "group_a" }
     end
 
@@ -77,6 +76,27 @@ describe Skip::GroupsController do
       it{ should include @alice }
       it{ should include @charls }
       it{ should_not include @bob }
+    end
+  end
+
+  describe "DELETE :destroy (success)" do
+    before do
+      @alice, @bob = %w[alice bob].map{|n|
+        create_user(:name => n, :display_name => n, :identity_url => "http://openid.example.com/#{n}")
+      }
+      @group = SkipGroup.create!( :name => "group_a", :display_name => "グループA", :gid => "12345")
+      @group.grant([@alice, @bob].map(&:identity_url))
+
+      delete :destroy, :id => @group.gid, :format => "xml"
+    end
+
+    it("response should be success") { response.should be_success }
+
+    describe "assigned group's users" do
+      subject{ assigns[:skip_group].group }
+
+      it{ @alice.groups.should_not include subject }
+      it{ @bob.groups.should_not include subject }
     end
   end
 end
