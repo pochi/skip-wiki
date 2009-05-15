@@ -40,12 +40,6 @@ class Skip::UsersController < Skip::ApplicationController
     @client ||= ClientApplication.families.find(:first, :conditions => {:name => Skip::ApplicationController::SKIP_NAME})
   end
 
-  def rendeor_validation_error(model)
-    respond_to do |f|
-      f.xml{ render :xml => model.errors.to_xml, :status => :unprocessable_entity }
-    end
-  end
-
   def create_user_and_token!(user_param)
     user = User.new(user_param){|u| u.identity_url = user_param[:identity_url] }
     user.save!

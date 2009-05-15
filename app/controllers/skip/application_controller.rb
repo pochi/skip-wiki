@@ -7,4 +7,11 @@ class Skip::ApplicationController < ApplicationController
   def internal_call_only
     :implement_me
   end
+
+  def rendeor_validation_error(model)
+    respond_to do |f|
+      f.xml{ render :xml => model.errors.to_xml, :status => :unprocessable_entity }
+    end
+  end
+
 end
