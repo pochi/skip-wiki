@@ -21,7 +21,12 @@
 
           - if current_user.page_editable?(current_note)
             #page-menu
+              - form_for(:page, :url=>note_page_path(current_note, @page), :html=>{:id=>"label_update"}) do |f|
+                = hidden_field_tag "_method", "PUT"
+                = hidden_field_tag "label_index", "", :name=>"page[label_index_id]"
+
               %ul.float
+                %li= select_tag("label_change", label_navi(current_note))
                 %li= link_to(_("View"), note_page_path(current_note, @page))
                 %li= link_to(_("Edit"), new_note_page_history_path(current_note, @page))
                 %li= link_to(_("History"), note_page_histories_path(current_note, @page))
@@ -40,6 +45,10 @@
                     $("div.page-header span.operation.show-label-navi").click(function(){
                       jQuery("#content div.label-navigation").show().siblings(".page-header").addClass("two_pain")
                       jQuery("#content div.label-navigation").show().siblings(".page-content").addClass("two_pain")
+                    });
+                    $("select.#label_change").change(function(){
+                      $("form.#label_update > #label_index").val($("select.#label_change option:selected").val());
+                      $("form.#label_update").submit();
                     });
                   });
           - unless fullscreen_action?

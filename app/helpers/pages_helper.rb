@@ -99,4 +99,15 @@ module PagesHelper
 
     options_for_select(common_options, selected)
   end
+
+  def label_navi(note)
+    out = ""
+    head = content_tag("option", _("label change"), :value=>"")
+    note.label_indices.inject(head) do |out, label_index|
+      out << content_tag("option",
+                         h(label_index.display_name),
+                         :value=>label_index.id,
+                         :style=>"background:%s" % label_index.color)
+    end
+  end
 end
