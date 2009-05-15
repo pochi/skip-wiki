@@ -235,7 +235,7 @@ msgid "page"
 msgstr "ページ"
 
 msgid "label change"
-msgstr "ラベルを変更する"
+msgstr "ラベルを変更"
 
 msgid "history"
 msgstr "履歴"
@@ -306,7 +306,6 @@ msgstr ""
 msgid "Page|Updated at"
 msgstr "更新日時"
 
-#, fuzzy
 msgid "Page|Deleted"
 msgstr "削除"
 
