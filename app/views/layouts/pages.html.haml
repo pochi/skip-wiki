@@ -22,6 +22,9 @@
           - if current_user.page_editable?(current_note)
             #page-menu
               %ul.float
+                %li.link= link_to(_("View"), note_page_path(current_note, @page))
+                %li.link= link_to(_("Edit"), new_note_page_history_path(current_note, @page))
+                %li.link= link_to(_("History"), note_page_histories_path(current_note, @page))
                 %li
                   -form_tag(note_page_path(current_note, @page), :method => "delete") do
                     = submit_tag _("Page|Deleted") % {:entity => _("page")}, :confirm => _("Really delete?")
@@ -35,10 +38,10 @@
                   - form_for(:page, :url=>note_page_path(current_note, @page), :html=>{:id=>"page_update"}) do |f|
                     = hidden_field_tag "_method", "PUT"
                     = hidden_field :page, :label_index_id
-              %ul.float
-                %li= link_to(_("View"), note_page_path(current_note, @page))
-                %li= link_to(_("Edit"), new_note_page_history_path(current_note, @page))
-                %li= link_to(_("History"), note_page_histories_path(current_note, @page))
+              .clear
+              .status
+                = @page.published? ? _("Published") : _("Not yet")
+                &= _("Last updated at %{time}") % {:time => @page.updated_at.strftime("%Y/%m/%d %H:%M")}
 
           .page-header{:style=>"background-color:#{@page.label_index.color}"}
             - if current_note.label_navigation_style == LabelIndex::NAVIGATION_STYLE_TOGGLE
