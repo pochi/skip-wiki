@@ -21,6 +21,21 @@ describe User do
     end
   end
 
+  context "論理削除" do
+    before do
+      @alice = create_user
+      @alice.logical_destroy
+    end
+
+    it{ User.active.should_not include @alice }
+    describe "から復帰した場合" do
+      before do
+        @alice.recover
+      end
+      it{ User.active.should include @alice }
+    end
+  end
+
   describe "User validation" do
     before do
       @it = User.new(:name => "", :display_name => "")

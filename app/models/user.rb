@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include LogicalDestroyable
+
   validates_presence_of     :name
   validates_length_of       :name, :within => 3..40
   validates_uniqueness_of   :name
@@ -15,7 +17,6 @@ class User < ActiveRecord::Base
   end
   has_many :groups, :through => :memberships
   has_many :builtin_groups, :foreign_key => "owner_id"
-
 
   has_many :client_applications
   has_many :tokens, :class_name=>"OauthToken",:order=>"authorized_at DESC",:include=>[:client_application]

@@ -1,4 +1,5 @@
 class Page < ActiveRecord::Base
+  include LogicalDestroyable
   CRLF = /\r?\n/
   FRONTPAGE_NAME = "FrontPage"
 
@@ -21,8 +22,6 @@ class Page < ActiveRecord::Base
   validate_on_update :frontpage_cant_rename
   validate_on_update :published_page_cant_rename
   before_destroy :frontpage_cant_destroy
-
-  named_scope :active, {:conditions => {:deleted => false}}
 
   named_scope :recent, proc{|*args|
     {
@@ -137,14 +136,6 @@ SQL
     @new_history = histories.build(:content => Content.new(:data => content),
                                    :user => user,
                                    :revision => revision.succ)
-  end
-
-  def logical_destroy
-    front_page? ? false : update_attribute(:deleted, true)
-  end
-
-  def recover
-    update_attribute(:deleted, false)
   end
 
   def to_param
