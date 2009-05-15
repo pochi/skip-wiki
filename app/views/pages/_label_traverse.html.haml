@@ -1,8 +1,8 @@
 - label_indices = current_note.label_indices.has_pages
 - acordion_opt = {:header => "h3", :active => label_indices.index(@page.label_index), :autoHeight => false}
 .label-navigation
+
   %h2
-    =h _("Label navigation")
     - if current_note.label_navigation_style == LabelIndex::NAVIGATION_STYLE_TOGGLE
       %span.operation&= _("[Click to hide]")
   - label_indices.each do |label|
@@ -23,6 +23,7 @@
     jQuery("div.label-navigation span.operation").click(function(){
       jQuery("div.label-navigation").hide().siblings("div.page-header").removeClass("two_pain");
       jQuery("div.label-navigation").hide().siblings("div.page-content").removeClass("two_pain");
+      jQuery("div.page-header span.operation.show-label-navi").show();
     });
   })
 

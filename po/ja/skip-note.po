@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: skip-note 0.1.0\n"
-"POT-Creation-Date: 2009-05-15 16:45+0900\n"
+"POT-Creation-Date: 2009-05-15 18:27+0900\n"
 "PO-Revision-Date: 2008-11-04 16:29+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -830,9 +830,6 @@ msgstr "本当に削除しますか?"
 msgid "Deleted"
 msgstr "削除済み"
 
-msgid "Label navigation"
-msgstr "ラベルツールバー"
-
 msgid "%{name}'s accessible pages."
 msgstr "%{name}さんがアクセスできるページの一覧です"
 
@@ -1014,9 +1011,6 @@ msgstr "管理者メニュー"
 msgid "new note"
 msgstr "ノートを作る"
 
-msgid "Last updated at %{time}"
-msgstr "最終更新日時：%{time}"
-
 msgid "View"
 msgstr "表示"
 
@@ -1026,8 +1020,11 @@ msgstr "履歴"
 msgid "Page|Unpublished"
 msgstr "未公開にする"
 
-msgid ">"
-msgstr ">"
+msgid "Last updated at %{time}"
+msgstr "最終更新日時：%{time}"
+
+msgid "Show label|Description"
+msgstr "ラベルツールバーを表示する"
 
 msgid "個人用ノート"
 msgstr ""
@@ -1124,6 +1121,12 @@ msgstr "更新されたページ"
 
 msgid "more..."
 msgstr "もっと見る..."
+
+#~ msgid "Label navigation"
+#~ msgstr "ラベルツールバー"
+
+#~ msgid ">"
+#~ msgstr ">"
 
 #~ msgid "Attachment was created successfully."
 #~ msgstr "添付ファイルが正常に作成されました。"
