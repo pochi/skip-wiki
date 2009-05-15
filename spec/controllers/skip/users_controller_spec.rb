@@ -93,6 +93,7 @@ describe Skip::UsersController do
 
       delete :destroy
     end
+    it{ response.should be_success }
     it{ should be_deleted }
   end
 end

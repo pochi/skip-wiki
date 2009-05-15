@@ -47,5 +47,9 @@ class User < ActiveRecord::Base
   def build_note(note_params)
     NoteBuilder.new(self, note_params).note
   end
+
+  def access_token_for(app)
+    tokens.detect{|t| t.is_a?(AccessToken) && t.client_application_id == app.id }
+  end
 end
 

@@ -36,6 +36,19 @@ describe User do
     end
   end
 
+  describe "アプリケーションごとのアクセストークンを取得" do
+    before do
+      @client = ClientApplication.create(:name => "SKIP",
+                                         :url => "http://skip.example.com",
+                                         :callback_url => "http://skip.example.com/oauth_callback")
+      @client.grant_as_family!
+      @alice = create_user
+      @client.publish_access_token(@alice)
+    end
+
+    it{ @alice.access_token_for(@client).should_not be_blank }
+  end
+
   describe "User validation" do
     before do
       @it = User.new(:name => "", :display_name => "")

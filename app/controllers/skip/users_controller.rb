@@ -18,9 +18,8 @@ class Skip::UsersController < Skip::ApplicationController
     if current_user.save
       respond_to do |f|
         f.xml do
-          token = current_user.tokens.find(:first, :conditions => {:client_application_id => skip,
-                                                                   :type => "AccessToken"})
-          render :xml => api_response(current_user, token).to_xml(:root => "user")
+          res = api_response(current_user, current_user.access_token_for(skip))
+          render :xml => res.to_xml(:root => "user")
         end
       end
     else
@@ -29,10 +28,7 @@ class Skip::UsersController < Skip::ApplicationController
   end
 
   def destroy
-    current_user.logical_destroy
-    respond_to do |f|
-      f.xml{ render :xml => api_response(current_user).to_xml(:root => "user") }
-    end
+    current_user.logical_destroy ?  head(:ok) : head(:bad_request)
   end
 
   private
