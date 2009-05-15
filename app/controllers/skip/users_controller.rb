@@ -1,5 +1,6 @@
 class Skip::UsersController < Skip::ApplicationController
-  before_filter :authenticate_with_oauth, :only => %w[update]
+  before_filter :check_secret_key, :only => %w[create]
+  before_filter :authenticate_with_oauth, :only => %w[update destroy]
 
   def create
     @user, token = ActiveRecord::Base.transaction{ create_user_and_token!(params[:user]) }
@@ -27,6 +28,13 @@ class Skip::UsersController < Skip::ApplicationController
     end
   end
 
+  def destroy
+    current_user.logical_destroy
+    respond_to do |f|
+      f.xml{ render :xml => api_response(current_user).to_xml(:root => "user") }
+    end
+  end
+
   private
   def skip
     @client ||= ClientApplication.families.find(:first, :conditions => {:name => Skip::ApplicationController::SKIP_NAME})
@@ -37,17 +45,19 @@ class Skip::UsersController < Skip::ApplicationController
       f.xml{ render :xml => model.errors.to_xml, :status => :unprocessable_entity }
     end
   end
+
   def create_user_and_token!(user_param)
     user = User.new(user_param){|u| u.identity_url = user_param[:identity_url] }
     user.save!
     return [user, skip.publish_access_token(user)]
   end
 
-  def api_response(user, token)
-    return nil unless token
+  def api_response(user, token = nil)
     returning( user.attributes.slice(:identity_url) ) do |res|
-      res["access_token"] = token.token
-      res["access_secret"] = token.secret
+      if token
+        res["access_token"] = token.token
+        res["access_secret"] = token.secret
+      end
     end
   end
 end

@@ -12,6 +12,7 @@ describe Skip::UsersController do
 
   describe "POST :create (success)" do
     before do
+      controller.should_receive(:check_secret_key).and_return true
       post :create, :format => "xml",
         :user => {
           :name => "alice",
@@ -74,5 +75,24 @@ describe Skip::UsersController do
       it{ subject["access_token"].should == @old_token.token }
       it{ subject["access_secret"].should == @old_token.secret }
     end
+  end
+
+  describe "DELETE :destroy (success)" do
+    subject{
+      User.create!(
+          :name => "alice",
+          :display_name => "アリス",
+          :identity_url => "http://op.example.com/u/alice"
+      )
+    }
+    before do
+      @client.publish_access_token(subject)
+
+      controller.should_receive(:authenticate_with_oauth).and_return true
+      controller.send(:current_user=, subject)
+
+      delete :destroy
+    end
+    it{ should be_deleted }
   end
 end
