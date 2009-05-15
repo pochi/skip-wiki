@@ -30,10 +30,7 @@ describe SkipGroup do
       @alice = create_user(:name => "alice")
       @bob = create_user(:name => "bob")
 
-      subject.grant([
-        {:identity_url => @alice.identity_url, :admin => true},
-        {:identity_url => @bob.identity_url, :admin => false},
-      ])
+      subject.grant([@alice.identity_url, @bob.identity_url])
       subject.save!
     end
 
@@ -43,10 +40,7 @@ describe SkipGroup do
       before do
         @charls = create_user(:name => "charls")
 
-        subject.grant([
-          {:identity_url => @charls.identity_url, :admin => true},
-          {:identity_url => @alice.identity_url, :admin => false},
-        ])
+        subject.grant([@alice.identity_url, @charls.identity_url])
       end
 
       it{ subject.group.users.should == [@alice, @charls]}

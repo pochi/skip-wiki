@@ -9,13 +9,13 @@ class SkipGroup < ActiveRecord::Base
 
   has_one  :group, :as => "backend"
 
-  def grant(user_params)
+  def grant(identity_urls)
     if self.group.nil?
       create_group(:name=>name, :display_name=>display_name + "(SKIP)")
     end
 
-    users = User.find_all_by_identity_url(user_params.map{|h| h[:identity_url] })
-    self.group.memberships = users.map{|u| u.memberships.build } # FIXME add admin flag here
+    users = User.find_all_by_identity_url(identity_urls)
+    self.group.memberships = users.map{|u| u.memberships.build }
   end
 end
 

@@ -20,8 +20,7 @@ describe Skip::GroupsController do
           :name => "group_a",
           :display_name => "グループA",
           :gid => "gid:12345",
-          :members =>[{:identity_url => alice.identity_url, :admin => true },
-                      {:identity_url => bob.identity_url, :admin => false }]
+          :members =>[alice, bob].map(&:identity_url)
         }
     end
 
