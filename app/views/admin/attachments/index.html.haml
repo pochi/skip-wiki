@@ -4,14 +4,15 @@
 
 #contents
   .attachments
+    - if @attachments.size.zero?
+      = _("No one upload attachments file.")
     %table
       - @attachments.each do |at|
         %tr
           %td&= at.content_type
-          %td&= at.filename
           %td&= at.display_name
           %td&= number_to_human_size(at.size)
-          %td&= at.updated_at.to_s
+          %td&= at.updated_at.strftime("%Y/%m/%d %H:%M")
           %td= link_to _("Download"), @note ? admin_note_attachment_path(@note, at) : admin_attachment_path(at)
           %td= link_to _("Delete"), (@note ? admin_note_attachment_path(@note, at) : admin_attachment_path(at)), :confirm => _("Are you sure?"), :method => :delete
     = will_paginate(@attachments)

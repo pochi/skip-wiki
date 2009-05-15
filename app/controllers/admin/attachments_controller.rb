@@ -2,7 +2,7 @@ class Admin::AttachmentsController < Admin::ApplicationController
   layout "admin"
 
   def index
-    @attachments = requested_note ? requested_note.attachments : Attachment.paginate(paginate_option(Attachment))
+    @attachments = Attachment.find(collect_ids).paginate(paginate_option(Attachment))
   end
 
   def show
@@ -23,4 +23,15 @@ class Admin::AttachmentsController < Admin::ApplicationController
       flash[:error] = "Failed to delete attachment"
     end
   end
+
+public
+  def collect_ids
+    return :all if requested_note.nil?
+    returning([]) do |atcs|
+      requested_note.attachments.each do |attachment|
+        atcs << attachment.id
+      end
+    end
+  end
+
 end

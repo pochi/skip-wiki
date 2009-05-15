@@ -315,21 +315,6 @@ msgstr ""
 msgid "published page can't be renamed."
 msgstr ""
 
-msgid "label index"
-msgstr ""
-
-msgid "LabelIndex|Display name"
-msgstr ""
-
-msgid "LabelIndex|Color"
-msgstr ""
-
-msgid "LabelIndex|Note"
-msgstr ""
-
-msgid "LabelIndex|Default label"
-msgstr ""
-
 msgid "label indexing"
 msgstr ""
 
@@ -346,6 +331,21 @@ msgid "LabelIndexing|Updated at"
 msgstr ""
 
 msgid "LabelIndexing|Page order"
+msgstr ""
+
+msgid "label index"
+msgstr ""
+
+msgid "LabelIndex|Display name"
+msgstr ""
+
+msgid "LabelIndex|Color"
+msgstr ""
+
+msgid "LabelIndex|Note"
+msgstr ""
+
+msgid "LabelIndex|Default label"
 msgstr ""
 
 msgid "No Labels"
@@ -822,6 +822,60 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
+msgid "Issued client applications."
+msgstr ""
+
+msgid "AccessToken|Family"
+msgstr ""
+
+msgid "AccessToken|Authorized at"
+msgstr ""
+
+msgid "Revoke"
+msgstr ""
+
+msgid "User added client app"
+msgstr ""
+
+msgid "Granted by service contract"
+msgstr ""
+
+msgid "Applications you registerd"
+msgstr ""
+
+msgid "for Application Developers"
+msgstr ""
+
+msgid "show credentials"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Register a new %{entity}"
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Registered"
+msgstr ""
+
+msgid "Service explanation"
+msgstr ""
+
+msgid "Request Token URL"
+msgstr ""
+
+msgid "Access Token URL"
+msgstr ""
+
+msgid "Authorize URL"
+msgstr ""
+
+msgid " We support hmac-sha1 (recommended) as well as plain text in ssl mode."
+msgstr ""
+
 msgid "Keyword in a page"
 msgstr ""
 
@@ -960,6 +1014,15 @@ msgid "OpenID URL"
 msgstr ""
 
 msgid "Sign up"
+msgstr ""
+
+msgid "User|Informations"
+msgstr ""
+
+msgid "User|Skip Account"
+msgstr ""
+
+msgid "User|Memberships"
 msgstr ""
 
 msgid "Edit user information"

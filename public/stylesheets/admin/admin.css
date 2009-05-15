@@ -37,7 +37,7 @@ div#content .admin-header {
 
 div#content .admin-search-bar {
   height: 30px;
-  border-bottom: 1px dotted silver;
+  border: 1px dotted silver;
   border-top: 1px dotted silver;  }
 
 div#content #contents .updated-note {
@@ -103,7 +103,8 @@ div#content #contents div.page {
 div#content .admin_menu_title {
   font-size: 15px;
   font-weight: bold;
-  background-color: #F0F0FF; }
+  background-color: #F0F0FF;
+  border-bottom: 1px solid silver; }
 
 div#content .admin_menu {
   margin-bottom: 5px;}

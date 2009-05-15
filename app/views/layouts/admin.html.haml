@@ -16,7 +16,6 @@
       - if logged_in?
         %ul.float
           %li= link_to _("Dashboard"), root_path
-          %li= link_to _("Admin menu"), admin_root_path if current_user.admin?
           %li= link_to content_tag("span", h(_"new note")), new_note_path
           %li= select_tag("notes", notes_navi_on_header(current_user))
         .clear
@@ -28,12 +27,13 @@
       #content_for_layout
         #content
           .admin-header
-            %h3= "管理者メニュー"
+            %h3= _("Admin menu")
             .clear
           .admin-menu= render :partial => 'shared/admin/menu'
           .admin-content
             - child_menu, title = selected_title
             %h3=title
+            .admin-search-bar= render :partial => 'shared/admin/search_box', :locals => {:path => search_target_path, :label => search_target_label}
             .admin-main-content
               = yield
             .child_menu=child_menu if child_menu

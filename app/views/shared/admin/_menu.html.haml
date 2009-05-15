@@ -1,9 +1,9 @@
-.admin_menu_title= "管理者メニュー"
-.admin-search-bar= render :partial => 'shared/admin/search_box'
+.admin_menu_title= _("Admin menu")
 .admin_menu
   %ul
-    %li= link_to "ユーザ一覧", admin_users_path
-    %li= link_to "ノート一覧", admin_notes_path
-    %li= link_to "ページ一覧", admin_pages_path
-    %li= link_to "添付ファイル一覧", admin_attachments_path
+    %li= link_to _("User|Index"), admin_users_path
+    %li= link_to _("Note|Index"), admin_notes_path
+    %li= link_to _("Page|Index"), admin_pages_path
+    %li= link_to _("Attachment|Index"), admin_attachments_path
+
 

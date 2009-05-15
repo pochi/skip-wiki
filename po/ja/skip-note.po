@@ -321,21 +321,6 @@ msgstr "ページ識別子は「%{n}」意外にしてください。"
 msgid "published page can't be renamed."
 msgstr ""
 
-msgid "label index"
-msgstr "ラベル"
-
-msgid "LabelIndex|Display name"
-msgstr "ラベル名"
-
-msgid "LabelIndex|Color"
-msgstr "ラベル色"
-
-msgid "LabelIndex|Note"
-msgstr "ノート"
-
-msgid "LabelIndex|Default label"
-msgstr "標準のラベル"
-
 msgid "label indexing"
 msgstr ""
 
@@ -353,6 +338,21 @@ msgstr ""
 
 msgid "LabelIndexing|Page order"
 msgstr "ラベル識別子"
+
+msgid "label index"
+msgstr "ラベル"
+
+msgid "LabelIndex|Display name"
+msgstr "ラベル名"
+
+msgid "LabelIndex|Color"
+msgstr "ラベル色"
+
+msgid "LabelIndex|Note"
+msgstr "ノート"
+
+msgid "LabelIndex|Default label"
+msgstr "標準のラベル"
 
 msgid "No Labels"
 msgstr "ラベルなし"
@@ -1117,6 +1117,9 @@ msgstr "更新されたページ"
 msgid "more..."
 msgstr "もっと見る..."
 
+msgid "Set up"
+msgstr "システムの設定"
+
 msgid "Edit profile"
 msgstr "自分の管理"
 
@@ -1180,9 +1183,6 @@ msgstr "ログアウト"
 
 #~ msgid "manage page(%{page})"
 #~ msgstr "ページの管理(%{page})"
-
-#~ msgid "User|Index"
-#~ msgstr "ユーザ一覧"
 
 #~ msgid "User|Edit(%{user})"
 #~ msgstr "%{user} の編集"
@@ -1267,9 +1267,6 @@ msgstr "ログアウト"
 
 #~ msgid "all labels"
 #~ msgstr "すべてのラベル"
-
-#~ msgid "Search Page"
-#~ msgstr "ノートを検索"
 
 #, fuzzy
 #~ msgid "Page"
