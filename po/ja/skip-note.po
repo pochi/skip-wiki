@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: skip-note 0.1.0\n"
-"POT-Creation-Date: 2009-05-15 15:55+0900\n"
+"POT-Creation-Date: 2009-05-15 16:45+0900\n"
 "PO-Revision-Date: 2008-11-04 16:29+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -810,6 +810,12 @@ msgstr "プレビューを表示"
 msgid "Create %{entity}"
 msgstr "%{entity}を作成"
 
+msgid "Page|Label indices"
+msgstr "ラベル識別子"
+
+msgid "edit labels"
+msgstr "ラベル名を編集"
+
 msgid "Recover %{entity}"
 msgstr "%{entity}を復旧する"
 
@@ -1120,12 +1126,6 @@ msgstr "更新されたページ"
 msgid "more..."
 msgstr "もっと見る..."
 
-#~ msgid "Page|Label indices"
-#~ msgstr "ラベル識別子"
-
-#~ msgid "edit labels"
-#~ msgstr "ラベル名を編集"
-
 #~ msgid "Attachment was created successfully."
 #~ msgstr "添付ファイルが正常に作成されました。"
 
@@ -1140,7 +1140,7 @@ msgstr "もっと見る..."
 
 #~ msgid "manage page"
 #~ msgstr "本文編集"
-sss
+
 #, fuzzy
 #~ msgid "Page|Published at"
 #~ msgstr "公開する"
