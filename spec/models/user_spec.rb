@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 # Be sure to include AuthenticatedTestHelper in spec/spec_helper.rb instead.
 # Then, you can remove it from this and the functional test.
-
+#
+ActiveRecord::Base.colorize_logging = false
 describe User do
   fixtures :users
 
@@ -212,7 +213,7 @@ describe User do
             {:name => "user-no-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
           end
           @remained_token_attr = User.find_by_name("user-3").access_token_for(@client).attributes
-          User.sync!(@client, data)
+          @created, @updated, @deleted = User.sync!(@client, data)
         end
 
         it{ User.should have(7).records }
@@ -227,11 +228,22 @@ describe User do
           remained_users_token = User.find_by_name("user-no-3").access_token_for(@client)
           remained_users_token.attributes.should == @remained_token_attr
         end
+        it "4人のユーザが作成されていること" do
+          @created.should have(4).items
+        end
+
+        it "3人のユーザが更新されていること" do
+          @updated.should have(3).items
+        end
+
+        it "2人のユーザが更新されていること" do
+          @deleted.should have(2).items
+        end
       end
     end
 
-    describe ".sync! のベンチ" do
-      Spec::Matchers.define :complete_within do |sec|
+    describe ".sync! のベンチ(100件)" do
+      Spec::Matchers.define :be_completed_within do |sec|
         match do |lambda|
           start = Time.now
           lambda.call
@@ -254,7 +266,7 @@ describe User do
       end
 
       it do
-        lambda{ User.transaction{ User.sync!(@client, @data) } }.should complete_within 3.second
+        lambda{ User.transaction{ User.sync!(@client, @data) } }.should be_completed_within 3.second
       end
     end
   end
