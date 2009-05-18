@@ -24,7 +24,7 @@ describe Skip::UsersController do
     it("response should be success") { response.should be_success }
 
     describe "assigned user" do
-      it{ assigns[:user].should have(2).tokens }
+      it{ assigns[:user].should have_authorized_access_token_for(@client) }
     end
 
     describe "response" do
@@ -36,11 +36,9 @@ describe Skip::UsersController do
 
   describe "PUT :update (success)" do
     before do
-      alice = User.create!(
-          :name => "alice",
-          :display_name => "アリス",
-          :identity_url => "http://op.example.com/u/alice"
-      )
+      alice = User.create!(:name => "alice", :display_name => "アリス"){|u|
+        u.identity_url = "http://op.example.com/u/alice"
+      }
       @client.publish_access_token(alice)
 
       controller.should_receive(:authenticate_with_oauth).and_return true
@@ -65,7 +63,7 @@ describe Skip::UsersController do
 
     describe "assigned user" do
       subject{ controller.send(:current_user) }
-      it{ should have(2).tokens }
+      it{ should have(1).tokens }
       it{ subject.name.should == "bob" }
       it{ subject.identity_url.should == "http://op.example.com/u/bob" }
     end
@@ -79,11 +77,7 @@ describe Skip::UsersController do
 
   describe "DELETE :destroy (success)" do
     subject{
-      User.create!(
-          :name => "alice",
-          :display_name => "アリス",
-          :identity_url => "http://op.example.com/u/alice"
-      )
+      create_user
     }
     before do
       @client.publish_access_token(subject)
@@ -95,5 +89,43 @@ describe Skip::UsersController do
     end
     it{ response.should be_success }
     it{ should be_deleted }
+  end
+
+  describe "POST :sync (success)" do
+    before do
+      controller.should_receive(:check_secret_key).and_return true
+      data = (1..10).map do |x|
+        {:name => "user-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+      end
+
+      post :sync, :format => "xml", :users => data
+    end
+
+    it("response should be success") { response.should be_success }
+
+    describe "assigned users" do
+      subject{ assigns[:users] }
+      it{ should have(10).items }
+      it{ should be_all{|u| !!s.access_token_for(@client) }}
+    end
+
+    describe "response" do
+      subject{ Hash.from_xml(response.body)["users"] }
+      it{ subject.should be_all{|u| u["access_token"] } }
+      it{ subject.should be_all{|u| u["access_secret"] } }
+    end
+  end
+
+  describe "POST :sync (fail)" do
+    before do
+      controller.should_receive(:check_secret_key).and_return true
+      data = (1..10).map do |x|
+        {:display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+      end
+
+      post :sync, :format => "xml", :users => data
+    end
+
+    it("response should not be success") { response.should_not be_success }
   end
 end
