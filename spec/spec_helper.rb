@@ -45,6 +45,7 @@ Spec::Runner.configure do |config|
   # 
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
   #
+  require File.expand_path('custom_matchers', File.dirname(__FILE__))
   require File.expand_path('spec_factories', File.dirname(__FILE__))
   include SpecFactories
 end

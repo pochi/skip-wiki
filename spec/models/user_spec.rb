@@ -243,22 +243,6 @@ describe User do
     end
 
     describe ".sync! のベンチ(100件)" do
-      Spec::Matchers.define :be_completed_within do |sec|
-        match do |lambda|
-          start = Time.now
-          lambda.call
-          (@real = Time.now - start) < sec
-        end
-
-        description do
-          "completed in #{expected} sec.".tap{|x| x<<"(#{@real} sec in real)" if (@real && (sec > @real)) }
-        end
-
-        failure_message_for_should do |actual|
-          "expected to complete in #{sec} sec, but takes #{@real} sec."
-        end
-      end
-
       before do
         @data = (1..100).map do |x|
           {:name => "user-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
