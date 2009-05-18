@@ -13,7 +13,7 @@ describe Skip::UsersController do
   describe "POST :create (success)" do
     before do
       controller.should_receive(:check_secret_key).and_return true
-      post :create, :format => "xml",
+      post :create, :format => "js",
         :user => {
           :name => "alice",
           :display_name => "アリス",
@@ -28,7 +28,7 @@ describe Skip::UsersController do
     end
 
     describe "response" do
-      subject{ Hash.from_xml(response.body)["user"] }
+      subject{ JSON.parse(response.body) }
       it{ subject["access_token"].should_not be_blank }
       it{ subject["access_secret"].should_not be_blank }
     end
@@ -51,7 +51,7 @@ describe Skip::UsersController do
     end
 
     def put_user
-      put :update, :format => "xml",
+      put :update, :format => "js",
         :user => {
           :name => "bob",
           :display_name => "ボブさん",
@@ -69,7 +69,7 @@ describe Skip::UsersController do
     end
 
     describe "response" do
-      subject{ Hash.from_xml(response.body)["user"] }
+      subject{ JSON.parse(response.body) }
       it{ subject["access_token"].should == @old_token.token }
       it{ subject["access_secret"].should == @old_token.secret }
     end
@@ -98,7 +98,7 @@ describe Skip::UsersController do
         {:name => "user-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
       end
 
-      post :sync, :format => "xml", :users => data
+      post :sync, :format => "js", :users => data
     end
 
     it("response should be success") { response.should be_success }
@@ -110,7 +110,7 @@ describe Skip::UsersController do
     end
 
     describe "response" do
-      subject{ Hash.from_xml(response.body)["users"] }
+      subject{ JSON.parse(response.body) }
       it{ subject.should be_all{|u| u["access_token"] } }
       it{ subject.should be_all{|u| u["access_secret"] } }
     end
@@ -123,7 +123,7 @@ describe Skip::UsersController do
         {:display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
       end
 
-      post :sync, :format => "xml", :users => data
+      post :sync, :format => "js", :users => data
     end
 
     it("response should not be success") { response.should_not be_success }

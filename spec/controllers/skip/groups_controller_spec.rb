@@ -15,7 +15,7 @@ describe Skip::GroupsController do
         create_user(:name => n, :display_name => n, :identity_url => "http://openid.example.com/#{n}")
       }
 
-      post :create, :format => "xml",
+      post :create, :format => "js",
         :group => {
           :name => "group_x",
           :display_name => "グループX",
@@ -34,7 +34,7 @@ describe Skip::GroupsController do
     end
 
     describe "response [group]" do
-      subject{ Hash.from_xml(response.body)["group"] }
+      subject{ JSON.parse(response.body) }
 
       it{ subject["members"].should be_instance_of Array }
       it{ subject["url"].should == skip_group_url("12345") }
@@ -49,7 +49,7 @@ describe Skip::GroupsController do
       @group = SkipGroup.create!( :name => "group_a", :display_name => "グループA", :gid => "12345")
       @group.grant([@alice, @bob].map(&:identity_url))
 
-      put :update, :id => @group.gid, :format => "xml",
+      put :update, :id => @group.gid, :format => "js",
         :group => {
           :name => "group_a",
           :display_name => "グループA",
@@ -61,7 +61,7 @@ describe Skip::GroupsController do
     it("response should be success") { response.should be_success }
 
     describe "response [group]" do
-      subject{ Hash.from_xml(response.body)["group"] }
+      subject{ JSON.parse(response.body) }
       it{ subject["url"].should == skip_group_url("23456") }
     end
 
@@ -87,7 +87,7 @@ describe Skip::GroupsController do
       @group = SkipGroup.create!( :name => "group_a", :display_name => "グループA", :gid => "12345")
       @group.grant([@alice, @bob].map(&:identity_url))
 
-      delete :destroy, :id => @group.gid, :format => "xml"
+      delete :destroy, :id => @group.gid, :format => "json"
     end
 
     it("response should be success") { response.should be_success }
@@ -117,7 +117,7 @@ describe Skip::GroupsController do
         {:gid => "12347", :name => "name3", :display_name => "SKIP Group.3", :members => identity_url_gen(*%w[e f g])},
       ]
 
-      post :sync, :format => "xml", :groups => data
+      post :sync, :format => "js", :groups => data
     end
 
     it{ response.should be_success }

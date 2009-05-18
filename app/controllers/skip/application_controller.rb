@@ -12,7 +12,7 @@ class Skip::ApplicationController < ApplicationController
 
   def rendeor_validation_error(model)
     respond_to do |f|
-      f.xml{ render :xml => model.errors.to_xml, :status => :unprocessable_entity }
+      f.js{ render :json => model.errors.full_messages, :status => :unprocessable_entity }
     end
   end
 
