@@ -9,23 +9,26 @@
 !link_color = #0080DD
 !navigation_width = 200px
 
+*
+  :margin 0
+  :padding 0
+
 body
-  :font-size 13px
-  :font-family Verdana,Arial,sans-serif
+  :font
+    :size 12px
+    :family Verdana, Arial, sans-serif
+    :weight normal
+  :color #555
+  :position absolute
+  :left 0
+  :margin 0
+  :text-align left
+  :background-color #fff
   :width 100%
-  :padding-bottom 1em
 
-  *
-    // :margin auto auto
-
-  div#top
-
-    ul
-      :float right
-      :margin-top auto
-      :margin-bottom auto
-      li
-        :margin auto 5px
+  img
+    :vertical-align middle
+    :border 0
 
   h1, h2, h3
     :margin 0.5em 10px
@@ -54,6 +57,17 @@ body
 
   select
     :border 1px solid silver
+
+div#top
+  :border-top 1px dashed #ccc
+  :border-bottom 1px solid #ccc
+  ul
+    :float right
+    :margin-top auto
+    :margin-bottom auto
+    li
+      :margin auto 5px
+
 #current-note .note-navi, .page-header .page-navi
   :position absolute
   :left 300px
@@ -77,18 +91,6 @@ body
 
 #note-menu
   :float right
-
-#logo
-  :position absolute
-  :margin 3px 0 0 5px
-  :z-index 1
-  p
-    :margin auto 3px auto 3px
-    :font-size  20px
-  a
-    :font-weight bold
-  img
-    :height 45px
 
 #services
   :float right
