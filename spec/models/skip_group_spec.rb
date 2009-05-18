@@ -46,4 +46,61 @@ describe SkipGroup do
       it{ subject.group.users.should == [@alice, @charls]}
     end
   end
+
+  describe ".sync" do
+    def identity_url_gen(*ids)
+      ids.map{|x| "http://op.example.com/user/user-#{x}" }
+    end
+    before do
+      ("a".."l").each{|i|
+        User.create!(:name=>"user-#{i}", :display_name=>"User.#{i}"){|u| u.identity_url="http://op.example.com/user/user-#{i}"}
+      }
+      SkipGroup.sync!([
+        {:gid => "12345", :name => "name1", :display_name => "SKIP Group.1", :members => identity_url_gen(*%w[a b c])},
+        {:gid => "12346", :name => "name2", :display_name => "SKIP Group.2", :members => identity_url_gen(*%w[c d e])},
+        {:gid => "12347", :name => "name3", :display_name => "SKIP Group.3", :members => identity_url_gen(*%w[e f g])},
+        {:gid => "12348", :name => "name4", :display_name => "SKIP Group.4", :members => identity_url_gen(*%w[g h i])},
+      ])
+    end
+    it{ SkipGroup.should have(4).records }
+
+    describe "created SkipGroup" do
+      subject{ SkipGroup.first }
+      it{ subject.group.should have(3).users }
+    end
+
+    describe "洗いがえをした場合" do
+      before do
+        SkipGroup.sync!([
+          {:gid => "12345", :name => "name1", :display_name => "SKIP-Group.1", :members => identity_url_gen(*%w[a b c])},
+          {:gid => "12346", :name => "name2", :display_name => "SKIP-Group.2", :members => identity_url_gen(*%w[c d e f])},
+          {:gid => "22347", :name => "name23", :display_name => "SKIP-Group.23", :members => identity_url_gen(*%w[e f g])},
+          {:gid => "22348", :name => "name24", :display_name => "SKIP-Group.24", :members => identity_url_gen(*%w[a b c])},
+          {:gid => "22349", :name => "name25", :display_name => "SKIP-Group.25", :members => identity_url_gen(*%w[a b c])},
+        ])
+      end
+      it "5つのグループがあること" do
+        SkipGroup.should have(5).records
+      end
+
+      it "name3とname4のグループは消えていること" do
+        SkipGroup.find_all_by_name(%w[name3 name4]).should be_blank
+      end
+
+      it "name2のグループにfさんが入っていること" do
+        sg = SkipGroup.find_by_name("name2")
+        sg.group.users.find_by_name("user-f").should_not be_blank
+      end
+
+      it "hさんとiさんはどのグループにも属していないこと" do
+        h,i = User.find_all_by_name(%w[user-h user-i])
+        h.should have(0).groups
+        i.should have(0).groups
+      end
+
+      it "グループの各属性(name)が更新されていること" do
+        SkipGroup.all.should be_all{|g| g.name =~ /\Aname\d+\Z/ }
+      end
+    end
+  end
 end
