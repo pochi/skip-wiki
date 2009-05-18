@@ -57,7 +57,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resource :skip, :controller => "skip" do |skip|
-    skip.resources :users, :controller => "skip/users"
+    skip.resource :user, :controller => "skip/users", :member => {"sync" => :post}
     skip.resources :groups, :controller => "skip/groups"
   end
 
