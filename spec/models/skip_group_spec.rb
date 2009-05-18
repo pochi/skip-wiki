@@ -79,6 +79,7 @@ describe SkipGroup do
           {:gid => "22349", :name => "name25", :display_name => "SKIP-Group.25", :members => identity_url_gen(*%w[a b c])},
         ])
       end
+
       it "5つのグループがあること" do
         SkipGroup.should have(5).records
       end
@@ -100,6 +101,22 @@ describe SkipGroup do
 
       it "グループの各属性(name)が更新されていること" do
         SkipGroup.all.should be_all{|g| g.name =~ /\Aname\d+\Z/ }
+      end
+
+      describe "100件のベンチマーク" do
+        subject do
+          (1..(100+5)).each{|i|
+            User.create!(:name=>"user-#{i}", :display_name=>"User.#{i}"){|u| u.identity_url="http://op.example.com/user/user-#{i}"}
+          }
+
+          data = (1..100).map do |i|
+            members = (i..(i+5)).map{|j| "http://op.example.com/user/user-#{j}" }
+            {:gid => 1000 + i, :name => "name%04d" % i, :display_name => "SKIP-Group-#{i}", :members => members}
+          end
+          lambda{ SkipGroup.sync!(data) }
+        end
+
+        it{ should be_completed_within 5.second }
       end
     end
   end
