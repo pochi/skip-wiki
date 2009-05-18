@@ -1,4 +1,6 @@
 class Skip::ApplicationController < ApplicationController
+  include SkipEmbedded::WebServiceUtil::Server
+
   skip_before_filter :authenticate
   before_filter :internal_call_only
   SKIP_NAME = "SKIP"
