@@ -99,4 +99,33 @@ describe Skip::GroupsController do
       it{ @bob.groups.should_not include subject }
     end
   end
+
+  describe "POST :sync(success)" do
+    # duplicate with spec/models/skip_group_spec.rb
+    def identity_url_gen(*ids)
+      ids.map{|x| "http://op.example.com/user/user-#{x}" }
+    end
+    subject{ SkipGroup }
+    before do
+      ("a".."g").each{|i|
+        User.create!(:name=>"user-#{i}", :display_name=>"User.#{i}"){|u| u.identity_url="http://op.example.com/user/user-#{i}"}
+      }
+ 
+      data = [
+        {:gid => "12345", :name => "name1", :display_name => "SKIP Group.1", :members => identity_url_gen(*%w[a b c])},
+        {:gid => "12346", :name => "name2", :display_name => "SKIP Group.2", :members => identity_url_gen(*%w[c d e])},
+        {:gid => "12347", :name => "name3", :display_name => "SKIP Group.3", :members => identity_url_gen(*%w[e f g])},
+      ]
+
+      post :sync, :format => "xml", :groups => data
+    end
+
+    it{ response.should be_success }
+    it{ should have(3).records }
+
+    describe "name1 SkipGroup" do
+      subject{ SkipGroup.find_by_name("name1") }
+      it{ subject.group.should have(3).users }
+    end
+  end
 end
