@@ -7,7 +7,7 @@ class Skip::UsersController < Skip::ApplicationController
     @users = [created, updated].flatten
     respond_to do |f|
       res = @users.map{|u| api_response(u, u.access_token_for(skip)) }
-      f.xml{ render :xml => res.to_xml(:root => "users", :child => {:root => "user"}) }
+      f.js{ render :json => res.to_json }
     end
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => why
     record = why.record
@@ -17,7 +17,7 @@ class Skip::UsersController < Skip::ApplicationController
   def create
     @user, token = User.transaction{ User.create_with_token!(skip, params[:user]) }
     respond_to do |f|
-      f.xml{ render :xml => api_response(@user, token).to_xml(:root => "user") }
+      f.js{ render :json => api_response(@user, token).to_json }
     end
   rescue ActiveRecord::RecordNotFound => why
     rendeor_validation_error(current_user)
@@ -29,9 +29,9 @@ class Skip::UsersController < Skip::ApplicationController
 
     if current_user.save
       respond_to do |f|
-        f.xml do
+        f.js do
           res = api_response(current_user, current_user.access_token_for(skip))
-          render :xml => res.to_xml(:root => "user")
+          render :json => res.to_json
         end
       end
     else
@@ -49,7 +49,7 @@ class Skip::UsersController < Skip::ApplicationController
   end
 
   def api_response(user, token = nil)
-    returning( user.attributes.slice(:identity_url) ) do |res|
+    returning( user.attributes.slice("identity_url") ) do |res|
       if token
         res["access_token"] = token.token
         res["access_secret"] = token.secret

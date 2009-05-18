@@ -16,11 +16,11 @@ RESOURCE_TO_PATH = {
 Given /SKIPをOAuth Consumerとして登録する/ do
   @skip_rp = SkipEmbedded::Collaboration::SkipRp.new("wiki", "http://#{self.host}") do |uri, body|
     header = {
-      "Content-Type" => "application/xml",
+      "Content-Type" => "application/json",
       "X-Secret-Key" => ::SkipEmbedded::InitialSettings['skip_collaboration']['secret_key']
     }
 
-    post uri.path + ".xml", body, header
+    post uri.path + ".js", body, header
     response.body
   end
 

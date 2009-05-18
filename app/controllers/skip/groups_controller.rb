@@ -4,7 +4,7 @@ class Skip::GroupsController < Skip::ApplicationController
     @groups = [created, updated].flatten
     respond_to do |f|
       res = @groups.map{|g| api_response(g) }
-      f.xml{ render :xml => res.to_xml(:root => "gruops", :child => {:root => "group"}) }
+      f.js{ render :json => res.to_json }
     end
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => why
     record = why.record
@@ -15,7 +15,7 @@ class Skip::GroupsController < Skip::ApplicationController
     @skip_group = SkipGroup.new(params[:group].except(:members))
 
     ActiveRecord::Base.transaction{ save_with_grant(@skip_group, params[:group][:members]) }
-    render :xml => api_response(@skip_group).to_xml(:root => "group")
+    render :json => api_response(@skip_group).to_json
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => why
     rendor_validation_error(@skip_group)
   end
@@ -28,7 +28,7 @@ class Skip::GroupsController < Skip::ApplicationController
     @skip_group.attributes = params[:group].except(:members)
 
     ActiveRecord::Base.transaction{ save_with_grant(@skip_group, params[:group][:members]) }
-    render :xml => api_response(@skip_group).to_xml(:root => "group")
+    render :json => api_response(@skip_group).to_json
   rescue ActiveRecord::RecordNotSaved => why
     rendor_validation_error(@skip_group)
   end

@@ -38,7 +38,7 @@ module SkipEmbedded
         Net::HTTP.start(uri.host, uri.port) do |http|
           req = Net::HTTP::Post.new(uri.path)
           req.body = body
-          req["Content-Type"] = "application/xml"
+          req["Content-Type"] = "application/json"
           http.request(req).body
         end
       end
@@ -47,7 +47,7 @@ module SkipEmbedded
         Net::HTTP.start(uri.host, uri.port) do |http|
           req = Net::HTTP::Post.new(uri.path)
           req.body = body
-          req["Content-Type"] = "application/xml"
+          req["Content-Type"] = "application/json"
           req["X-SECRET-KEY"] = ::SkipEmbedded::InitialSettings['skip_collaboration']['secret_key']
           http.request(req).body
         end
@@ -61,13 +61,13 @@ module SkipEmbedded
       end
 
       def register!(params)
-        xml = post({:root => "skip"}, @mapper.register_endpoint, params)
+        json = post("skip", @mapper.register_endpoint, params)["client_application"]
 
-        Collaboration.backend.store(:consumer, name, xml.slice("id", "key", "secret"))
+        Collaboration.backend.store(:consumer, name, json.slice("id", "key", "secret"))
       end
 
       def add_user(identity_url, name, display_name)
-        xml = post({:root => "user"},
+        xml = post("user",
                    @mapper.users_endpoint,
                    :name => name, :display_name => display_name, :identity_url => identity_url)
 
@@ -79,14 +79,14 @@ module SkipEmbedded
                  {:identity_url => ident, :name => name, :display_name => display_name, :admin => admin}
                end
 
-        xml = post({:root => "users", :child => {:root => "user"}}, @mapper.users_sync_endpoint, data)
-        xml["users"].each do |created|
+        json = post("users", @mapper.users_sync_endpoint, data)
+        json.each do |created|
           Collaboration.backend.store(:user, created["identity_url"], created.slice("access_token", "access_secret"))
         end
       end
 
       def add_group(gid, name, display_name, members)
-        xml = post({:root => "group"},
+        xml = post("group",
                    @mapper.groups_endpoint,
                    :gid => gid, :name => name, :display_name => display_name, :members => members)
 
@@ -96,24 +96,21 @@ module SkipEmbedded
       def sync_groups(groups)
         data = groups.map{|args| groups_data(*args) }
 
-        xml = post({:root => "groups", :child => {:root => "group"}}, @mapper.groups_sync_endpoint, data)
+        json = post("groups", @mapper.groups_sync_endpoint, data)
 
-        xml["groups"].each do |created|
+        json.each do |created|
           Collaboration.backend.store(:group, created["gid"], created)
         end
       end
 
       def get_as(identity_url, path)
         access_tokens = Collaboration.backend.fetch(:user, identity_url)
-
       end
 
       private
-      def post(xml_opt, path, params)
-        res = @post_req.call( path, params.to_xml(xml_opt) )
-        all_xml = Hash.from_xml(res)
-
-        xml_opt[:root] ? all_xml[xml_opt[:root]] : all_xml
+      def post(key, path, params)
+        res = @post_req.call( path, {key => params}.to_json )
+        JSON.parse(res)
       end
 
       def groups_data(gid, name, display_name, members)
