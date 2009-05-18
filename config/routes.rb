@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :skip, :controller => "skip" do |skip|
     skip.resource :user, :controller => "skip/users", :member => {"sync" => :post}
-    skip.resources :groups, :controller => "skip/groups"
+    skip.resources :groups, :controller => "skip/groups",:collection => {"sync" => :post}
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

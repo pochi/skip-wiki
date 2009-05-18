@@ -15,7 +15,12 @@ RESOURCE_TO_PATH = {
 
 Given /SKIPをOAuth Consumerとして登録する/ do
   @skip_rp = SkipEmbedded::Collaboration::SkipRp.new("wiki", "http://#{self.host}") do |uri, body|
-    post uri.path + ".xml", body, {"Content-Type" => "application/xml"}
+    header = {
+      "Content-Type" => "application/xml",
+      "X-Secret-Key" => ::SkipEmbedded::InitialSettings['skip_collaboration']['secret_key']
+    }
+
+    post uri.path + ".xml", body, header
     response.body
   end
 
@@ -30,6 +35,18 @@ end
 Given /^SKIPグループとして"([^\"]*)"を含む"([^\"]*)"グループを登録する$/ do |users, group|
   members = users.split(",").map{|u| {:identity_url => "http://localhost:3200/user/#{u}"}}
   @skip_rp.add_group("gid:#{group}", group, group.humanize, members)
+end
+
+Given /^SKIPの"([^\"]*)"のユーザ情報を同期する$/ do |names|
+  users = names.split(",").map{|u|
+    ["http://localhost:3200/user/#{u}", u, u.humanize, false]
+  }
+  @skip_rp.sync_users(users)
+end
+
+Given /^SKIPの"([^\"]*)"を含む"([^\"]*)"グループ情報を同期する$/ do |users, group|
+  members = users.split(",").map{|u| "http://localhost:3200/user/#{u}"}
+  @skip_rp.sync_groups([["#{group.object_id}", group, group.humanize, members]])
 end
 
 Given %r!^ユーザ"([^\"]*)"のOAuth AccessTokenで"([^\"]*)"を取得する$! do |user, resouce|
