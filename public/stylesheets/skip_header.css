@@ -3,9 +3,8 @@ div#header {
   height: 70px; }
   div#header div#global_top {
     border-bottom: 1px dashed #ccc;
-    height: 20px; }
-    div#header div#global_top div#application_link, div#header div#global_top div#menu {
-      padding: 4px 5px; }
+    height: 20px;
+    margin: 4px 5px; }
     div#header div#global_top div#application_link {
       float: left; }
     div#header div#global_top div#menu {

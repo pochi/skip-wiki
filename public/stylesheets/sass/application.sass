@@ -1,3 +1,5 @@
+@import skip_embedded.sass
+
 !side_width = 200px
 !content_margin = 210px
 !modern_page_font_size = 16px
@@ -10,26 +12,6 @@
 !navigation_width = 200px
 
 *
-  :margin 0
-  :padding 0
-
-body
-  :font
-    :size 12px
-    :family Verdana, Arial, sans-serif
-    :weight normal
-  :color #555
-  :position absolute
-  :left 0
-  :margin 0
-  :text-align left
-  :background-color #fff
-  :width 100%
-
-  img
-    :vertical-align middle
-    :border 0
-
   h1, h2, h3
     :margin 0.5em 10px
 
@@ -47,10 +29,6 @@ body
       :font-size 0.8em
     div.note_title
       :font-size 24px
-
-  a
-    :color = !link_color
-    :text-decoration none
 
   #global_navi
     :background-image url(./../images/skip/gradient.png)
