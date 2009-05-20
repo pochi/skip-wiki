@@ -1,4 +1,5 @@
 class SkipController < Skip::ApplicationController
+  before_filter :check_secret_key
   def create
     @client_application = ClientApplication.new(params[:skip])
     @client_application.name = Skip::ApplicationController::SKIP_NAME

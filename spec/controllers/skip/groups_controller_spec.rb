@@ -2,7 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe Skip::GroupsController do
   before do
-    controller.should_receive(:internal_call_only).and_return true
     @client = ClientApplication.create(:name => "SKIP",
                                        :url => "http://skip.example.com",
                                        :callback_url => "http://skip.example.com/oauth_callback")
@@ -14,6 +13,9 @@ describe Skip::GroupsController do
       alice, bob = %w[alice bob].map{|n|
         create_user(:name => n, :display_name => n, :identity_url => "http://openid.example.com/#{n}")
       }
+
+      controller.should_receive(:authenticate_with_oauth).and_return true
+      controller.send(:current_user=, alice)
 
       post :create, :format => "js",
         :group => {
@@ -46,6 +48,9 @@ describe Skip::GroupsController do
       @alice, @bob, @charls = %w[alice bob charls].map{|n|
         create_user(:name => n, :display_name => n, :identity_url => "http://openid.example.com/#{n}")
       }
+      controller.should_receive(:authenticate_with_oauth).and_return true
+      controller.send(:current_user=, @alice)
+
       @group = SkipGroup.create!( :name => "group_a", :display_name => "グループA", :gid => "12345")
       @group.grant([@alice, @bob].map(&:identity_url))
 
@@ -84,6 +89,9 @@ describe Skip::GroupsController do
       @alice, @bob = %w[alice bob].map{|n|
         create_user(:name => n, :display_name => n, :identity_url => "http://openid.example.com/#{n}")
       }
+      controller.should_receive(:authenticate_with_oauth).and_return true
+      controller.send(:current_user=, @alice)
+
       @group = SkipGroup.create!( :name => "group_a", :display_name => "グループA", :gid => "12345")
       @group.grant([@alice, @bob].map(&:identity_url))
 
@@ -107,6 +115,7 @@ describe Skip::GroupsController do
     end
     subject{ SkipGroup }
     before do
+      controller.should_receive(:check_secret_key).and_return true
       ("a".."g").each{|i|
         User.create!(:name=>"user-#{i}", :display_name=>"User.#{i}"){|u| u.identity_url="http://op.example.com/user/user-#{i}"}
       }

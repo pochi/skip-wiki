@@ -3,7 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe Skip::UsersController do
   fixtures :users
   before do
-    controller.should_receive(:internal_call_only).and_return true
     @client = ClientApplication.create(:name => "SKIP",
                                        :url => "http://skip.example.com",
                                        :callback_url => "http://skip.example.com/oauth_callback")

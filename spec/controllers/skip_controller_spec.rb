@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SkipController do
   before do
-    controller.should_receive(:internal_call_only).and_return true
+    controller.should_receive(:check_secret_key).and_return true
   end
 
   describe "POST :create (success)" do

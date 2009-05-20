@@ -1,4 +1,7 @@
 class Skip::GroupsController < Skip::ApplicationController
+  before_filter :check_secret_key, :only => %w[sync]
+  before_filter :authenticate_with_oauth, :only => %w[create update destroy]
+
   def sync
     created, updated, deleted = SkipGroup.transaction{ SkipGroup.sync!(params[:groups]) }
     @groups = [created, updated].flatten
