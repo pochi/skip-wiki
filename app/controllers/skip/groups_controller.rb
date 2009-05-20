@@ -28,7 +28,7 @@ class Skip::GroupsController < Skip::ApplicationController
     @skip_group.attributes = params[:group].except(:members)
 
     ActiveRecord::Base.transaction{ save_with_grant(@skip_group, params[:group][:members]) }
-    render :json => api_response(@skip_group).to_json
+    render :json => {:group => api_response(@skip_group)}.to_json
   rescue ActiveRecord::RecordNotSaved => why
     rendor_validation_error(@skip_group)
   end

@@ -34,7 +34,7 @@ describe Skip::GroupsController do
     end
 
     describe "response [group]" do
-      subject{ JSON.parse(response.body) }
+      subject{ JSON.parse(response.body)["group"] }
 
       it{ subject["members"].should be_instance_of Array }
       it{ subject["url"].should == skip_group_url("12345") }
@@ -61,7 +61,7 @@ describe Skip::GroupsController do
     it("response should be success") { response.should be_success }
 
     describe "response [group]" do
-      subject{ JSON.parse(response.body) }
+      subject{ JSON.parse(response.body)["group"] }
       it{ subject["url"].should == skip_group_url("23456") }
     end
 

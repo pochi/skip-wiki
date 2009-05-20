@@ -28,7 +28,7 @@ describe Skip::UsersController do
     end
 
     describe "response" do
-      subject{ JSON.parse(response.body) }
+      subject{ JSON.parse(response.body)["user"] }
       it{ subject["access_token"].should_not be_blank }
       it{ subject["access_secret"].should_not be_blank }
     end
@@ -69,7 +69,7 @@ describe Skip::UsersController do
     end
 
     describe "response" do
-      subject{ JSON.parse(response.body) }
+      subject{ JSON.parse(response.body)["user"] }
       it{ subject["access_token"].should == @old_token.token }
       it{ subject["access_secret"].should == @old_token.secret }
     end
@@ -110,7 +110,7 @@ describe Skip::UsersController do
     end
 
     describe "response" do
-      subject{ JSON.parse(response.body) }
+      subject{ JSON.parse(response.body)["users"] }
       it{ subject.should be_all{|u| u["access_token"] } }
       it{ subject.should be_all{|u| u["access_secret"] } }
     end
