@@ -53,13 +53,6 @@ describe OauthController, "token authorization" do
     post :authorize, :oauth_token => @request_token.token, :authorize => "1"
   end
 
-  def do_get_to_granted_by_contract_app
-    @request_token.client_application.should_receive(:granted_by_service_contract?).and_return(true)
-
-    @request_token.should_receive(:authorize!).with(@user)
-    get :authorize, :oauth_token => @request_token.token
-  end
-
   def do_post_without_user_authorization
     @request_token.should_receive(:invalidate!)
     post :authorize, :oauth_token => @request_token.token, :authorize => "0"
@@ -102,10 +95,10 @@ describe OauthController, "token authorization" do
     response.should redirect_to("http://application/callback?oauth_token=#{@request_token.token}")
   end
 
-  it "should redirect to default callback when request to granted_by_service_contract app" do
-    do_get_to_granted_by_contract_app
-    response.should be_redirect
-    response.should redirect_to("http://application/callback?oauth_token=#{@request_token.token}")
+  it "should show authorization page" do
+    get :authorize, :oauth_token => @request_token.token
+
+    response.should render_template("oauth/authorize")
   end
 
   it "should redirect to callback in query" do
