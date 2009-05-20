@@ -6,7 +6,7 @@ class Skip::UsersController < Skip::ApplicationController
     created, updated, deleted = User.transaction{ User.sync!(skip, params[:users]) }
     @users = [created, updated].flatten
     respond_to do |f|
-      res = @users.map{|u| api_response(u, u.access_token_for(skip)) }
+      res = {:users => @users.map{|u| api_response(u, u.access_token_for(skip)) }}
       f.js{ render :json => res.to_json }
     end
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => why
@@ -17,7 +17,7 @@ class Skip::UsersController < Skip::ApplicationController
   def create
     @user, token = User.transaction{ User.create_with_token!(skip, params[:user]) }
     respond_to do |f|
-      f.js{ render :json => api_response(@user, token).to_json }
+      f.js{ render :json => {:user => api_response(@user, token)}.to_json }
     end
   rescue ActiveRecord::RecordNotFound => why
     rendeor_validation_error(current_user)
@@ -30,7 +30,7 @@ class Skip::UsersController < Skip::ApplicationController
     if current_user.save
       respond_to do |f|
         f.js do
-          res = api_response(current_user, current_user.access_token_for(skip))
+          res = {:user => api_response(current_user, current_user.access_token_for(skip))}
           render :json => res.to_json
         end
       end

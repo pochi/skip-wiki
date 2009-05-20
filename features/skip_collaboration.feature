@@ -6,15 +6,13 @@
     前提    SKIPをOAuth Consumerとして登録する
     かつ    SKIPの"alice-api,bob-api,charls-api"のユーザ情報を同期する
     かつ    SKIPの"alice-api,bob-api"を含む"sample"グループ情報を同期する
+    ならば  キーとシークレットが払い出されること
 
   シナリオ: 個別での登録
     もし    SKIPユーザとして"david-api"を登録する
     かつ    SKIPユーザとして"elly-api"を登録する
     かつ    SKIPユーザとして"george-api"を登録する
-    かつ    SKIPグループとして"david-api,elly-api"を含む"sample2"グループを登録する
-
-  シナリオ: SKIPのOAuth Consumer登録
-    ならば  SKIPが"wiki"にアクセスするためのキーとシークレットが払い出されること
+    かつ    "alice-api"の権限で"alice-api,david-api,elly-api"を含む"sample2"グループを登録する
 
   シナリオ: SKIPグループ単位で作ったノートを閲覧できる
     前提    言語は"ja-JP"
