@@ -7,7 +7,7 @@ describe SkipController do
 
   describe "POST :create (success)" do
     before do
-      post :create, :format => "xml", :skip => {
+      post :create, :format => "js", :skip => {
               :url => "http://skip.example.com",
             }
     end
@@ -23,8 +23,8 @@ describe SkipController do
       it { subject.secret.should_not be_blank }
     end
 
-    describe "/Parse response" do
-      subject { Hash.from_xml(response.body)["skip"] }
+    describe "parse response" do
+      subject { JSON.parse(response.body)["skip"] }
 
       it { subject["id"].should == assigns[:client_application].id }
       it { subject["key"].should_not be_blank }
