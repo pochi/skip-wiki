@@ -29,12 +29,13 @@
             .clear
           .admin-menu= render :partial => 'shared/admin/menu'
           .admin-content
-            - child_menu, title = selected_title
-            %h3=title
-            .admin-search-bar= render :partial => 'shared/admin/search_box', :locals => {:path => search_target_path, :label => search_target_label}
+            %h3= generate_topics_str(@topics, " ＞ ")
+            - if search_target_path 
+              .admin-search-bar= render :partial => 'shared/admin/search_box', :locals => {:path => search_target_path, :label => search_target_label}
             .admin-main-content
               = yield
-            .child_menu=child_menu if child_menu
+            - if child_menu
+              .child_menu=child_menu
 
     #footer
       = render :partial => 'shared/common_body_footer'
