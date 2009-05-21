@@ -63,7 +63,10 @@ When /^OAuth経由でノートのRSSを取得する\Z/ do
   visit "/notes.rss"
 end
 
-Then /^(\d+)件のアイテムがあること/ do |num|
+Then /^RSSには(\d+)件のアイテムがあること/ do |num|
   RSS::Parser.parse(response.body).should have(num.to_i).items
 end
 
+Then /^RSSのタイトルは"([^\"]*)"であること$/  do |title|
+  RSS::Parser.parse(response.body).channel.title.should == title
+end

@@ -19,7 +19,7 @@ module OAuthCucumber
       url = url.is_a?(URI) ? url : URI(url)
 
       headers.each{|k,v| @session.header k,v }
-      @session.header "Authorization", Net::HTTP::Post.new(url.path).tap{|req| token.sign!(req) }["Authorization"]
+      @session.header "Authorization", Net::HTTP::Get.new(url.path).tap{|req| token.sign!(req) }["Authorization"]
 
       @session.visit url.path
     end
@@ -37,10 +37,13 @@ module OAuthCucumber
     private
     def request_api_via_oauth(method, url, data, token)
       url = url.is_a?(URI) ? url : URI(url)
+      klass = {:post => Net::HTTP::Post,
+               :put  => Net::HTTP::Put,
+               :delete  => Net::HTTP::Delete }[method]
 
-      @session.header "Authorization", Net::HTTP::Post.new(url.path).tap{|req| token.sign!(req) }["Authorization"]
+      @session.header "Authorization", klass.new(url.path).tap{|req| token.sign!(req) }["Authorization"]
       @session.header "Content-Type", "application/json"
-      @session.visit url.path, method, data.to_json
+      @session.visit url.path, method, data.merge("_method" => method).to_json
 
       JSON.parse(@session.response.body)
     end

@@ -43,6 +43,11 @@ Given /^SKIPの"([^\"]*)"を含む"([^\"]*)"グループ情報を同期する$/ 
   @rp_service.sync_groups([["#{group.object_id}", group, group.humanize, members]])
 end
 
+Given /^API経由でユーザ"([^\"]*)"の表示名を"([^\"]*)"に変更する$/ do |user, display_name|
+  token, secret = @rp_service.backend.tokens(id_url(user))
+  @rp_service.oauth(token, secret).update_user(:display_name => display_name)
+end
+
 Given %r!^ユーザ"([^\"]*)"のOAuth AccessTokenで"([^\"]*)"を取得する$! do |user, resouce|
   path = RESOURCE_TO_PATH[resouce]
 
