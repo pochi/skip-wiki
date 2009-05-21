@@ -4,6 +4,9 @@ div#content .admin-header .user-bar div#admin_title {
   margin-bottom: 2px;
   float: left; }
 
+body li{
+  margin-left: 30px;}
+
 body h3{
   margin: 0.5em 0px !important;}
 
