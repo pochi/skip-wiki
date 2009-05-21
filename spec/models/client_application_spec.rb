@@ -72,6 +72,13 @@ describe ClientApplication do #, :shared => true do
       @application.should be_granted_by_service_contract
     end
 
+    describe "naming validation" do
+      subject do
+        ClientApplication.create :name => "SKIP", :url => "http://agree2.com"
+      end
+      it{ should have(1).errors_on(:name) }
+    end
+
     describe ".publish_access_token" do
       subject { User.create(:name => "alice", :display_name => "alice"){|u| u.identity_url = "---" } }
 

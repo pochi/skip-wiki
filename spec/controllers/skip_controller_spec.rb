@@ -11,7 +11,7 @@ describe SkipController do
               :url => "http://skip.example.com",
             }
     end
-    it { response.should be_success }
+    it("response should be success"){ response.should be_success }
 
     describe "created client_application" do
       subject { assigns[:client_application] }
@@ -29,6 +29,17 @@ describe SkipController do
       it { subject["id"].should == assigns[:client_application].id }
       it { subject["key"].should_not be_blank }
       it { subject["secret"].should_not be_blank }
+    end
+
+    describe "登録後に再度アクセスされた場合" do
+      before do
+        controller.should_receive(:check_secret_key).and_return true
+        @exist = ClientApplication.find_by_name("SKIP")
+        post :create, :format => "js", :skip => {
+                :url => "http://skip.example.com",
+              }
+      end
+      it("response should be Conflict"){ response.message.should == "Conflict"  }
     end
   end
 end
