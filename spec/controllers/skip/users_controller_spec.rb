@@ -11,25 +11,42 @@ describe Skip::UsersController do
 
   describe "POST :create (success)" do
     before do
-      controller.should_receive(:check_secret_key).and_return true
+      controller.should_receive(:check_secret_key).at_least(1).times.and_return true
       post :create, :format => "js",
         :user => {
           :name => "alice",
           :display_name => "アリス",
           :identity_url => "http://op.example.com/u/alice",
+          :admin => "false",
         }
     end
 
     it("response should be success") { response.should be_success }
 
     describe "assigned user" do
-      it{ assigns[:user].should have_authorized_access_token_for(@client) }
+      subject{ assigns[:user] }
+      it{ should have_authorized_access_token_for(@client) }
+      it{ should_not be_admin }
     end
 
     describe "response" do
       subject{ JSON.parse(response.body)["user"] }
       it{ subject["access_token"].should_not be_blank }
       it{ subject["access_secret"].should_not be_blank }
+    end
+
+    describe "admin flag" do
+      before do
+        post :create, :format => "js",
+          :user => {
+            :name => "bob",
+            :display_name => "ぼぶさん",
+            :identity_url => "http://op.example.com/u/alice",
+            :admin => true
+          }
+      end
+      it("response should be success") { response.should be_success }
+      it{ assigns[:user].should be_admin }
     end
   end
 
