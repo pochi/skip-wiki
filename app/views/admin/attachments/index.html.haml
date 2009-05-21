@@ -9,17 +9,19 @@
     - else
       %table.skipwiki.notes-index
         %tr
+          %th.note_name= _("Note|Display name")        
           %th.name= _("Attachment|Display name")        
           %th.size= _("Attachment|Size")        
-          %th.date= _("Attachment|Date")        
+          %th.date= _("Attachment|Updated at")        
           %th.download= _("Download")        
           %th.delete= _("Delete")        
         - @attachments.each do |at|
           %tr
+            %td&= at.attachable.display_name
             %td&= at.display_name
             %td&= number_to_human_size(at.size)
             %td&= at.updated_at.strftime("%Y/%m/%d %H:%M")
             %td= link_to _("Download"), @note ? admin_note_attachment_path(@note, at) : admin_attachment_path(at)
-          %td= link_to _("Delete"), (@note ? admin_note_attachment_path(@note, at) : admin_attachment_path(at)), :confirm => _("Are you sure?"), :method => :delete
+            %td= link_to _("Delete"), (@note ? admin_note_attachment_path(@note, at) : admin_attachment_path(at)), :confirm => _("Are you sure?"), :method => :delete
       = will_paginate(@attachments)
 

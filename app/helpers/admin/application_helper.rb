@@ -29,12 +29,26 @@ module Admin::ApplicationHelper
 
 
   def child_menu
-    unless @note or @page
+    if need_child_menu?
+      menu = @page ? page_child_menu : note_child_menu
+      generate_topics_str(menu, " | ")
+    else 
       return nil
     end
+  end
 
-    menu = @page ? page_child_menu : note_child_menu
-    generate_topics_str(menu, " | ")
+  def need_child_menu?
+    if @note or @page
+      if @pages
+        return false
+      elsif @attachments
+        return false
+      else
+        return true
+      end
+    else
+      return false
+    end
   end
 
   def search_target_path
