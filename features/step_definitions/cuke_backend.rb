@@ -3,6 +3,7 @@ module OAuthCucumber
     def initialize(session)
       @session = session
     end
+
     def post_via_webservice_util(url, data)
       url = url.is_a?(URI) ? url : URI(url)
       header = {
@@ -22,6 +23,7 @@ module OAuthCucumber
 
       @session.visit url.path
     end
+
     def post_via_oauth(url, data, token)
       request_api_via_oauth(:post, url, data, token)
     end

@@ -1,5 +1,4 @@
-$: << 'features/step_definitions/integration/lib'
-require 'features/step_definitions/integration/lib/skip_rp'
+require 'skip_rp/service'
 require 'features/step_definitions/cuke_backend'
 
 RESOURCE_TO_PATH = {
