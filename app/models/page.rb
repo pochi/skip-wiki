@@ -1,6 +1,7 @@
 class Page < ActiveRecord::Base
   extend NamedIdValidation
   include LogicalDestroyable
+
   CRLF = /\r?\n/
   FRONTPAGE_NAME = "FrontPage"
 
@@ -20,6 +21,7 @@ class Page < ActiveRecord::Base
 
   validates_inclusion_of :format_type, :in => %w[hiki html]
 
+  named_scope :active, {:conditions => {:deleted => false}}
   validate_on_update :frontpage_cant_rename
   validate_on_update :published_page_cant_rename
   before_destroy :frontpage_cant_destroy
@@ -45,6 +47,7 @@ class Page < ActiveRecord::Base
   }
 
   named_scope :admin, proc{|*note_id|
+    return {} if note_id[0].nil?    
     {:conditions => ["#{quoted_table_name}.note_id IN (?)", note_id]}
   }
 

@@ -8,19 +8,19 @@ class Admin::NotesController < Admin::ApplicationController
   end
 
   def show
-    @note = Note.find(params[:id])
+    @note = Note.find_by_name(params[:id])
   end
 
   def edit
-    @note = Note.find(params[:id])    
+    @note = Note.find_by_name(params[:id])    
   end
 
   # PUT /admin/notes/1
   def update
-    @note = Note.find(params[:id])
+    @note = Note.find_by_name(params[:id])
     if @note.update_attributes(params[:note])
       flash[:notice] = _('Note was successfully updated.')
-      redirect_to admin_note_path(params[:id])
+      redirect_to edit_admin_note_path(params[:id])
     else
       flash[:error] = _('validation error')
       redirect_to :action => 'edit'
@@ -28,9 +28,8 @@ class Admin::NotesController < Admin::ApplicationController
   end
 
   def destroy
-    # TODO 現在ノートのみ物理削除
     begin
-      @note = Note.find(params[:id])
+      @note = Note.find_by_name(params[:id])
       @note.destroy
       flash[:notice] = _("Note was deleted successfully")
       redirect_to admin_notes_url
