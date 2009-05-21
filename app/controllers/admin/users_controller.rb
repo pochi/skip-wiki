@@ -4,13 +4,13 @@ class Admin::UsersController < Admin::ApplicationController
   # GET /admin
   def index
     @users = User.fulltext(params[:keyword])
-    @topics = ["ユーザ一覧"]
+    @topics = [_("User|Index")]
   end
 
   # GET /admin/user/:id/edit
   def edit
     @user = User.find(params[:id])
-    @topics = [["ユーザ一覧", admin_users_path],
+    @topics = [[_("User|Index"), admin_users_path],
                 "#{@user.name}さん"]
   end
 

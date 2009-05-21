@@ -3,7 +3,7 @@ class Admin::AttachmentsController < Admin::ApplicationController
 
   def index
     @attachments = Attachment.find(collect_ids).paginate(paginate_option(Attachment))
-    @topics = ["ファイル一覧"]
+    @topics = [_("Attachment|Index")]
   end
 
   def show

@@ -31,6 +31,9 @@ msgstr "ページ削除に失敗しました"
 msgid "Page was recovered successfully"
 msgstr "ページを復旧しました。"
 
+msgid "edit property"
+msgstr "プロパティを編集"
+
 msgid "Page was successfully updated."
 msgstr "ノート「%{note}」を作成しました。"
 
@@ -338,21 +341,6 @@ msgstr ""
 
 msgid "LabelIndexing|Page order"
 msgstr "ラベル識別子"
-
-msgid "label index"
-msgstr "ラベル"
-
-msgid "LabelIndex|Display name"
-msgstr "ラベル名"
-
-msgid "LabelIndex|Color"
-msgstr "ラベル色"
-
-msgid "LabelIndex|Note"
-msgstr "ノート"
-
-msgid "LabelIndex|Default label"
-msgstr "標準のラベル"
 
 msgid "No Labels"
 msgstr "ラベルなし"

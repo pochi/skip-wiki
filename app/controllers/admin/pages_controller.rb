@@ -9,22 +9,22 @@ class Admin::PagesController < Admin::ApplicationController
                   authored(*safe_split(params[:authors])).                  
                   scoped(page_order_white_list(params[:order])).
                   paginate(paginate_option(Page))
-    @topics = ["ページ一覧"]
+    @topics = [_("note pages")]
   end
 
   def show
     @note = requested_note
     @page = Page.find_by_name(params[:id])
-    @topics = [["ページ一覧", admin_pages_path],
+    @topics = [[_("note pages"), admin_pages_path],
                "#{@page.display_name}"]
   end
 
   def edit
     @note = requested_note    
     @page = Page.find_by_name(params[:id])
-    @topics = [["ページ一覧", admin_pages_path],
+    @topics = [[_("note pages"), admin_pages_path],
                ["#{@page.display_name}", admin_note_page_path(@note, @page)],
-                "プロパティ編集"]
+                _("edit property")]
   end
 
   def update

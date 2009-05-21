@@ -31,6 +31,9 @@ msgstr ""
 msgid "Page was recovered successfully"
 msgstr ""
 
+msgid "edit property"
+msgstr ""
+
 msgid "Page was successfully updated."
 msgstr ""
 
@@ -315,6 +318,21 @@ msgstr ""
 msgid "published page can't be renamed."
 msgstr ""
 
+msgid "label index"
+msgstr ""
+
+msgid "LabelIndex|Display name"
+msgstr ""
+
+msgid "LabelIndex|Color"
+msgstr ""
+
+msgid "LabelIndex|Note"
+msgstr ""
+
+msgid "LabelIndex|Default label"
+msgstr ""
+
 msgid "label indexing"
 msgstr ""
 
@@ -331,21 +349,6 @@ msgid "LabelIndexing|Updated at"
 msgstr ""
 
 msgid "LabelIndexing|Page order"
-msgstr ""
-
-msgid "label index"
-msgstr ""
-
-msgid "LabelIndex|Display name"
-msgstr ""
-
-msgid "LabelIndex|Color"
-msgstr ""
-
-msgid "LabelIndex|Note"
-msgstr ""
-
-msgid "LabelIndex|Default label"
 msgstr ""
 
 msgid "No Labels"

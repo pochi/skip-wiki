@@ -3,9 +3,9 @@ class Admin::LabelIndicesController < Admin::ApplicationController
 
   def index
     requested_note
-    @topics = [["ノート一覧", admin_notes_path],
+    @topics = [[_("User|Notes"), admin_notes_path],
                ["#{@note.display_name}", edit_admin_note_path(@note)],
-                "ラベル一覧"]    
+                _("Label|Index")]    
   end
 
   def show

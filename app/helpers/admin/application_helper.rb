@@ -15,16 +15,16 @@ module Admin::ApplicationHelper
   end
 
   def note_child_menu
-    [["ユーザ一覧", admin_group_path(@note.owner_group)],
-     ["ラベル一覧", admin_note_label_indices_path(@note)],
-     ["ページ一覧", admin_note_pages_path(@note)],
-     ["ファイル一覧", admin_note_attachments_path(@note)]]
+    [[_("GroupUsers"), admin_group_path(@note.owner_group)],
+     [_("Label|Index"), admin_note_label_indices_path(@note)],
+     [_("note pages"), admin_note_pages_path(@note)],
+     [_("Attachment|Index"), admin_note_attachments_path(@note)]]
   end
 
   def page_child_menu
-    [["プロパティ編集", edit_admin_note_page_path(@note, @page)],
-     ["編集", new_admin_note_page_history_path(@note, @page)],
-     ["削除", {:controller=>'admin/pages',:action=>'destroy',:note_id=>@note,:id=>@page }]]
+    [[_("edit property"), edit_admin_note_page_path(@note, @page)],
+     [_("Edit"), new_admin_note_page_history_path(@note, @page)],
+     [_("Delete"), {:controller=>'admin/pages',:action=>'destroy',:note_id=>@note,:id=>@page }]]
   end
 
 

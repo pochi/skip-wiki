@@ -1,4 +1,3 @@
-<<<<<<< HEAD:app/views/shared/_common_body_header.html.haml
 #header
   #global_top
     #application_link
@@ -17,22 +16,3 @@
   .banner
   - if SkipEmbedded::InitialSettings["skip_collaboration"]["fulltext_search"]
     = render(:partial => "shared/skip_full_text_search_form")
-=======
-#logo{:style=>"align: top; margin: 3px 0 0 5px;"}
-  %h1{:style=>"display:none"}= link_to 'SKIP Wiki', root_path
-  = link_to image_tag("logo.gif", :alt=>"SKIP Wiki - Logo"), root_path
-
-#menu
-  - if logged_in?
-    .item{:style=>"color:block"}&= _("Login ID: %{name}") % {:name => current_user.name }
-    .item= link_to _("Set up"), admin_root_path if current_user.admin?
-    .item= link_to(_("Edit profile"), user_path(current_user))
-    .item= link_to _("Logout"), logout_path
-  - else
-    .item= link_to _("Login"), login_path
-
-  <br style="clear: left;" />
-
-- if SkipEmbedded::InitialSettings["skip_collaboration"]["fulltext_search"]
-  = render(:partial => "shared/skip_full_text_search_form")
->>>>>>> [5/8]倉貫さんのレビューを受けて以下を修正。:app/views/shared/_common_body_header.html.haml
