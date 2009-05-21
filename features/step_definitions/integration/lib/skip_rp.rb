@@ -17,9 +17,10 @@ module SkipRp
     end
     module_function :user_data, :group_data
   end
+
   class Service
     cattr_accessor :connection
-    cattr_accessor :backend
+    attr_accessor :backend
 
     class Mapper
       def initialize(site)

@@ -11,10 +11,10 @@ def id_url(name)
 end
 
 Given /SKIPをOAuth Consumerとして登録する/ do
-  SkipRp::Service.backend = OAuthCucumber::Backend.new
   SkipRp::Service.connection = OAuthCucumber::Connection.new(self)
 
   @rp_service = SkipRp::Service.register!("wiki",  "http://#{self.host}", :url => "http://skips.example.com/")
+  @rp_service.backend = OAuthCucumber::Backend.new
 end
 
 Given /^SKIPユーザとして"([^\"]*)"を登録する$/ do |user|
