@@ -19,8 +19,8 @@ class Skip::UsersController < Skip::ApplicationController
     respond_to do |f|
       f.js{ render :json => {:user => api_response(@user, token)}.to_json }
     end
-  rescue ActiveRecord::RecordNotFound => why
-    rendeor_validation_error(current_user)
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => why
+    rendeor_validation_error(why.record)
   end
 
   def update
