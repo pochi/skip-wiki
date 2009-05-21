@@ -25,7 +25,9 @@ class Skip::UsersController < Skip::ApplicationController
 
   def update
     current_user.attributes = params[:user]
-    current_user.identity_url = params[:user][:identity_url]
+    if params[:user][:identity_url]
+      current_user.identity_url = params[:user][:identity_url]
+    end
 
     if current_user.save
       respond_to do |f|
