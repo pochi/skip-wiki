@@ -7,6 +7,7 @@ describe Skip::UsersController do
                                        :url => "http://skip.example.com",
                                        :callback_url => "http://skip.example.com/oauth_callback")
     @client.grant_as_family!
+    @client.save!
   end
 
   describe "POST :create (success)" do
