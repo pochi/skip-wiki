@@ -10,9 +10,9 @@ def id_url(name)
 end
 
 Given /SKIPをOAuth Consumerとして登録する/ do
-  SkipRp::Service.connection = OAuthCucumber::Connection.new(self)
+  conn = OAuthCucumber::Connection.new(self)
 
-  @rp_service = SkipRp::Service.register!("wiki",  "http://#{self.host}", :url => "http://skips.example.com/")
+  @rp_service = SkipRp::Service.register!("wiki",  "http://#{self.host}", {:url => "http://skips.example.com/"}, conn)
   @rp_service.backend = OAuthCucumber::Backend.new
 end
 
