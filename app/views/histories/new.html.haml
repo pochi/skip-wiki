@@ -5,7 +5,6 @@
 =javascript_include_tag("iframe_upload")
 - div_for(@page) do
   #linkPalette{:style=>"display:none"}= render :partial => 'histories/link_palette'
-  .desc&= _("Edit page name|Description")
   %h1&= _("edit content")
   - form_for(:history, @history, :url=>note_page_histories_path(current_note, @page)) do |f|
     %h2

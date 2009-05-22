@@ -22,9 +22,9 @@
           - if current_user.page_editable?(current_note)
             #page-menu
               %ul.float
-                %li.link= link_to(_("View"), note_page_path(current_note, @page))
-                %li.link= link_to(_("Edit"), new_note_page_history_path(current_note, @page))
-                %li.link= link_to(_("History"), note_page_histories_path(current_note, @page))
+                %li.link= link_to_unless_current(_("View"), [current_note, @page])
+                %li.link= link_to_unless_current(_("Edit"), new_note_page_history_path(current_note, @page))
+                %li.link= link_to_unless_current(_("History"), note_page_histories_path(current_note, @page))
                 %li
                   -form_tag(note_page_path(current_note, @page), :method => "delete") do
                     = submit_tag _("Page|Deleted") % {:entity => _("page")}, :confirm => _("Really delete?")
@@ -49,7 +49,9 @@
 
             %h1.page-name
               .show
-                %span.title.ipe-trigger{:title=>_("Click to edit")}&= @page.display_name
+                %span.title&= @page.display_name
+                - if current_user.page_editable?(current_note)
+                  %span.ipe-trigger.operation=_("Page Name|Edit")
               - if current_user.page_editable?(current_note)
                 .edit{:style=>"display:none"}
                   - form_for([current_note, @page]) do |f|
@@ -59,12 +61,6 @@
                     %span.operation.ipe-cancel&= _("Cancel")
                 :javascript
                   $(function(){
-                    $("div.page-header span.operation.show-label-navi").hide().click(function(){
-                      $("#content div.label-navigation").show()
-                      .siblings(".page-header").addClass("two_pain").end()
-                      .siblings(".page-content").addClass("two_pain");
-                      $(this).hide();
-                    });
                     $("select.#label_change").change(function(){
                       $("form.#page_update > #page_label_index_id").
                       val($("select.#label_change option:selected").val());
@@ -73,7 +69,6 @@
                     $("h1").aresInplaceEditor(jQuery.extend({
                       callback:application.callbacks.pageDisplaynameEditor
                     }, #{page_display_name_ipe_option.to_json}))
-                    $("span.title").addClass("editable");
                   });
           - unless fullscreen_action?
             :javascript
@@ -84,6 +79,12 @@
           .clear
 
           :javascript
+            $("div.page-header span.operation.show-label-navi").hide().click(function(){
+              $("#content div.label-navigation").show()
+              .siblings(".page-header").addClass("two_pain").end()
+              .siblings(".page-content").addClass("two_pain");
+              $(this).hide();
+            });
             $(function(){
               $("div.page-header span.operation.show-label-navi").hide().click(function(){
               $("#content div.label-navigation").show()
