@@ -46,5 +46,10 @@
     かつ    ノート"def"が作成済みである
 
     もし    ユーザ"alice-api"のOAuth AccessTokenで"ノートのRSS"を取得する
-    ならば  2件のアイテムがあること
+    ならば  RSSには2件のアイテムがあること
+    かつ    RSSのタイトルは"Alice-apiのノート"であること
+
+    もし    API経由でユーザ"alice-api"の表示名を"アリスさん"に変更する
+    かつ    ユーザ"alice-api"のOAuth AccessTokenで"ノートのRSS"を取得する
+    ならば  RSSのタイトルは"アリスさんのノート"であること
 
