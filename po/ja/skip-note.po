@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: skip-note 0.1.0\n"
-"POT-Creation-Date: 2009-05-15 18:27+0900\n"
+"POT-Creation-Date: 2009-05-22 11:34+0900\n"
 "PO-Revision-Date: 2008-11-04 16:29+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -950,6 +950,9 @@ msgstr "履歴"
 
 msgid "Contents of r%{rev}"
 msgstr "リビジョン%{rev}の内容"
+
+msgid "Edit page name|Description"
+msgstr "ページ名の編集は、この上にあるページ名をクリックしてください"
 
 msgid "diff to next"
 msgstr "次との差分"
