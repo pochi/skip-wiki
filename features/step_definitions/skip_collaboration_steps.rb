@@ -52,7 +52,7 @@ Given %r!^ユーザ"([^\"]*)"のOAuth AccessTokenで"([^\"]*)"を取得する$! 
   path = RESOURCE_TO_PATH[resouce]
 
   token, secret = @rp_service.backend.tokens(id_url(user))
-  @rp_service.oauth(token, secret).get_resouce(path)
+  @rp_service.oauth(token, secret).get_resource(path)
 end
 
 Then /キーとシークレットが払い出されること/ do

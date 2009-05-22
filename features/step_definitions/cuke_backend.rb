@@ -15,7 +15,7 @@ module OAuthCucumber
       JSON.parse(@session.response.body)
     end
 
-    def get_resouce_via_oauth(url, token, headers = {})
+    def get_resource_via_oauth(url, token, headers = {})
       url = url.is_a?(URI) ? url : URI(url)
 
       headers.each{|k,v| @session.header k,v }
