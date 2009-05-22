@@ -11,7 +11,7 @@ class Admin::UsersController < Admin::ApplicationController
   def edit
     @user = User.find(params[:id])
     @topics = [[_("User|Index"), admin_users_path],
-                "#{@user.name}さん"]
+                "#{@user.display_name}さん"]
   end
 
   # PUT /admin/user/:id

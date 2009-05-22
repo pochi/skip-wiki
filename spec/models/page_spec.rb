@@ -209,6 +209,20 @@ describe Page do
     end
   end
 
+  describe ".admin_fulltext('keyword')" do
+    before do
+      History.should_receive(:find_all_by_head_content).
+        with('keyword').
+        and_return( [@history = mock_model(History, :page_id => "10")] )
+    end
+
+    it ".options.should == {:conditions => ['pages.id IN (?)', @history.page_id]}" do
+      Page.admin_fulltext("keyword").proxy_options.should ==
+        {:conditions => ["#{Page.quoted_table_name}.id IN (?) OR #{Page.quoted_table_name}.display_name LIKE ?", [@history.page_id], '%keyword%']}
+    end  
+  end
+
+
   describe "fulltext()で実際に検索する場合" do
     before do
       @page = Page.new(@valid_attributes)

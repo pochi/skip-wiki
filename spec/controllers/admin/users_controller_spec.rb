@@ -20,11 +20,20 @@ describe Admin::UsersController do
   end
 
   describe "GET /admin/users/1/edit" do
-    it "Userが1件取得できていること" do
+    before do
       User.should_receive(:find).with("7").and_return(mock_user)
+      mock_user.should_receive(:display_name).and_return("hoge")
       get :edit, :id => "7"
+    end
+
+    it "Userが1件取得できていること" do
       assigns(:user).should == mock_user
     end 
+
+    it "ぱんくずリストが設定されていること" do
+      assigns(:topics).class.should == Array
+      assigns(:topics).size.should == 2
+    end
   end
 
   describe "PUT /admin/users/1" do

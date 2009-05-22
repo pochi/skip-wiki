@@ -65,6 +65,7 @@ describe Admin::PagesController do
   describe "GET /admin/notes/our_note/pages/out_note_page_1/edit" do
     it "対象ページが１件取得できること" do
       Page.should_receive(:find_by_name).with("our_note_page_1").and_return(mock_page)
+      mock_page.should_receive(:display_name).and_return("hoge")
       get :edit, :id=>"our_note_page_1", :note_id=>@current_note
       assigns(:page).should == mock_page
     end

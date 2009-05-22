@@ -19,6 +19,7 @@ describe Admin::GroupsController do
     before do
       Group.should_receive(:find).with("7").and_return(mock_group)
       mock_group.should_receive(:owning_note).and_return(mock_note)
+      mock_note.should_receive(:display_name).and_return("hoge")
       get :show, :id=>"7"
     end
 
@@ -28,6 +29,10 @@ describe Admin::GroupsController do
 
     it "グループオーナーであるノートが1件取得できていること" do
       assigns[:note].should == mock_note
+    end
+
+    it "パンくずリストの配列が設定されていること" do
+      assigns[:topics].class.should == Array
     end
   end
 
