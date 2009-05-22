@@ -8,12 +8,9 @@
   <% end -%>
 </div>
 
-<%- javascript_tag do %>
-  jQuery(document).ready(function(){
-    $("#flash_message").flashMessage(
-      <%= [:error, :warn, :notice].inject({}){|r, k| r.update(k => flash[k]) }.reject{|k,v|v.nil?}.to_json %>,
-      "<%= request.relative_url_root %>"
-    );
-  });
-
+<%- content_for :javascript_initializer do %>
+  $("#flash_message").flashMessage(
+    <%= [:error, :warn, :notice].inject({}){|r, k| r.update(k => flash[k]) }.reject{|k,v|v.nil?}.to_json %>,
+    "<%= request.relative_url_root %>"
+  );
 <% end %>
