@@ -5,19 +5,22 @@ class Admin::NotesController < Admin::ApplicationController
   def index
     @notes = Note.fulltext(params[:keyword]).
                   paginate(paginate_option)
-    @topics = [_("User|Notes")]
+    @topics = [_("note")]
+    @search    = [admin_notes_path, _("Search Note")]
   end
 
   def show
     @note = Note.find_by_name(params[:id])
-    @topics = [[_("User|Notes"), admin_notes_path],
-                "#{@note.display_name}"]    
+    @topics = [[_("note"), admin_notes_path],
+                "#{@note.display_name}"]
+    @child  = true
   end
 
   def edit
     @note = Note.find_by_name(params[:id])    
-    @topics = [[_("User|Notes"), admin_notes_path],
+    @topics = [[_("note"), admin_notes_path],
                 "#{@note.display_name}"]    
+    @child  = true
   end
 
   # PUT /admin/notes/1

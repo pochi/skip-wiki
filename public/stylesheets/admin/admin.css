@@ -4,9 +4,6 @@ div#content .admin-header .user-bar div#admin_title {
   margin-bottom: 2px;
   float: left; }
 
-body li{
-  margin-left: 30px;}
-
 body h3{
   margin: 0.5em 0px !important;}
 
@@ -17,7 +14,7 @@ div#content .admin-header .title-bar div#user_menu {
 div#content .admin-menu {
   margin-top: 10px;
   border: solid 1px silver;
-  width: 20%; 
+  width: 15%; 
   margin-left: 30px;
   float: left;}
 div#content .admin-menu-bar {
@@ -40,8 +37,14 @@ div#content .admin-header {
 
 div#content .admin-search-bar {
   height: 30px;
-  border: 1px dotted silver;
-  border-top: 1px dotted silver;  }
+  border-bottom: 1px dotted silver;}
+
+div#content .admin-help-bar {
+  height: 25px;
+  margin-top: 5px;
+  font-size: 14px;
+  border-bottom: 1px dotted silver;}
+
 
 div#content #contents .updated-note {
   margin-top: 100px;

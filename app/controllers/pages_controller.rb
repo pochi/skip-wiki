@@ -108,10 +108,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def render_hiki(content)
-    ActionView::Base.white_list_sanitizer.sanitize(PikiDoc.to_xhtml(content, :level =>2))
-  end
-
   private
   def accessible_pages(include_deleted = false, user = current_user, note = nil)
     if params[:note_id] && note ||= current_note

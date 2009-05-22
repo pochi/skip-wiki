@@ -22,12 +22,19 @@ describe Admin::PagesController do
     @mock_note ||= mock_model(Note, stubs)
   end
 
-  # TODO 絞り込み一覧を追加したためテスト書くのが難しくなった
+  def mock_scope(stubs={})
+    @mock_scope ||= mock_model(ActiveRecord::NamedScope::Scope, stubs)
+  end
+
   describe "GET /notes/our_note/pages" do
-    it "our_noteのページ一覧が全て取得できていること" do
-      pending
-      Page.should_receive(:admin).with(@current_note.id).and_return([mock_page(:attributes= => nil)])
-      get :index, :note_id=>@current_note.name
+    it "ノートとキーワードでScopeされたページ一覧が取得できていること" do
+      controller.should_receive(:paginate_option).with(Page).and_return("hoge")
+
+      Page.should_receive(:admin).with(@current_note.id).and_return(mock_scope)
+      mock_scope.should_receive(:admin_fulltext).with("keyword").and_return(mock_scope)
+      mock_scope.should_receive(:paginate).with('hoge').and_return([mock_page])
+
+      get :index, :note_id=>@current_note.name, :keyword => "keyword"
       assigns(:pages).should == [mock_page]
     end
   end

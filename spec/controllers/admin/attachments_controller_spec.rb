@@ -25,13 +25,14 @@ describe Admin::AttachmentsController do
       before do
         # TODO should_receiveにすると２回呼ばれていると怒られる
         # mock_note.should_receive(:attachments).and_return(mock_attachments)
-        mock_note.stub!(:attachments).and_return(mock_attachments)
-        controller.stub!(:requested_note).and_return(mock_note)
+        ids = mock_attachments.map {|at| at.id}
+        controller.should_receive(:collect_ids).and_return(ids)
+        Attachment.should_receive(:find).with(ids).and_return(mock_attachments)
       end
 
       it "requested_noteにひもづく添付ファイルが取得できていること" do
         get :index
-        assigns(:attachments).should == mock_note.attachments
+        assigns(:attachments).should == mock_attachments
       end
     end
 

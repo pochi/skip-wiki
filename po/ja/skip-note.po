@@ -31,6 +31,9 @@ msgstr "ページ削除に失敗しました"
 msgid "Page was recovered successfully"
 msgstr "ページを復旧しました。"
 
+msgid "Search Page"
+msgstr "ページを検索"
+
 msgid "edit property"
 msgstr "プロパティを編集"
 
@@ -42,6 +45,9 @@ msgstr "バリデーションエラーが発生しました。"
 
 msgid "Failed to delete a page"
 msgstr "ページ削除に失敗しました"
+
+msgid "Search User"
+msgstr "ユーザ検索"
 
 msgid "User was successfully updated."
 msgstr "ログインしました。"
@@ -681,9 +687,6 @@ msgstr "ふつうのノート"
 msgid "SkipGroup note"
 msgstr "SKIPグループ"
 
-msgid "Note|Display name"
-msgstr "ノート名"
-
 msgid "Note|Description"
 msgstr "ノートの説明"
 
@@ -1123,6 +1126,28 @@ msgstr "ログアウト"
 #~ msgid ">"
 #~ msgstr ">"
 
+#~ msgid "Account|Login"
+#~ msgstr "ログイン名"
+
+#~ msgid "Account|Email"
+#~ msgstr "E-Mailアドレス"
+
+#~ msgid "Account|Identity url"
+#~ msgstr "Identity URL"
+
+#~ msgid "Account|Edit"
+#~ msgstr "編集"
+
+#, fuzzy
+#~ msgid "Attachment|Date"
+#~ msgstr "ファイルサイズ"
+
+#~ msgid "Note|Index"
+#~ msgstr "ノート一覧"
+
+#~ msgid "Page|Index"
+#~ msgstr "ページ一覧"
+
 #~ msgid "Attachment was created successfully."
 #~ msgstr "添付ファイルが正常に作成されました。"
 
@@ -1210,9 +1235,6 @@ msgstr "ログアウト"
 
 #~ msgid "Group|Display name"
 #~ msgstr "グループ名"
-
-#~ msgid "note"
-#~ msgstr "ノート"
 
 #~ msgid "Your profile(%{name})"
 #~ msgstr "プロフィール(%{name}さん)"

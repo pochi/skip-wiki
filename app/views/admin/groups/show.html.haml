@@ -3,11 +3,7 @@
   =stylesheet_link_tag "admin/admin"
 
 #contents
-  %h2&= _("Group|Users")
-  - if @group.backend_type == "BuiltinGroup"
-    %p&= _("Users who can access to this note.")
-  - else
-    %p&= _("Users who belongs to this note.")
+  %p&= _("Users who belongs to this note.")
 
   - form_tag(admin_group_memberships_path(@group)) do |f|
     %table.skipwiki.group-users

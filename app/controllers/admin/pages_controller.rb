@@ -1,30 +1,33 @@
 class Admin::PagesController < Admin::ApplicationController
   include PagesModule::PagesUtil
   layout "admin"
+  helper_method :render_hiki
+  hide_action :render_hiki
 
   # GET /admin/notes/a_note/pages  
   def index
     @pages = Page.admin(requested_note ? requested_note.id : nil).
                   admin_fulltext(params[:keyword]).
-                  authored(*safe_split(params[:authors])).                  
-                  scoped(page_order_white_list(params[:order])).
                   paginate(paginate_option(Page))
-    @topics = [_("note pages")]
+    @topics = [_("page")]
+    @search = [admin_pages_path, _("Search Page")]
   end
 
   def show
     @note = requested_note
     @page = Page.find_by_name(params[:id])
-    @topics = [[_("note pages"), admin_pages_path],
+    @topics = [[_("page"), admin_pages_path],
                "#{@page.display_name}"]
+    @child = true
   end
 
   def edit
     @note = requested_note    
     @page = Page.find_by_name(params[:id])
-    @topics = [[_("note pages"), admin_pages_path],
+    @topics = [[_("page"), admin_pages_path],
                ["#{@page.display_name}", admin_note_page_path(@note, @page)],
                 _("edit property")]
+    @child = true
   end
 
   def update

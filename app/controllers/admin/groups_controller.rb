@@ -4,8 +4,9 @@ class Admin::GroupsController < Admin::ApplicationController
   def show 
     @group = Group.find(params[:id])  
     @note = @group.owning_note
-    @topics = [[_("User|Notes"), admin_notes_path],
+    @topics = [[_("note"), admin_notes_path],
                ["#{@note.display_name}", edit_admin_note_path(@note)],
-                _("User|Index")]    
+                _("group users")]    
+    @child = true
   end
 end

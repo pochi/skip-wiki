@@ -7,5 +7,6 @@ class Admin::HistoriesController < Admin::ApplicationController
     @topics = [[_("note pages"), admin_pages_path],
                ["#{@page.display_name}", admin_note_page_path(@note, @page)],
                 _("Edit")]    
+    @child = true
   end
 end

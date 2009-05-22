@@ -1,5 +1,9 @@
 module PagesModule
   module PagesUtil
+    def render_hiki(content)
+      ActionView::Base.white_list_sanitizer.sanitize(PikiDoc.to_xhtml(content, :level =>2))
+    end
+
     private
     def safe_split(str, separator = /\s*,\s*/)
       str.nil? ? [] : str.to_s.split(separator)

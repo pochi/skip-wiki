@@ -31,6 +31,9 @@ msgstr ""
 msgid "Page was recovered successfully"
 msgstr ""
 
+msgid "Search Page"
+msgstr ""
+
 msgid "edit property"
 msgstr ""
 
@@ -41,6 +44,9 @@ msgid "validation error"
 msgstr ""
 
 msgid "Failed to delete a page"
+msgstr ""
+
+msgid "Search User"
 msgstr ""
 
 msgid "User was successfully updated."
@@ -318,21 +324,6 @@ msgstr ""
 msgid "published page can't be renamed."
 msgstr ""
 
-msgid "label index"
-msgstr ""
-
-msgid "LabelIndex|Display name"
-msgstr ""
-
-msgid "LabelIndex|Color"
-msgstr ""
-
-msgid "LabelIndex|Note"
-msgstr ""
-
-msgid "LabelIndex|Default label"
-msgstr ""
-
 msgid "label indexing"
 msgstr ""
 
@@ -349,6 +340,18 @@ msgid "LabelIndexing|Updated at"
 msgstr ""
 
 msgid "LabelIndexing|Page order"
+msgstr ""
+
+msgid "LabelIndex|Display name"
+msgstr ""
+
+msgid "LabelIndex|Color"
+msgstr ""
+
+msgid "LabelIndex|Note"
+msgstr ""
+
+msgid "LabelIndex|Default label"
 msgstr ""
 
 msgid "No Labels"
@@ -612,13 +615,19 @@ msgstr ""
 msgid "The query find no pages."
 msgstr ""
 
-msgid "Group|Users"
+msgid "Category|Display ame"
 msgstr ""
 
-msgid "Users who can access to this note."
+msgid "Category|Discription"
+msgstr ""
+
+msgid "Create"
 msgstr ""
 
 msgid "Users who belongs to this note."
+msgstr ""
+
+msgid "Update"
 msgstr ""
 
 msgid "Show link palette"
@@ -682,9 +691,6 @@ msgid "BuiltinGroup note"
 msgstr ""
 
 msgid "SkipGroup note"
-msgstr ""
-
-msgid "Note|Display name"
 msgstr ""
 
 msgid "Note|Description"
