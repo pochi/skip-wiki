@@ -1,4 +1,5 @@
 class Page < ActiveRecord::Base
+  extend NamedIdValidation
   include LogicalDestroyable
   CRLF = /\r?\n/
   FRONTPAGE_NAME = "FrontPage"
@@ -12,11 +13,11 @@ class Page < ActiveRecord::Base
   has_many :label_indexings
   has_one  :label_index, :through => :label_indexings
 
+  validates_named_id_of  :name
+  validates_uniqueness_of :name, :scope => :note_id
   validates_associated :new_history, :if => :new_history, :on => :create
   validates_presence_of :content, :on => :create
 
-  validates_presence_of :name
-  validates_exclusion_of :name, :in => %w[new edit]
   validates_inclusion_of :format_type, :in => %w[hiki html]
 
   validate_on_update :frontpage_cant_rename

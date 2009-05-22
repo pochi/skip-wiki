@@ -51,13 +51,24 @@ describe User do
   end
 
   describe "User validation" do
-    before do
-      @it = User.new(:name => "", :display_name => "")
-      @it.valid? && flunk("前提条件の間違い")
-    end
+    subject{ User.new(:name => "", :display_name => "") }
+    it{ should have_at_least(1).errors_on(:name) }
+    it{ should have_at_least(1).errors_on(:display_name) }
+    it{ should have_at_least(1).errors_on(:identity_url) }
 
-    it{ @it.should have_at_least(1).errors_on(:name) }
-    it{ @it.should have_at_least(1).errors_on(:display_name) }
+    describe "uniq制約" do
+      subject do
+        User.create!(:name=>"abc", :display_name=>"ABC") do |u|
+          u.identity_url = "http://example.com/abc"
+        end
+
+        User.new(:name=>"abc", :display_name=>"ABC") do |u|
+          u.identity_url = "http://example.com/abc"
+        end
+      end
+      it{ should have_at_least(1).errors_on(:name) }
+      it{ should have_at_least(1).errors_on(:identity_url) }
+    end
   end
 
   describe "#build_note" do

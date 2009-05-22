@@ -42,7 +42,7 @@ describe Skip::UsersController do
           :user => {
             :name => "bob",
             :display_name => "ぼぶさん",
-            :identity_url => "http://op.example.com/u/alice",
+            :identity_url => "http://op.example.com/u/bob",
             :admin => true
           }
       end
