@@ -1,4 +1,3 @@
-require 'skip_rp/service'
 require 'features/step_definitions/cuke_backend'
 
 RESOURCE_TO_PATH = {
@@ -12,7 +11,7 @@ end
 Given /SKIPをOAuth Consumerとして登録する/ do
   conn = OAuthCucumber::Connection.new(self)
 
-  @rp_service = SkipRp::Service.register!("wiki",  "http://#{self.host}", {:url => "http://skips.example.com/"}, conn)
+  @rp_service = SkipEmbedded::RpService::Client.register!("wiki",  "http://#{self.host}", {:url => "http://skips.example.com/"}, conn)
   @rp_service.backend = OAuthCucumber::Backend.new
 end
 
