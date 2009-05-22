@@ -49,8 +49,14 @@
 
             %h1.page-name
               .show
-                %span.title.ipe-trigger&= @page.display_name
+                %span.title.ipe-trigger{:title=>_("Click to edit")}&= @page.display_name
               - if current_user.page_editable?(current_note)
+                .edit{:style=>"display:none"}
+                  - form_for([current_note, @page]) do |f|
+                    = f.text_field :display_name, :id => "ipe-page_display_name", :size => 20
+                    = submit_tag _("Update %{entity}") % {:entity => _("Page|Display name")}
+                    %span.indicator{:style=>"display:none"}= image_tag "skip/indicator.gif"
+                    %span.operation.ipe-cancel&= _("Cancel")
                 :javascript
                   $(function(){
                     $("div.page-header span.operation.show-label-navi").hide().click(function(){
@@ -64,6 +70,10 @@
                       val($("select.#label_change option:selected").val());
                       $("form.#page_update").submit();
                     });
+                    $("h1").aresInplaceEditor(jQuery.extend({
+                      callback:application.callbacks.pageDisplaynameEditor
+                    }, #{page_display_name_ipe_option.to_json}))
+                    $("span.title").addClass("editable");
                   });
           - unless fullscreen_action?
             :javascript
@@ -72,6 +82,15 @@
           - else
             .page-content= yield
           .clear
+
+          :javascript
+            $(function(){
+              $("div.page-header span.operation.show-label-navi").hide().click(function(){
+              $("#content div.label-navigation").show()
+                .siblings(".page-header").addClass("two_pain").end()
+                .siblings(".page-content").addClass("two_pain");
+                $(this).hide();
+            })});
 
     #footer
       = render :partial => 'shared/common_body_footer'

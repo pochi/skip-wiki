@@ -175,6 +175,11 @@ body
       span.title
         :padding-left 4px
         :font-size = !modern_page_font_size + 8px
+      span.title.editable
+        :cursor pointer
+      span.title.editable:hover
+        :background white
+        :border 1px dotted silver
       span.labeled
         :font-size = !small_font_size
         :margin auto 3px
