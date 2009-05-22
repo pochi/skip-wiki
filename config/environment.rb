@@ -26,6 +26,7 @@ Rails::Initializer.run do |config|
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
+  config.gem 'json'
   config.gem 'gettext',  :lib => 'gettext/rails', :version => '1.93.0'
   config.gem 'diff-lcs', :lib => 'diff/lcs'
   config.gem 'oauth'
