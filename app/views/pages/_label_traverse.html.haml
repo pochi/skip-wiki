@@ -2,8 +2,8 @@
 - acordion_opt = {:header => "h3", :active => label_indices.index(@page.label_index), :autoHeight => false}
 .label-navigation
 
-  %h2
-    - if current_note.label_navigation_style == LabelIndex::NAVIGATION_STYLE_TOGGLE
+  - if current_note.label_navigation_style == LabelIndex::NAVIGATION_STYLE_TOGGLE
+    %h2
       %span.operation&= _("[Click to hide]")
   - label_indices.each do |label|
     - pages = current_user.page_editable?(current_note) ? label.pages : label.pages.published

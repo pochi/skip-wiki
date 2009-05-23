@@ -19,10 +19,14 @@ database.ymlを編集し、MySQLを使うよう設定してください
 
  $ cp config/database.yml.sample config/database.yml
 
+!!! initial_settings.ymlをコピーする
+
+ $ cp config/initial_settings.yml.sample config/initial_settings.yml
+
 !!! セットアップタスクを実行する
 DBの作成やマイグレーション、国際化などを行います
 
- $ sudo rake skip_note:setup
+ $ sudo rake skip_wiki:setup
 
 !!! 起動する
 

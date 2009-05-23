@@ -6,6 +6,7 @@ class ClientApplication < ActiveRecord::Base
   has_many :tokens, :class_name => "OauthToken"
   validates_presence_of :name, :url, :key, :secret
   validates_uniqueness_of :name, :key
+  validates_exclusion_of :name, :in => %[SKIP], :unless => :family
   before_validation_on_create :generate_keys
   
   attr_protected :family
@@ -42,7 +43,7 @@ class ClientApplication < ActiveRecord::Base
   end
 
   def grant_as_family!
-    update_attribute(:family, true)
+    self.family = true
   end
   
   def oauth_server
@@ -59,10 +60,9 @@ class ClientApplication < ActiveRecord::Base
 
   def publish_access_token(user)
     raise ArgumentError unless granted_by_service_contract?
-
-    req_token = create_request_token
-    req_token.authorize!(user)
-    req_token.exchange!
+    returning(AccessToken.create(:user => user, :client_application => self)) do |t|
+      user.tokens.target << t
+    end
   end
 
 protected

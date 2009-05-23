@@ -1,54 +1,61 @@
-require 'features/step_definitions/skip_rp'
-
-SkipEmbedded::Collaboration.backend = Class.new do
-  def initialize; @storage = {} ; end
-  def fetch(type, key); @storage[type][key] ; end
-  def store(type, key, value)
-    @storage[type] ||= {}
-    @storage[type].update(key => value)
-  end
-end.new
+require 'features/step_definitions/cuke_backend'
 
 RESOURCE_TO_PATH = {
   "ノートのRSS" => "/notes.rss"
 }.freeze
 
-Given /SKIPをOAuth Consumerとして登録する/ do
-  @skip_rp = SkipEmbedded::Collaboration::SkipRp.new("wiki", "http://#{self.host}") do |uri, body|
-    post uri.path + ".xml", body, {"Content-Type" => "application/xml"}
-    response.body
-  end
+def id_url(name)
+  "http://localhost:3200/user/#{name}"
+end
 
-  @skip_rp.register!(:name => "SKIP", :url => "http://skip.example.com/")
-  SkipEmbedded::Collaboration.backend.fetch(:consumer, "wiki").should_not be_blank
+Given /SKIPをOAuth Consumerとして登録する/ do
+  conn = OAuthCucumber::Connection.new(self)
+
+  @rp_service = SkipEmbedded::RpService::Client.register!("wiki",  "http://#{self.host}", {:url => "http://skips.example.com/"}, conn)
+  @rp_service.backend = OAuthCucumber::Backend.new
 end
 
 Given /^SKIPユーザとして"([^\"]*)"を登録する$/ do |user|
-  @skip_rp.add_user("http://localhost:3200/user/#{user}", user, user.humanize)
+  @rp_service.add_user(id_url(user), user, user.humanize, false)
 end
 
-Given /^SKIPグループとして"([^\"]*)"を含む"([^\"]*)"グループを登録する$/ do |users, group|
-  members = users.split(",").map{|u| {:identity_url => "http://localhost:3200/user/#{u}"}}
-  @skip_rp.add_group("gid:#{group}", group, group.humanize, members)
+Given /^"([^\"]*)"の権限で"([^\"]*)"を含む"([^\"]*)"グループを登録する$/ do |creater, users, group|
+  token, secret = @rp_service.backend.tokens(id_url(creater))
+
+  @rp_service.oauth(token, secret).add_group(
+    group.object_id.to_s,
+    group,
+    group.humanize,
+    users.split(",").map{|u| id_url(u) }
+  )
+end
+
+Given /^SKIPの"([^\"]*)"のユーザ情報を同期する$/ do |names|
+  users = names.split(",").map{|u|
+    ["http://localhost:3200/user/#{u}", u, u.humanize, false]
+  }
+  @rp_service.sync_users(users)
+end
+
+Given /^SKIPの"([^\"]*)"を含む"([^\"]*)"グループ情報を同期する$/ do |users, group|
+  members = users.split(",").map{|u| "http://localhost:3200/user/#{u}"}
+  @rp_service.sync_groups([["#{group.object_id}", group, group.humanize, members]])
+end
+
+Given /^API経由でユーザ"([^\"]*)"の表示名を"([^\"]*)"に変更する$/ do |user, display_name|
+  token, secret = @rp_service.backend.tokens(id_url(user))
+  @rp_service.oauth(token, secret).update_user(:display_name => display_name)
 end
 
 Given %r!^ユーザ"([^\"]*)"のOAuth AccessTokenで"([^\"]*)"を取得する$! do |user, resouce|
   path = RESOURCE_TO_PATH[resouce]
-  identity_url = "http://localhost:3200/user/#{user}"
 
-  consumer = SkipEmbedded::Collaboration.backend.fetch(:consumer, "wiki")
-  oauth_consumer = OAuth::Consumer.new(consumer["key"], consumer["secret"], :site => "http://#{self.host}")
-
-  user = SkipEmbedded::Collaboration.backend.fetch(:user, identity_url)
-  oauth_acc_token = OAuth::AccessToken.new(oauth_consumer, user["access_token"], user["access_secret"])
-
-  header "Authorization", Net::HTTP::Post.new(path).tap{|req| oauth_acc_token.sign!(req) }["Authorization"]
-  visit path
+  token, secret = @rp_service.backend.tokens(id_url(user))
+  @rp_service.oauth(token, secret).get_resource(path)
 end
 
-Then /SKIPが"([^\"]*)"にアクセスするためのキーとシークレットが払い出されること/ do |app|
-  consumer = SkipEmbedded::Collaboration.backend.fetch(:consumer, app)
-  consumer["key"].should_not be_blank
-  consumer["secret"].should_not be_blank
+Then /キーとシークレットが払い出されること/ do
+  @rp_service.key.should_not be_blank
+  @rp_service.secret.should_not be_blank
 end
 

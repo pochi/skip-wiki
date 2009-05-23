@@ -1,4 +1,6 @@
 class Page < ActiveRecord::Base
+  extend NamedIdValidation
+  include LogicalDestroyable
   CRLF = /\r?\n/
   FRONTPAGE_NAME = "FrontPage"
 
@@ -11,18 +13,16 @@ class Page < ActiveRecord::Base
   has_many :label_indexings
   has_one  :label_index, :through => :label_indexings
 
+  validates_named_id_of  :name
+  validates_uniqueness_of :name, :scope => :note_id
   validates_associated :new_history, :if => :new_history, :on => :create
   validates_presence_of :content, :on => :create
 
-  validates_presence_of :name
-  validates_exclusion_of :name, :in => %w[new edit]
   validates_inclusion_of :format_type, :in => %w[hiki html]
 
   validate_on_update :frontpage_cant_rename
   validate_on_update :published_page_cant_rename
   before_destroy :frontpage_cant_destroy
-
-  named_scope :active, {:conditions => {:deleted => false}}
 
   named_scope :recent, proc{|*args|
     {
@@ -137,14 +137,6 @@ SQL
     @new_history = histories.build(:content => Content.new(:data => content),
                                    :user => user,
                                    :revision => revision.succ)
-  end
-
-  def logical_destroy
-    front_page? ? false : update_attribute(:deleted, true)
-  end
-
-  def recover
-    update_attribute(:deleted, false)
   end
 
   def to_param

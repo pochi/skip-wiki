@@ -1,3 +1,4 @@
+@import skip_embedded.sass
 
 !side_width = 200px
 !content_margin = 210px
@@ -10,24 +11,7 @@
 !link_color = #0080DD
 !navigation_width = 150px
 
-body
-  :font-size 13px
-  :font-family Verdana,Arial,sans-serif
-  :width 100%
-  :padding-bottom 1em
-
-  *
-    // :margin auto auto
-
-  div#top
-
-    ul
-      :float right
-      :margin-top auto
-      :margin-bottom auto
-      li
-        :margin auto 5px
-
+*
   h1, h2, h3
     :margin 0.5em 10px
 
@@ -46,15 +30,22 @@ body
     div.note_title
       :font-size 24px
 
-  a
-    :color = !link_color
-    :text-decoration none
-
   #global_navi
     :background-image url(./../images/skip/gradient.png)
 
   select
     :border 1px solid silver
+
+div#top
+  :border-top 1px dashed #ccc
+  :border-bottom 1px solid #ccc
+  ul
+    :float right
+    :margin-top auto
+    :margin-bottom auto
+    li
+      :margin auto 5px
+
 #current-note .note-navi, .page-header .page-navi
   :position absolute
   :left 300px
@@ -78,18 +69,6 @@ body
 
 #note-menu
   :float right
-
-#logo
-  :position absolute
-  :margin 3px 0 0 5px
-  :z-index 1
-  p
-    :margin auto 3px auto 3px
-    :font-size  20px
-  a
-    :font-weight bold
-  img
-    :height 45px
 
 #services
   :float right
@@ -186,7 +165,7 @@ body
         :font-size 12px
 
   .page-header.two_pain
-    :margin-left= !navigation_width
+    :margin-left= !navigation_width+1
 
   #new_page
     :width 100%
@@ -197,7 +176,7 @@ body
     :width 100% !important
     :border 0 none
   .page-content.two_pain
-    :margin-left= !navigation_width
+    :margin-left= !navigation_width+1
     :border-left 1px solid silver
     :border-right 1px solid silver
     :border-bottom 1px solid silver
@@ -333,12 +312,6 @@ body
       :width 10em
       :font-size = !small_font_size
 
-ul.label-badges
-  :list-style none
-  :padding-left 0
-
-  li
-    :margin 3px 3px
 
 span.label_badge
   :border-width 10px 5px 5px 25px
@@ -530,7 +503,9 @@ div.label-navigation
   :background white
   :width= !navigation_width
   :height 100%
-  :border 1px solid silver
+  :border-left 1px solid silver
+  :border-right 1px solid silver
+  :border-bottom 1px solid silver
 
   h2
     :font-size = !small_font_size
@@ -553,6 +528,7 @@ div.label-navigation
       :zoom 1
       ul.pages li
         :margin 5px auto
+        :margin-left 30px
 
 .user-bar
   ul.float
@@ -644,7 +620,6 @@ div.caption
   h3
     :background-color #ccc
     :font-size 10px
-    :background-image url(sprites.png)
     :padding 1px
 
   ul.accessible-notes

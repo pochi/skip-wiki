@@ -4,9 +4,6 @@
   %head= render :partial => 'shared/common_header'
   %body
     #header
-      #logo{:style=>"align: top; margin: 3px 0 0 5px;"}
-        %h1{:style=>"display:none"}= link_to 'SKIP Wiki', root_path
-        = link_to image_tag("logo.gif", :alt=>"SKIP Wiki - Logo"), root_path
       = render :partial => 'shared/common_body_header'
 
     = render :partial=>"shared/flash_message"
@@ -31,4 +28,10 @@
 
     #footer
       = render :partial => 'shared/common_body_footer'
+
+    - if SkipEmbedded::OpFixation.sso_enabled? && skip_url = SkipEmbedded::InitialSettings["skip_collaboration"]["skip_url"]
+      = javascript_include_tag("#{skip_url}services/skip_header.js")
+
+    - javascript_tag do
+      =yield :javascript_initializer
 

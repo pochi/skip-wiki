@@ -96,3 +96,6 @@
     #footer
       = render :partial => 'shared/common_body_footer'
 
+    - javascript_tag do
+      =yield :javascript_initializer
+

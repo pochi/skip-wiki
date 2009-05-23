@@ -6,7 +6,7 @@ describe Note do
     @user = users(:quentin)
     @group = mock_model(Group)
     @valid_attributes = {
-      :name => "value for name",
+      :name => "value_for_name",
       :display_name => "value for display_name",
       :description => "value for description.",
       :publicity => Note::PUBLICITY_MEMBER_ONLY,
@@ -29,6 +29,13 @@ describe Note do
         it{ should_not be_valid }
         it{ should have(1).errors_on(:name) }
       end
+    end
+    describe "uniqueness" do
+      subject do
+        Note.create!(@valid_attributes)
+        Note.new(@valid_attributes)
+      end
+      it{ should have(1).errors_on(:name) }
     end
   end
 

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: skip-note 0.1.0\n"
-"POT-Creation-Date: 2009-05-22 19:02+0900\n"
+"POT-Creation-Date: 2009-05-23 17:57+0900\n"
 "PO-Revision-Date: 2008-11-04 16:29+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -398,36 +398,34 @@ msgid "OauthToken|Updated at"
 msgstr "更新日時"
 
 msgid "client application"
-msgstr ""
+msgstr "連携アプリ(OAuthコンシューマ)"
 
 msgid "ClientApplication|Name"
-msgstr ""
+msgstr "識別子"
 
 msgid "ClientApplication|Url"
-msgstr ""
+msgstr "メインURL"
 
 msgid "ClientApplication|Support url"
-msgstr ""
+msgstr "サポートURL"
 
 msgid "ClientApplication|Callback url"
-msgstr ""
+msgstr "コールバックURL"
 
 msgid "ClientApplication|Key"
-msgstr ""
+msgstr "トークン"
 
 msgid "ClientApplication|Secret"
-msgstr ""
+msgstr "シークレット"
 
 msgid "ClientApplication|User"
 msgstr ""
 
-#, fuzzy
 msgid "ClientApplication|Created at"
-msgstr "カテゴリー作成日"
+msgstr "作成日"
 
-#, fuzzy
 msgid "ClientApplication|Updated at"
-msgstr "カテゴリー更新日"
+msgstr "更新日"
 
 msgid "ClientApplication|Family"
 msgstr ""
@@ -905,12 +903,6 @@ msgstr "サポート"
 msgid "Login ID: %{name}"
 msgstr "ログインID: %{name}"
 
-msgid "Edit profile"
-msgstr "自分の管理"
-
-msgid "Logout"
-msgstr "ログアウト"
-
 msgid "Login"
 msgstr "ログイン"
 
@@ -1124,6 +1116,12 @@ msgstr "更新されたページ"
 
 msgid "more..."
 msgstr "もっと見る..."
+
+msgid "Edit profile"
+msgstr "自分の管理"
+
+msgid "Logout"
+msgstr "ログアウト"
 
 #~ msgid "Edit page name|Description"
 #~ msgstr "ページ名の編集は、この上にあるページ名をクリックしてください"

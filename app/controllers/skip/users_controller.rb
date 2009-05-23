@@ -1,32 +1,61 @@
 class Skip::UsersController < Skip::ApplicationController
+  before_filter :check_secret_key, :only => %w[create sync]
+  before_filter :authenticate_with_oauth, :only => %w[update destroy]
+
+  def sync
+    created, updated, deleted = User.transaction{ User.sync!(skip, params[:users]) }
+    @users = [created, updated].flatten
+    respond_to do |f|
+      res = {:users => @users.map{|u| api_response(u, u.access_token_for(skip)) }}
+      f.js{ render :json => res.to_json }
+    end
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => why
+    record = why.record
+    rendeor_validation_error(record)
+  end
+
   def create
-    # TODO パラメータ化は必要?
-    client = ClientApplication.families.find(:first, :conditions => {:name => "SKIP"})
-    @user, token = create_user_and_token(client, params[:user])
+    @user, token = User.transaction{ User.create_with_token!(skip, params[:user]) }
     respond_to do |f|
-      f.xml{ render :xml => api_response(@user, token).to_xml(:root => "user") }
+      f.js{ render :json => {:user => api_response(@user, token)}.to_json }
     end
-  rescue ActiveRecord::RecordNotFound => why
-    respond_to do |f|
-      f.xml{ render :xml => @user.errors.to_xml }
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => why
+    rendeor_validation_error(why.record)
+  end
+
+  def update
+    current_user.attributes = params[:user]
+    if params[:user][:identity_url]
+      current_user.identity_url = params[:user][:identity_url]
     end
+
+    if current_user.save
+      respond_to do |f|
+        f.js do
+          res = {:user => api_response(current_user, current_user.access_token_for(skip))}
+          render :json => res.to_json
+        end
+      end
+    else
+      rendeor_validation_error(current_user)
+    end
+  end
+
+  def destroy
+    current_user.logical_destroy ?  head(:ok) : head(:bad_request)
   end
 
   private
-
-  def create_user_and_token(client, user_param)
-    user = User.new(user_param){|u| u.identity_url = user_param[:identity_url] }
-    ActiveRecord::Base.transaction do
-      user.save!
-      return [user, client.publish_access_token(user)]
-    end
+  def skip
+    @client ||= ClientApplication.families.find(:first, :conditions => {:name => Skip::ApplicationController::SKIP_NAME})
   end
 
-  def api_response(user, token)
-    return nil unless token
-    returning( user.attributes.slice(:identity_url) ) do |res|
-      res["access_token"] = token.token
-      res["access_secret"] = token.secret
+  def api_response(user, token = nil)
+    returning( user.attributes.slice("identity_url") ) do |res|
+      if token
+        res["access_token"] = token.token
+        res["access_secret"] = token.secret
+      end
     end
   end
 end

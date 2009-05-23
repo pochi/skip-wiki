@@ -72,34 +72,23 @@ describe ClientApplication do #, :shared => true do
       @application.should be_granted_by_service_contract
     end
 
+    describe "naming validation" do
+      subject do
+        ClientApplication.create :name => "SKIP", :url => "http://agree2.com"
+      end
+      it{ should have(1).errors_on(:name) }
+    end
+
     describe ".publish_access_token" do
-      Spec::Matchers.define :have_authorized_access_token_for do |app|
-        description{ "have authorized AccessToken for #{app.to_s}" }
-
-        match do |user|
-          t, = app.tokens.find_all_by_type_and_user_id("AccessToken", user)
-          t.authorized?
-        end
-      end
-
-      Spec::Matchers.define :have_invalidated_request_token_for do |app|
-        description{ "have invalidated RequestToken for #{app.to_s}" }
-
-        match do |user|
-          t, = app.tokens.find_all_by_type_and_user_id("RequestToken", user)
-          t.invalidated?
-        end
-      end
-
       subject { User.create(:name => "alice", :display_name => "alice"){|u| u.identity_url = "---" } }
 
       before do
         @application.publish_access_token(subject)
       end
 
-      it{ should have(2).tokens }
+      it{ should have(1).tokens }
       it{ should have_authorized_access_token_for(@application) }
-      it{ should have_invalidated_request_token_for(@application) }
+      it{ should_not have_invalidated_request_token_for(@application) }
     end
   end
 end

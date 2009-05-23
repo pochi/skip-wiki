@@ -9,6 +9,7 @@ require 'cucumber/rake/task' #I have to add this -mischa
 
 namespace :features do
   Cucumber::Rake::Task.new(:all) do |t|
+    t.fork = true
     t.cucumber_opts = if ENV["FEATURE"]
                         "--format pretty --language ja"
                       else

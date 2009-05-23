@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 # Be sure to include AuthenticatedTestHelper in spec/spec_helper.rb instead.
 # Then, you can remove it from this and the functional test.
-
+#
+ActiveRecord::Base.colorize_logging = false
 describe User do
   fixtures :users
 
@@ -21,14 +22,53 @@ describe User do
     end
   end
 
-  describe "User validation" do
+  context "論理削除" do
     before do
-      @it = User.new(:name => "", :display_name => "")
-      @it.valid? && flunk("前提条件の間違い")
+      @alice = create_user
+      @alice.logical_destroy
     end
 
-    it{ @it.should have_at_least(1).errors_on(:name) }
-    it{ @it.should have_at_least(1).errors_on(:display_name) }
+    it{ User.active.should_not include @alice }
+    describe "から復帰した場合" do
+      before do
+        @alice.recover
+      end
+      it{ User.active.should include @alice }
+    end
+  end
+
+  describe "アプリケーションごとのアクセストークンを取得" do
+    before do
+      @client = ClientApplication.create(:name => "SKIP",
+                                         :url => "http://skip.example.com",
+                                         :callback_url => "http://skip.example.com/oauth_callback")
+      @client.grant_as_family!
+      @alice = create_user
+      @client.publish_access_token(@alice)
+    end
+
+    it{ @alice.access_token_for(@client).should_not be_blank }
+  end
+
+  describe "User validation" do
+    subject{ User.new(:name => "", :display_name => "") }
+    it{ should have_at_least(1).errors_on(:name) }
+    it{ should have_at_least(1).errors_on(:display_name) }
+    it{ should have_at_least(1).errors_on(:identity_url) }
+
+    describe "uniq制約" do
+      subject do
+        User.create!(:name=>"abc", :display_name=>"ABC") do |u|
+          u.identity_url = "http://example.com/abc"
+        end
+
+        User.new(:name=>"abc", :display_name=>"ABC") do |u|
+          u.identity_url = "http://example.com/abc"
+        end
+      end
+      it{ should have_at_least(1).errors_on(:name) }
+      it{ should have_at_least(1).errors_on(:identity_url) }
+    end
   end
 
   describe "#build_note" do
@@ -126,6 +166,103 @@ describe User do
 
     it "(nil)で検索すると3件該当すること" do
       User.fulltext(nil).should have(3).items
+    end
+  end
+
+  context "SKIP連携の一括作成メソッド" do
+    before do
+      @client = ClientApplication.create(:name => "SKIP", :url => "http://skip.example.com")
+      @client.grant_as_family!
+    end
+
+    describe ".create_with_token!" do
+      before do
+        @user, @token = User.create_with_token!(@client, {:name => "alice",
+                                                          :display_name => "アリス",
+                                                          :identity_url => "http://op.example.com/user/alice"})
+        @user.reload; @token.reload
+      end
+
+      describe "で作られたユーザ" do
+        subject{ @user }
+        it{ should_not be_new_record }
+      end
+
+      describe "で作られたアクセストークン" do
+        subject{ @user.access_token_for(@client) }
+
+        it{ should_not be_blank }
+        it{ should == @token }
+      end
+    end
+
+    describe ".sync!" do
+      before do
+        @removes = User.find(:all) # fixture users
+        data = (1..5).map do |x|
+          {:name => "user-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+        end
+        User.sync!(@client, data)
+      end
+      it{ User.should have(5).records }
+
+      it "同期に含まれないユーザは消されていること" do
+        User.should satisfy{
+          @removes.all?{|r| User.find_by_id(r.id).nil? }
+        }
+      end
+
+      it "同期されたすべてのユーザのアクセストークンが生成されていること" do
+        User.should satisfy{
+          User.find(:all).all?{|u| u.access_token_for(@client) }
+        }
+      end
+
+      describe "nameの命名規則を変更し、一部レコードを保持したまま再更新" do
+        before do
+          data = (3..9).map do |x|
+            {:name => "user-no-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+          end
+          @remained_token_attr = User.find_by_name("user-3").access_token_for(@client).attributes
+          @created, @updated, @deleted = User.sync!(@client, data)
+        end
+
+        it{ User.should have(7).records }
+
+        it "既存ユーザの名前が更新されていること" do
+          User.should satisfy{
+            User.find(:all).all?{|u| u.name =~ /\Auser-no-\d\Z/ }
+          }
+        end
+
+        it "保持されているユーザのAccessTokenは変わらないこと" do
+          remained_users_token = User.find_by_name("user-no-3").access_token_for(@client)
+          remained_users_token.attributes.should == @remained_token_attr
+        end
+        it "4人のユーザが作成されていること" do
+          @created.should have(4).items
+        end
+
+        it "3人のユーザが更新されていること" do
+          @updated.should have(3).items
+        end
+
+        it "2人のユーザが更新されていること" do
+          @deleted.should have(2).items
+        end
+      end
+    end
+
+    describe ".sync! のベンチ(100件)" do
+      before do
+        @data = (1..100).map do |x|
+          {:name => "user-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+        end
+      end
+
+      it do
+        lambda{ User.transaction{ User.sync!(@client, @data) } }.should be_completed_within 3.second
+      end
     end
   end
 end

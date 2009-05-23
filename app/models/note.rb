@@ -1,4 +1,5 @@
 class Note < ActiveRecord::Base
+  extend NamedIdValidation
   PUBLICITY_READABLE = 0
   PUBLICITY_WRITABLE = 1
   PUBLICITY_MEMBER_ONLY = 2
@@ -10,10 +11,10 @@ class Note < ActiveRecord::Base
                    N_("Select label navigation style"), N_("Input name"), N_("Input description"),
                    N_("Select list attachments"), N_("Confirm") ].freeze
 
-  validates_presence_of :owner_group, :name, :display_name, :description
+  validates_named_id_of :name
   validates_uniqueness_of :name
+  validates_presence_of :owner_group, :name, :display_name, :description
   validates_inclusion_of :publicity, :in => (PUBLICITY_READABLE..PUBLICITY_MEMBER_ONLY)
-  validates_exclusion_of :name, :in => %w[new edit]
 
   belongs_to :owner_group, :class_name => "Group"
   belongs_to :category

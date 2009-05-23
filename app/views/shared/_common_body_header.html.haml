@@ -1,16 +1,17 @@
-#logo{:style=>"align: top; margin: 3px 0 0 5px;"}
-  %h1{:style=>"display:none"}= link_to 'SKIP Wiki', root_path
-  = link_to image_tag("logo.gif", :alt=>"SKIP Wiki - Logo"), root_path
-
-#menu
-  - if logged_in?
-    .item{:style=>"color:block"}&= _("Login ID: %{name}") % {:name => current_user.name }
-    .item= link_to(_("Edit profile"), user_path(current_user))
-    .item= link_to _("Logout"), logout_path
-  - else
-    .item= link_to _("Login"), login_path
-
-  <br style="clear: left;" />
-
-- if SkipEmbedded::InitialSettings["skip_collaboration"]["fulltext_search"]
-  = render(:partial => "shared/skip_full_text_search_form")
+#header
+  #global_top
+    #application_link
+    #menu
+      - if logged_in?
+        %b{:style=>"color:block"}&= _("Login ID: %{name}") % {:name => current_user.name }
+        = "| #{link_to(_("Edit profile"), user_path(current_user))}"
+        = "| #{link_to(_("Logout"), logout_path)}"
+      - else
+        = link_to _("Login"), login_path
+      <br style="clear: left;" />
+  #logo{:style=>"align: top; margin: 3px 0 0 5px;"}
+    %h1{:style=>"display:none"}= link_to 'SKIP Wiki', root_path
+    = link_to image_tag("logo.gif", :alt=>"SKIP Wiki - Logo"), root_path
+  .banner
+  - if SkipEmbedded::InitialSettings["skip_collaboration"]["fulltext_search"]
+    = render(:partial => "shared/skip_full_text_search_form")

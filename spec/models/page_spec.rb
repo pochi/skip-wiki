@@ -11,7 +11,7 @@ describe Page do
     @valid_attributes = {
       :note_id => "1",
       :last_modied_user_id => "1",
-      :name => "value for name",
+      :name => "value_for_name",
       :display_name => "value for display_name",
       :format_type => "hiki",
       :published => true,
@@ -28,6 +28,16 @@ describe Page do
         it{ should_not be_valid }
         it{ should have(1).errors_on(:name) }
       end
+    end
+
+    describe "uniqueness" do
+      subject do
+        page = Page.new(@valid_attributes)
+        page.edit("content", mock_model(User))
+        page.save!
+        Page.new(@valid_attributes)
+      end
+      it{ should have(1).errors_on(:name) }
     end
   end
 
@@ -245,6 +255,7 @@ describe Page do
       @page.save!
 
       another = Page.new(@valid_attributes)
+      another.name = "page-2"
       another.edit("foobar", users(:aaron))
       another.save!
     end

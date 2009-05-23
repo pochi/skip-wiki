@@ -6,12 +6,10 @@
 
 %title&= [@title, "SKIP Wiki"].compact.join(" - ")
 
-= stylesheet_link_tag 'jquery/smoothness/jquery-ui-1.7.custom'
 = stylesheet_link_tag 'jquery/cupertino/jquery-ui-1.7.1.custom.css'
-= stylesheet_link_tag "application"
 = stylesheet_link_tag 'skip/style'
 = stylesheet_link_tag 'style'
-= stylesheet_link_tag :skip_embedded
+= stylesheet_link_tag "application"
 = stylesheet_link_tag 'round-button'
 
 = javascript_include_tag "jquery-1.3.2.min", "jquery-ui-1.7.custom.min", "jrails"
@@ -25,4 +23,3 @@
     jQuery("input[type=submit]").addClass("input_submit");
     jQuery("input[type=text]").addClass("input_text");
   });
-

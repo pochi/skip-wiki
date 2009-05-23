@@ -4,13 +4,15 @@
 
   背景:
     前提    SKIPをOAuth Consumerとして登録する
-    かつ    SKIPユーザとして"alice-api"を登録する
-    かつ    SKIPユーザとして"bob-api"を登録する
-    かつ    SKIPユーザとして"charls-api"を登録する
-    かつ    SKIPグループとして"alice-api,bob-api"を含む"sample"グループを登録する
+    かつ    SKIPの"alice-api,bob-api,charls-api"のユーザ情報を同期する
+    かつ    SKIPの"alice-api,bob-api"を含む"sample"グループ情報を同期する
+    ならば  キーとシークレットが払い出されること
 
-  シナリオ: SKIPのOAuth Consumer登録
-    ならば  SKIPが"wiki"にアクセスするためのキーとシークレットが払い出されること
+  シナリオ: 個別での登録
+    もし    SKIPユーザとして"david-api"を登録する
+    かつ    SKIPユーザとして"elly-api"を登録する
+    かつ    SKIPユーザとして"george-api"を登録する
+    かつ    "alice-api"の権限で"alice-api,david-api,elly-api"を含む"sample2"グループを登録する
 
   シナリオ: SKIPグループ単位で作ったノートを閲覧できる
     前提    言語は"ja-JP"
@@ -44,5 +46,10 @@
     かつ    ノート"def"が作成済みである
 
     もし    ユーザ"alice-api"のOAuth AccessTokenで"ノートのRSS"を取得する
-    ならば  2件のアイテムがあること
+    ならば  RSSには2件のアイテムがあること
+    かつ    RSSのタイトルは"Alice-apiのノート"であること
+
+    もし    API経由でユーザ"alice-api"の表示名を"アリスさん"に変更する
+    かつ    ユーザ"alice-api"のOAuth AccessTokenで"ノートのRSS"を取得する
+    ならば  RSSのタイトルは"アリスさんのノート"であること
 

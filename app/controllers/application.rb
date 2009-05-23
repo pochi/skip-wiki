@@ -47,6 +47,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_with_session_or_oauth
     if oauthenticate
+      self.current_user = @current_user # oauth plugin assigns '@current_user' but we use '@__current_user__'
       signed_in? ? true : invalid_oauth_response
     else
       authenticate
@@ -55,16 +56,12 @@ class ApplicationController < ActionController::Base
 
   def authenticate_with_oauth
     if oauthenticate
+      self.current_user = @current_user # oauth plugin assigns '@current_user' but we use '@__current_user__'
       return true
     else
       logger.info "failed oauthenticate"
       invalid_oauth_response
     end
-  end
-
-  def current_token=(token)
-    super
-    self.current_user = @current_user # oauth plugin assigns '@current_user' but we use '@__current_user__'
   end
 
   def paginate_option(target = Note)
