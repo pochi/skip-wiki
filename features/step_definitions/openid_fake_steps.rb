@@ -15,7 +15,7 @@ def authenticate_with_fake_open_id_server(ident_url, success = true)
 
     auth_req = Net::HTTP::Post.new(auth_form["action"])
     auth_req["cookie"] = res["set-cookie"]
-    auth_req.body = success ? "yes=yes" : "yes=no"
+    auth_req.body = success ? "yes=yes" : "no=no"
 
     auth_res = h.request(auth_req)
     oid_authorized_query = auth_res["location"]
