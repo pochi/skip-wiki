@@ -35,7 +35,7 @@ module PagesHelper
 
   def render_page_content(page, rev=nil)
     case page.format_type
-    when "hiki" then render_hiki(page.content(rev))
+    when "hiki" then content_tag("div", render_hiki(page.content(rev)), :class => "rich_style")
     when "html" then render_richtext(page.content(rev))
     end
   end

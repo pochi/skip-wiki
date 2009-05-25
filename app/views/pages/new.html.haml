@@ -34,7 +34,7 @@
             %li.hide= link_to(_("Hide preview"), '#', :class => "operation")
             %li.show= link_to(_("Show preview"), '#', :class => "operation")
           .clear
-          .rendered
+          .rendered.rich_style
         = f.text_area(:content, :name => "page[content_hiki]", :id=>"page_content_hiki", :size=>"80x20")
       #html_content
         = f.text_area(:content, :name => "page[content_html]", :id=>"page_content_html", :size=>"80x70")

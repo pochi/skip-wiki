@@ -23,7 +23,7 @@
                 %a.wii_button
                   %span&= _("Hide")
 
-            .rendered
+            .rendered.rich_style
             .clear
           = text_area_tag("history[content]", @page.content, :id=>"history_content", :size=>"80x70")
 
