@@ -26,6 +26,13 @@ class ApplicationController < ActionController::Base
     "application"
   end
 
+  def explicit_user_required
+    self.current_note = current_user.free_or_accessible_notes.find_by_name(params[:id])
+    unless current_user.accessible?(current_note)
+      render_not_found
+    end
+  end
+
   def render_not_found(e = nil)
     e.backtrace.each{|m| logger.debug m } if e
     render :template => "shared/not_found", :status => :not_found, :layout => false

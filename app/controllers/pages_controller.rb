@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   layout :select_layout
   helper_method :render_hiki
   hide_action :render_hiki
+  before_filter :explicit_user_required, :except => %w[index show]
 
   def index
     @pages = accessible_pages(true).fulltext(params[:keyword]).
