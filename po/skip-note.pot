@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: skip-note 0.1.0\n"
-"POT-Creation-Date: 2009-05-23 17:57+0900\n"
+"POT-Creation-Date: 2009-05-27 00:22+0900\n"
 "PO-Revision-Date: 2009-05-23 17:53+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,19 +16,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-msgid "The page %{page} is successfully created"
+msgid "Attachment|Index"
 msgstr ""
 
-msgid "The page %{page} is successfully updated"
+msgid "Attachment was deleted successfully"
 msgstr ""
 
-msgid "Page was deleted successfully"
+msgid "note"
 msgstr ""
 
-msgid "Failed to delete page."
+msgid "group users"
 msgstr ""
 
-msgid "Page was recovered successfully"
+msgid "note pages"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "label index"
+msgstr ""
+
+msgid "Memberships was successfully updated"
+msgstr ""
+
+msgid "Search Note"
+msgstr ""
+
+msgid "Set up"
+msgstr ""
+
+msgid "Edit profile"
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
+msgid "Note was successfully updated."
+msgstr ""
+
+msgid "validation error"
+msgstr ""
+
+msgid "Note was deleted successfully"
+msgstr ""
+
+msgid "Note can't deleted."
+msgstr ""
+
+msgid "page"
 msgstr ""
 
 msgid "Search Page"
@@ -40,10 +76,13 @@ msgstr ""
 msgid "Page was successfully updated."
 msgstr ""
 
-msgid "validation error"
+msgid "Page was deleted successfully"
 msgstr ""
 
 msgid "Failed to delete a page"
+msgstr ""
+
+msgid "user"
 msgstr ""
 
 msgid "Search User"
@@ -52,19 +91,28 @@ msgstr ""
 msgid "User was successfully updated."
 msgstr ""
 
-msgid "Note was successfully updated."
+msgid "Login required."
 msgstr ""
 
-msgid "Note was deleted successfully"
+msgid "Deleted %{name}"
 msgstr ""
 
-msgid "Note can't deleted."
+msgid "Successfully update membership."
 msgstr ""
 
-msgid "Attachment was deleted successfully"
+msgid "Note `%{note}' was successfully created."
 msgstr ""
 
-msgid "Memberships was successfully updated"
+msgid "The page %{page} is successfully created"
+msgstr ""
+
+msgid "The page %{page} is successfully updated"
+msgstr ""
+
+msgid "Failed to delete page."
+msgstr ""
+
+msgid "Page was recovered successfully"
 msgstr ""
 
 msgid "You have been logged out."
@@ -86,16 +134,37 @@ msgid ""
 "Cannot modify user information manually. Logout and login again to update."
 msgstr ""
 
-msgid "Note `%{note}' was successfully created."
+msgid "attachment"
 msgstr ""
 
-msgid "Deleted %{name}"
+msgid "Delete"
 msgstr ""
 
-msgid "Successfully update membership."
+msgid "menu"
 msgstr ""
 
-msgid "Login required."
+msgid "manage users"
+msgstr ""
+
+msgid "Account|Index"
+msgstr ""
+
+msgid "Jump to Note"
+msgstr ""
+
+msgid "Hour"
+msgstr ""
+
+msgid "Min"
+msgstr ""
+
+msgid "Back to %{page}"
+msgstr ""
+
+msgid "manage notes"
+msgstr ""
+
+msgid "manage common files"
 msgstr ""
 
 msgid "NEXT"
@@ -168,40 +237,10 @@ msgstr ""
 msgid "Display always"
 msgstr ""
 
-msgid "menu"
-msgstr ""
-
 msgid "new page"
 msgstr ""
 
 msgid "show note"
-msgstr ""
-
-msgid "Are you sure?"
-msgstr ""
-
-msgid "manage users"
-msgstr ""
-
-msgid "Account|Index"
-msgstr ""
-
-msgid "Jump to Note"
-msgstr ""
-
-msgid "Hour"
-msgstr ""
-
-msgid "Min"
-msgstr ""
-
-msgid "Back to %{page}"
-msgstr ""
-
-msgid "manage notes"
-msgstr ""
-
-msgid "manage common files"
 msgstr ""
 
 msgid "Sending..."
@@ -234,10 +273,109 @@ msgstr ""
 msgid "Delete %{entity}"
 msgstr ""
 
-msgid "page"
+msgid "label change"
 msgstr ""
 
-msgid "label change"
+msgid "Attachment|Attachable"
+msgstr ""
+
+msgid "Attachment|Attachable type"
+msgstr ""
+
+msgid "Attachment|Content type"
+msgstr ""
+
+msgid "Attachment|Filename"
+msgstr ""
+
+msgid "Attachment|Display name"
+msgstr ""
+
+msgid "Attachment|Size"
+msgstr ""
+
+msgid "Attachment|Created at"
+msgstr ""
+
+msgid "Attachment|Updated at"
+msgstr ""
+
+msgid "builtin group"
+msgstr ""
+
+msgid "BuiltinGroup|Owner"
+msgstr ""
+
+msgid "BuiltinGroup|Created at"
+msgstr ""
+
+msgid "BuiltinGroup|Updated at"
+msgstr ""
+
+msgid "category"
+msgstr ""
+
+msgid "Category|Name"
+msgstr ""
+
+msgid "Category|Display name"
+msgstr ""
+
+msgid "Category|Description"
+msgstr ""
+
+msgid "Category|Lang"
+msgstr ""
+
+msgid "Category|Created at"
+msgstr ""
+
+msgid "Category|Updated at"
+msgstr ""
+
+msgid "client application"
+msgstr ""
+
+msgid "ClientApplication|Name"
+msgstr ""
+
+msgid "ClientApplication|Url"
+msgstr ""
+
+msgid "ClientApplication|Support url"
+msgstr ""
+
+msgid "ClientApplication|Callback url"
+msgstr ""
+
+msgid "ClientApplication|Key"
+msgstr ""
+
+msgid "ClientApplication|Secret"
+msgstr ""
+
+msgid "ClientApplication|User"
+msgstr ""
+
+msgid "ClientApplication|Created at"
+msgstr ""
+
+msgid "ClientApplication|Updated at"
+msgstr ""
+
+msgid "ClientApplication|Family"
+msgstr ""
+
+msgid "content"
+msgstr ""
+
+msgid "Content|Data"
+msgstr ""
+
+msgid "Content|Created at"
+msgstr ""
+
+msgid "Content|Updated at"
 msgstr ""
 
 msgid "history"
@@ -264,22 +402,115 @@ msgstr ""
 msgid "History|Description"
 msgstr ""
 
+msgid "LabelIndex|Display name"
+msgstr ""
+
+msgid "LabelIndex|Color"
+msgstr ""
+
+msgid "LabelIndex|Note"
+msgstr ""
+
+msgid "LabelIndex|Default label"
+msgstr ""
+
+msgid "label indexing"
+msgstr ""
+
+msgid "LabelIndexing|Label index"
+msgstr ""
+
+msgid "LabelIndexing|Page"
+msgstr ""
+
+msgid "LabelIndexing|Created at"
+msgstr ""
+
+msgid "LabelIndexing|Updated at"
+msgstr ""
+
+msgid "LabelIndexing|Page order"
+msgstr ""
+
+msgid "No Labels"
+msgstr ""
+
+msgid "Can not delete default label"
+msgstr ""
+
+msgid "Move or delete related pages before delete the label"
+msgstr ""
+
+msgid "Select group"
+msgstr ""
+
+msgid "Select category"
+msgstr ""
+
+msgid "Select publicity"
+msgstr ""
+
+msgid "Select label navigation style"
+msgstr ""
+
+msgid "Input name"
+msgstr ""
+
+msgid "Input description"
+msgstr ""
+
+msgid "Select list attachments"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
 msgid "%{name} group"
 msgstr ""
 
-msgid "skip account"
+msgid "oauth nonce"
 msgstr ""
 
-msgid "SkipAccount|Skip uid"
+msgid "OauthNonce|Nonce"
 msgstr ""
 
-msgid "SkipAccount|User"
+msgid "OauthNonce|Timestamp"
 msgstr ""
 
-msgid "SkipAccount|Created at"
+msgid "OauthNonce|Created at"
 msgstr ""
 
-msgid "SkipAccount|Updated at"
+msgid "OauthNonce|Updated at"
+msgstr ""
+
+msgid "oauth token"
+msgstr ""
+
+msgid "OauthToken|User"
+msgstr ""
+
+msgid "OauthToken|Type"
+msgstr ""
+
+msgid "OauthToken|Client application"
+msgstr ""
+
+msgid "OauthToken|Token"
+msgstr ""
+
+msgid "OauthToken|Secret"
+msgstr ""
+
+msgid "OauthToken|Authorized at"
+msgstr ""
+
+msgid "OauthToken|Invalidated at"
+msgstr ""
+
+msgid "OauthToken|Created at"
+msgstr ""
+
+msgid "OauthToken|Updated at"
 msgstr ""
 
 msgid "Page|Note"
@@ -324,130 +555,19 @@ msgstr ""
 msgid "published page can't be renamed."
 msgstr ""
 
-msgid "label indexing"
+msgid "skip account"
 msgstr ""
 
-msgid "LabelIndexing|Label index"
+msgid "SkipAccount|Skip uid"
 msgstr ""
 
-msgid "LabelIndexing|Page"
+msgid "SkipAccount|User"
 msgstr ""
 
-msgid "LabelIndexing|Created at"
+msgid "SkipAccount|Created at"
 msgstr ""
 
-msgid "LabelIndexing|Updated at"
-msgstr ""
-
-msgid "LabelIndexing|Page order"
-msgstr ""
-
-msgid "LabelIndex|Display name"
-msgstr ""
-
-msgid "LabelIndex|Color"
-msgstr ""
-
-msgid "LabelIndex|Note"
-msgstr ""
-
-msgid "LabelIndex|Default label"
-msgstr ""
-
-msgid "No Labels"
-msgstr ""
-
-msgid "Can not delete default label"
-msgstr ""
-
-msgid "Move or delete related pages before delete the label"
-msgstr ""
-
-msgid "oauth token"
-msgstr ""
-
-msgid "OauthToken|User"
-msgstr ""
-
-msgid "OauthToken|Type"
-msgstr ""
-
-msgid "OauthToken|Client application"
-msgstr ""
-
-msgid "OauthToken|Token"
-msgstr ""
-
-msgid "OauthToken|Secret"
-msgstr ""
-
-msgid "OauthToken|Authorized at"
-msgstr ""
-
-msgid "OauthToken|Invalidated at"
-msgstr ""
-
-msgid "OauthToken|Created at"
-msgstr ""
-
-msgid "OauthToken|Updated at"
-msgstr ""
-
-msgid "client application"
-msgstr ""
-
-msgid "ClientApplication|Name"
-msgstr ""
-
-msgid "ClientApplication|Url"
-msgstr ""
-
-msgid "ClientApplication|Support url"
-msgstr ""
-
-msgid "ClientApplication|Callback url"
-msgstr ""
-
-msgid "ClientApplication|Key"
-msgstr ""
-
-msgid "ClientApplication|Secret"
-msgstr ""
-
-msgid "ClientApplication|User"
-msgstr ""
-
-msgid "ClientApplication|Created at"
-msgstr ""
-
-msgid "ClientApplication|Updated at"
-msgstr ""
-
-msgid "ClientApplication|Family"
-msgstr ""
-
-msgid "Select group"
-msgstr ""
-
-msgid "Select category"
-msgstr ""
-
-msgid "Select publicity"
-msgstr ""
-
-msgid "Select label navigation style"
-msgstr ""
-
-msgid "Input name"
-msgstr ""
-
-msgid "Input description"
-msgstr ""
-
-msgid "Select list attachments"
-msgstr ""
-
-msgid "Confirm"
+msgid "SkipAccount|Updated at"
 msgstr ""
 
 msgid "skip group"
@@ -468,160 +588,22 @@ msgstr ""
 msgid "SkipGroup|Updated at"
 msgstr ""
 
-msgid "oauth nonce"
-msgstr ""
-
-msgid "OauthNonce|Nonce"
-msgstr ""
-
-msgid "OauthNonce|Timestamp"
-msgstr ""
-
-msgid "OauthNonce|Created at"
-msgstr ""
-
-msgid "OauthNonce|Updated at"
-msgstr ""
-
-msgid "category"
-msgstr ""
-
-msgid "Category|Name"
-msgstr ""
-
-msgid "Category|Display name"
-msgstr ""
-
-msgid "Category|Description"
-msgstr ""
-
-msgid "Category|Lang"
-msgstr ""
-
-msgid "Category|Created at"
-msgstr ""
-
-msgid "Category|Updated at"
-msgstr ""
-
-msgid "content"
-msgstr ""
-
-msgid "Content|Data"
-msgstr ""
-
-msgid "Content|Created at"
-msgstr ""
-
-msgid "Content|Updated at"
-msgstr ""
-
-msgid "builtin group"
-msgstr ""
-
-msgid "BuiltinGroup|Owner"
-msgstr ""
-
-msgid "BuiltinGroup|Created at"
-msgstr ""
-
-msgid "BuiltinGroup|Updated at"
-msgstr ""
-
-msgid "attachment"
-msgstr ""
-
-msgid "Attachment|Attachable"
-msgstr ""
-
-msgid "Attachment|Attachable type"
-msgstr ""
-
-msgid "Attachment|Content type"
-msgstr ""
-
-msgid "Attachment|Filename"
-msgstr ""
-
-msgid "Attachment|Display name"
-msgstr ""
-
-msgid "Attachment|Size"
-msgstr ""
-
-msgid "Attachment|Created at"
-msgstr ""
-
-msgid "Attachment|Updated at"
-msgstr ""
-
 msgid "[Click to hide]"
 msgstr ""
 
 msgid "Search"
 msgstr ""
 
-msgid "Attachment|Upload Data"
+msgid "There is no attachments."
 msgstr ""
 
-msgid "Upload"
-msgstr ""
-
-msgid "Attach file(s)"
-msgstr ""
-
-msgid "note attachments"
-msgstr ""
-
-msgid "Attached files"
+msgid "Note|Display name"
 msgstr ""
 
 msgid "Download"
 msgstr ""
 
-msgid "Delete"
-msgstr ""
-
-msgid "Upload failed. Please inquire admin."
-msgstr ""
-
-msgid "Update"
-msgstr ""
-
-msgid "Page|Auther"
-msgstr ""
-
-msgid "Publication"
-msgstr ""
-
-msgid "Copy URL"
-msgstr ""
-
-msgid "Page|Edit"
-msgstr ""
-
-msgid "Page|Delete"
-msgstr ""
-
-msgid "Published"
-msgstr ""
-
-msgid "Not yet"
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "The query find no pages."
-msgstr ""
-
-msgid "Category|Display ame"
-msgstr ""
-
-msgid "Category|Discription"
-msgstr ""
-
-msgid "Create"
+msgid "Are you sure?"
 msgstr ""
 
 msgid "Users who belongs to this note."
@@ -645,21 +627,6 @@ msgstr ""
 msgid "Modified, need to save."
 msgstr ""
 
-msgid "Account|Login"
-msgstr ""
-
-msgid "Account|Email"
-msgstr ""
-
-msgid "Account|Identity url"
-msgstr ""
-
-msgid "User|Name"
-msgstr ""
-
-msgid "Account|Edit"
-msgstr ""
-
 msgid "Click to edit"
 msgstr ""
 
@@ -670,18 +637,6 @@ msgid "add labels"
 msgstr ""
 
 msgid "Create"
-msgstr ""
-
-msgid "User|Display name"
-msgstr ""
-
-msgid "User|Admin"
-msgstr ""
-
-msgid "This user set admin"
-msgstr ""
-
-msgid "User|Edit"
 msgstr ""
 
 msgid "Note|GroupBackendType"
@@ -714,82 +669,109 @@ msgstr ""
 msgid "add groups"
 msgstr ""
 
-msgid "Register a new %{entity}"
+msgid "Page|Auther"
 msgstr ""
 
-msgid "Issued client applications."
+msgid "Publication"
 msgstr ""
 
-msgid "AccessToken|Family"
+msgid "Copy URL"
 msgstr ""
 
-msgid "AccessToken|Authorized at"
+msgid "Page|Edit"
 msgstr ""
 
-msgid "Revoke"
+msgid "Page|Delete"
 msgstr ""
 
-msgid "User added client app"
+msgid "Published"
 msgstr ""
 
-msgid "Granted by service contract"
+msgid "Not yet"
 msgstr ""
 
-msgid "Applications you registerd"
+msgid "The query find no pages."
 msgstr ""
 
-msgid "for Application Developers"
+msgid "User|Name"
 msgstr ""
 
-msgid "show credentials"
+msgid "User|Display name"
 msgstr ""
 
-msgid "Show"
+msgid "User|Admin"
 msgstr ""
 
-msgid "Back"
+msgid "This user set admin"
 msgstr ""
 
-msgid "Registered"
+msgid "User|Edit"
 msgstr ""
 
-msgid "Service explanation"
+msgid "Attachment|Upload Data"
 msgstr ""
 
-msgid "Request Token URL"
+msgid "Upload"
 msgstr ""
 
-msgid "Access Token URL"
+msgid "note attachments"
 msgstr ""
 
-msgid "Authorize URL"
+msgid "Attached files"
 msgstr ""
 
-msgid " We support hmac-sha1 (recommended) as well as plain text in ssl mode."
+msgid "Upload failed. Please inquire admin."
 msgstr ""
 
-msgid "pages index"
+msgid "Attach file(s)"
 msgstr ""
 
-msgid "Apply filter.."
+msgid "Group|Users"
 msgstr ""
 
-msgid "LabelIndices"
-msgstr ""
-
-msgid "close"
-msgstr ""
-
-msgid "New Page"
+msgid "Users who can access to this note."
 msgstr ""
 
 msgid "Link Palette"
 msgstr ""
 
-msgid "Rich text"
+msgid "close"
 msgstr ""
 
-msgid "Wiki text"
+msgid "diff from rev.%{from} to rev.%{to}."
+msgstr ""
+
+msgid "Back to histories"
+msgstr ""
+
+msgid "Show History Contents"
+msgstr ""
+
+msgid "Show History Diffs"
+msgstr ""
+
+msgid "History|Diff"
+msgstr ""
+
+msgid "Contents of r%{rev}"
+msgstr ""
+
+msgid "diff to next"
+msgstr ""
+
+msgid "diff to prev"
+msgstr ""
+
+msgid "show r%{rev}"
+msgstr ""
+
+msgid "Or diff from"
+msgstr ""
+
+msgid "to"
+msgstr ""
+
+msgid "Show diff"
 msgstr ""
 
 msgid "Hide preview"
@@ -798,37 +780,148 @@ msgstr ""
 msgid "Show preview"
 msgstr ""
 
-msgid "Create %{entity}"
-msgstr ""
-
-msgid "Page|Label indices"
-msgstr ""
-
-msgid "edit labels"
-msgstr ""
-
-msgid "Recover %{entity}"
-msgstr ""
-
-msgid "Really recover?"
-msgstr ""
-
 msgid "Update %{entity}"
+msgstr ""
+
+msgid "Back to Hisotries"
+msgstr ""
+
+msgid "Label index for %{note}"
+msgstr ""
+
+msgid "Pages related to %{label}"
+msgstr ""
+
+msgid "Dashboard"
+msgstr ""
+
+msgid "new note"
+msgstr ""
+
+msgid "View"
+msgstr ""
+
+msgid "History"
 msgstr ""
 
 msgid "Really delete?"
 msgstr ""
 
-msgid "Deleted"
+msgid "Page|Unpublished"
 msgstr ""
 
-msgid "%{name}'s accessible pages."
+msgid "Last updated at %{time}"
+msgstr ""
+
+msgid "Show label|Description"
+msgstr ""
+
+msgid "Page Name|Edit"
+msgstr ""
+
+msgid "Updated"
 msgstr ""
 
 msgid "Previous"
 msgstr ""
 
 msgid "Next"
+msgstr ""
+
+msgid "Accessible Note"
+msgstr ""
+
+msgid "User|Notes"
+msgstr ""
+
+msgid "Accessible"
+msgstr ""
+
+msgid "Public writable"
+msgstr ""
+
+msgid "Public readable"
+msgstr ""
+
+msgid "Updated pages"
+msgstr ""
+
+msgid "more..."
+msgstr ""
+
+msgid "Note|LabelNavigationStyle"
+msgstr ""
+
+msgid "Updated notes"
+msgstr ""
+
+msgid "The query find no notes."
+msgstr ""
+
+msgid "Updated page"
+msgstr ""
+
+msgid "Note|Updated at"
+msgstr ""
+
+msgid "No page exists"
+msgstr ""
+
+msgid "個人用ノート"
+msgstr ""
+
+msgid "SKIPグループ"
+msgstr ""
+
+msgid "Office"
+msgstr ""
+
+msgid "SWAT...TCが展開するシステム開発ツールとノウハウに関するノートです"
+msgstr ""
+
+msgid "QMS...生産技術部が展開するQMSに関する資料公開用のノートです"
+msgstr ""
+
+msgid "Business"
+msgstr ""
+
+msgid "SONICチーム情報共有ノート...プロジェクトチーム内の情報共有用ノートです"
+msgstr ""
+
+msgid "Life"
+msgstr ""
+
+msgid "ファシリテーションWG...社内の有志で運営している勉強会グループです"
+msgstr ""
+
+msgid "TC部門内運営ルール...休暇申請など、部門内のルールをまとめたノートです"
+msgstr ""
+
+msgid "Off"
+msgstr ""
+
+msgid ""
+"ハムスターの飼育方法...その名の通り、ハムスターを元気に育てるためのノウハウ集"
+"です"
+msgstr ""
+
+msgid "FFIX...ゲームに関する情報をまとめたノートです"
+msgstr ""
+
+msgid "グループメンバーのみ閲覧/書込できる"
+msgstr ""
+
+msgid "全員が閲覧できる"
+msgstr ""
+
+msgid "そのグループからグループ外に情報を発信したい場合に選びます。"
+msgstr ""
+
+msgid "全員が閲覧/書込できる"
+msgstr ""
+
+msgid ""
+"Wikipediaのようにみんなでコンテンツを作っていくノートにしたい場合に選びます。"
 msgstr ""
 
 msgid "Issued client applications."
@@ -903,10 +996,60 @@ msgstr ""
 msgid "Oldly updated"
 msgstr ""
 
-msgid "Search Note"
+msgid "LabelIndices"
 msgstr ""
 
-msgid "Search User"
+msgid "Page|Label indices"
+msgstr ""
+
+msgid "edit labels"
+msgstr ""
+
+msgid "Deleted"
+msgstr ""
+
+msgid "Recover %{entity}"
+msgstr ""
+
+msgid "Really recover?"
+msgstr ""
+
+msgid "%{name}'s accessible pages."
+msgstr ""
+
+msgid "Apply filter.."
+msgstr ""
+
+msgid "New Page"
+msgstr ""
+
+msgid "Rich text"
+msgstr ""
+
+msgid "Wiki text"
+msgstr ""
+
+msgid "Create %{entity}"
+msgstr ""
+
+msgid "pages index"
+msgstr ""
+
+msgid "Welcome"
+msgstr ""
+
+msgid "Enter Your Open ID URL"
+msgstr ""
+
+msgid "Input your OpenID URL."
+msgstr ""
+
+msgid ""
+"Even if you not have an account on SKIP Wiki, enter OpenID URL and you'll "
+"show signup form."
+msgstr ""
+
+msgid "Login"
 msgstr ""
 
 msgid "About this site"
@@ -918,10 +1061,7 @@ msgstr ""
 msgid "FIXME"
 msgstr ""
 
-msgid "note pages"
-msgstr ""
-
-msgid "404 Not Found"
+msgid "Login ID: %{name}"
 msgstr ""
 
 msgid "SKIP Official Site"
@@ -948,81 +1088,13 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-msgid "Login ID: %{name}"
-msgstr ""
-
-msgid "Login"
-msgstr ""
-
 msgid "Property"
 msgstr ""
 
-msgid "Welcome"
+msgid "Admin menu"
 msgstr ""
 
-msgid "Enter Your Open ID URL"
-msgstr ""
-
-msgid "Input your OpenID URL."
-msgstr ""
-
-msgid ""
-"Even if you not have an account on SKIP Wiki, enter OpenID URL and you'll "
-"show signup form."
-msgstr ""
-
-msgid "diff from rev.%{from} to rev.%{to}."
-msgstr ""
-
-msgid "Back to histories"
-msgstr ""
-
-msgid "Show History Contents"
-msgstr ""
-
-msgid "Show History Diffs"
-msgstr ""
-
-msgid "History|Diff"
-msgstr ""
-
-msgid "Contents of r%{rev}"
-msgstr ""
-
-msgid "diff to next"
-msgstr ""
-
-msgid "diff to prev"
-msgstr ""
-
-msgid "show r%{rev}"
-msgstr ""
-
-msgid "Or diff from"
-msgstr ""
-
-msgid "to"
-msgstr ""
-
-msgid "Show diff"
-msgstr ""
-
-msgid "Back to Hisotries"
-msgstr ""
-
-msgid "Label index for %{note}"
-msgstr ""
-
-msgid "Pages related to %{label}"
-msgstr ""
-
-msgid "Sign up as a new user"
-msgstr ""
-
-msgid "OpenID URL"
-msgstr ""
-
-msgid "Sign up"
+msgid "404 Not Found"
 msgstr ""
 
 msgid "User|Informations"
@@ -1037,137 +1109,11 @@ msgstr ""
 msgid "Edit user information"
 msgstr ""
 
-msgid "User|Informations"
+msgid "OpenID URL"
 msgstr ""
 
-msgid "User|Skip Account"
+msgid "Sign up as a new user"
 msgstr ""
 
-msgid "User|Memberships"
-msgstr ""
-
-msgid "User|Notes"
-msgstr ""
-
-msgid "Dashboard"
-msgstr ""
-
-msgid "Admin menu"
-msgstr ""
-
-msgid "new note"
-msgstr ""
-
-msgid "View"
-msgstr ""
-
-msgid "History"
-msgstr ""
-
-msgid "Page|Unpublished"
-msgstr ""
-
-msgid "Last updated at %{time}"
-msgstr ""
-
-msgid "Show label|Description"
-msgstr ""
-
-msgid "Page Name|Edit"
-msgstr ""
-
-msgid "個人用ノート"
-msgstr ""
-
-msgid "SKIPグループ"
-msgstr ""
-
-msgid "Office"
-msgstr ""
-
-msgid "SWAT...TCが展開するシステム開発ツールとノウハウに関するノートです"
-msgstr ""
-
-msgid "QMS...生産技術部が展開するQMSに関する資料公開用のノートです"
-msgstr ""
-
-msgid "Business"
-msgstr ""
-
-msgid "SONICチーム情報共有ノート...プロジェクトチーム内の情報共有用ノートです"
-msgstr ""
-
-msgid "Life"
-msgstr ""
-
-msgid "ファシリテーションWG...社内の有志で運営している勉強会グループです"
-msgstr ""
-
-msgid "TC部門内運営ルール...休暇申請など、部門内のルールをまとめたノートです"
-msgstr ""
-
-msgid "Off"
-msgstr ""
-
-msgid ""
-"ハムスターの飼育方法...その名の通り、ハムスターを元気に育てるためのノウハウ集"
-"です"
-msgstr ""
-
-msgid "FFIX...ゲームに関する情報をまとめたノートです"
-msgstr ""
-
-msgid "グループメンバーのみ閲覧/書込できる"
-msgstr ""
-
-msgid "全員が閲覧できる"
-msgstr ""
-
-msgid "そのグループからグループ外に情報を発信したい場合に選びます。"
-msgstr ""
-
-msgid "全員が閲覧/書込できる"
-msgstr ""
-
-msgid ""
-"Wikipediaのようにみんなでコンテンツを作っていくノートにしたい場合に選びます。"
-msgstr ""
-
-msgid "Note|LabelNavigationStyle"
-msgstr ""
-
-msgid "Updated"
-msgstr ""
-
-msgid "Updated notes"
-msgstr ""
-
-msgid "The query find no notes."
-msgstr ""
-
-msgid "Updated page"
-msgstr ""
-
-msgid "Note|Updated at"
-msgstr ""
-
-msgid "No page exists"
-msgstr ""
-
-msgid "Accessible Note"
-msgstr ""
-
-msgid "Accessible"
-msgstr ""
-
-msgid "Public writable"
-msgstr ""
-
-msgid "Public readable"
-msgstr ""
-
-msgid "Updated pages"
-msgstr ""
-
-msgid "more..."
+msgid "Sign up"
 msgstr ""
