@@ -1,5 +1,13 @@
 module PagesModule
   module PagesUtil
+    def self.included(base)
+      # baseはクラスがくるのでis_a?()はClassクラスになってしまう
+      if base.ancestors.include?(ActionController::Base)
+        base.helper_method :render_hiki
+        base.hide_action :render_hiki
+      end
+    end
+
     def render_hiki(content)
       ActionView::Base.white_list_sanitizer.sanitize(PikiDoc.to_xhtml(content, :level =>2))
     end

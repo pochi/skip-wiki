@@ -1,6 +1,7 @@
 class HistoriesController < ApplicationController
   layout "pages"
   include IframeUploader
+  include PagesModule::PagesUtil
 
   def index
     @page = history_accessible_pages.find_by_name(params[:page_id])
