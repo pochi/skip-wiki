@@ -243,21 +243,30 @@ describe Page do
     it { @page.should be_new_record }
     it { @page.format_type.should == "html" }
 
-    describe "は削除や識別子の変更ができないこと" do
+    describe "の更新/削除" do
       before do
         @page.edit("content", mock_model(User))
         @page.note = notes(:our_note)
         @page.save!
       end
-
-      it "識別子(name)を変更するとupdateできないこと" do
-        @page.name = "notFrontPage"
-        @page.should_not be_valid
-      end
-
       it "FrontPageは削除できないこと" do
         lambda{ @page.destroy }.should_not change(Page, :count)
       end
+    end
+  end
+
+  describe "は削除や識別子の変更ができないこと" do
+    fixtures :notes
+    before do
+      @page = Page.new(@valid_attributes)
+      @page.edit("content", mock_model(User))
+      @page.note = notes(:our_note)
+      @page.save!
+    end
+
+    it "識別子(name)を変更するとupdateできないこと" do
+      @page.name = "name_changed"
+      @page.should_not be_valid
     end
   end
 

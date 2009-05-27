@@ -22,8 +22,7 @@ class Page < ActiveRecord::Base
   validates_inclusion_of :format_type, :in => %w[hiki html]
 
   named_scope :active, {:conditions => {:deleted => false}}
-  validate_on_update :frontpage_cant_rename
-  validate_on_update :published_page_cant_rename
+  validate_on_update :cant_rename
   before_destroy :frontpage_cant_destroy
 
   named_scope :recent, proc{|*args|
@@ -187,16 +186,9 @@ SQL
     end
   end
 
-  def frontpage_cant_rename
-    if name_changed? && front_page?
-      errors.add :name, _("the name `%{n}' is reserved") % {:n => FRONTPAGE_NAME}
-      return false
-    end
-  end
-
-  def published_page_cant_rename
-    if name_changed? && published?
-      errors.add :name, _("published page can't be renamed.")
+  def cant_rename
+    if name_changed?
+      errors.add :name, _("can't be change, create new one.")
       return false
     end
   end
