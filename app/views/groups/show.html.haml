@@ -12,7 +12,7 @@
         - prefix = "memberships[#{h(user.id)}]"
         %tr{:class=>cycle("odd","even")}
           %td
-            =check_box_tag "#{prefix}[enabled]", "1", @group.users.include?(user), :id=> id_attr
+            =check_box_tag "#{prefix}[enabled]", "1", @group.memberships.any?{|m| m.user_id == user.id }, :id=> id_attr
             =hidden_field_tag "#{prefix}[user_id]", user.id
             =hidden_field_tag "#{prefix}[group_id]", @group.id
           %td
