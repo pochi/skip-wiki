@@ -169,3 +169,6 @@ input.input_text {
 iframe#ie-select-fix {
   border: 0;
   position: absolute; }
+
+#search form.skip_fulltext_search {
+  margin-right: 8px; }
