@@ -23,11 +23,18 @@ Then /^テキストフィールドに"([^\"]*)"と表示されていること$/ 
   response.should have_tag("input[type=text][value=#{text}]")
 end
 
-Then /^"([^\"]*)"というリンクがあること/ do |label|
+Then /^"([^\"]*)"というリンクがあること$/ do |label|
   response.should have_tag("a", label)
 end
 
-Then /^"([^\"]*)"というリンクがないこと/ do |label|
+Then /^"([^\"]*)"というリンクがないこと$/ do |label|
   response.should_not have_tag("a", label)
 end
 
+Then /^"([^\"]*)"というボタンがあること$/ do |label|
+  response.should have_tag("input[type=submit][value=?]", label)
+end
+
+Then /^"([^\"]*)"というボタンがないこと$/ do |label|
+  response.should_not have_tag("input[type=submit][value=?]", label)
+end
