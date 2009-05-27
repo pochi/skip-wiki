@@ -6,9 +6,13 @@ module ApplicationHelper
   def notes_navi_on_header(user, selected="")
     notes = user.free_or_accessible_notes
     head = content_tag("option", _("Jump to Note"), :value=>"")
+
+    categories = Category.find(notes.map(&:category_id).uniq).group_by(&:id)
+
     notes.group_by(&:category_id).inject(head) do |out, (category_id, notes)|
+      category = categories[category_id].first # group_by returns {key => [values]}
       options = notes.inject(""){|r,n| r << content_tag("option", n.display_name, :value=>note_page_url(n, "FrontPage")) }
-      out << content_tag("optgroup", options, :label => Category.find(category_id).display_name)
+      out << content_tag("optgroup", options, :label => category.display_name)
     end
   end
 
