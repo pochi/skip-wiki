@@ -43,6 +43,8 @@ describe PagesController do
 
   describe "POST /notes/hoge/pages [SUCCESS]" do
     before do
+      controller.should_receive(:explicit_user_required).and_return true
+
       page_param = {:name => "page_1", :display_name => "page_1", :format_type => "html", :content => "<p>foobar</p>"}.with_indifferent_access
 
       @current_note.pages.should_receive(:add).
@@ -59,6 +61,8 @@ describe PagesController do
 
   describe "POST /notes/hoge/pages [FAILED]" do
     before do
+      controller.should_receive(:explicit_user_required).and_return true
+
       page_param = {:name => "page_1", :display_name => "page_1", :format_type => "html", :content => "<p>foobar</p>"}.with_indifferent_access
 
       @current_note.pages.should_receive(:add).
@@ -76,6 +80,8 @@ describe PagesController do
   describe "PUT /notes/hoge/pages [SUCCESS]" do
     fixtures :notes
     before do
+      controller.should_receive(:explicit_user_required).and_return true
+
       page_param = {:published => "1", :name => "page_1", :display_name => "page_1", :format_type => "html", :content_html => "<p>foobar</p>"}.with_indifferent_access
       @current_note.label_indices << LabelIndex.no_label
 
@@ -85,7 +91,9 @@ describe PagesController do
     end
 
     it "responseは/notes/our_note/pages/page_01へのリダイレクトであること" do
-      put :update, :note_id => @current_note.name, :id =>@page.to_param, :page => {:name => "page_01"}
+      put :update, :note_id => @current_note.name, :id =>@page.to_param,
+                   :page => {:label_index_id => @current_note.label_indices.last.id}
+
       response.should redirect_to(note_page_path(@current_note, assigns(:page)))
     end
 
@@ -111,6 +119,8 @@ describe PagesController do
   describe "DELETE /notes/hoge/pages/page_1 [FAILURE]" do
     fixtures :notes
     before do
+      controller.should_receive(:explicit_user_required).and_return true
+
       Page.should_receive(:find_by_name).with("page_1").and_return(@page = mock_model(Page))
       @page.should_receive(:logical_destroy).and_return(false)
 
@@ -121,6 +131,9 @@ describe PagesController do
   end
 
   describe "GET /notes/hoge/pages/new" do
+    before do
+      controller.should_receive(:explicit_user_required).and_return true
+    end
     it "作成されるページのは公開に設定されていること" do
       get :new
       assigns(:page).should be_published
