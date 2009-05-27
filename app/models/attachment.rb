@@ -1,6 +1,6 @@
 class Attachment < ActiveRecord::Base
   include ::QuotaValidation
-  include ::ValidationsFile
+  include ::SkipEmbedded::ValidationsFile
 
   quota_each = QuotaValidation.lookup_setting(self,:each)
 
@@ -37,9 +37,10 @@ class Attachment < ActiveRecord::Base
 
   private
   def validate_on_create
-    unless(allowed_extention? && allowed_content_type? && image_ext_for_image_content_type?)
-      errors.add_to_base "この形式のファイルは、アップロードできません。"
-    end
+    adapter = ValidationsFileAdapter.new(self)
+    
+    valid_extension_of_file(adapter)
+    valid_content_type_of_file(adapter)
   end
 
   def allowed_extention?
