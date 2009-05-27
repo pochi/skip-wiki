@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
     "application"
   end
 
+  def msie?(version = 6)
+    !!(request.env["HTTP_USER_AGENT"]["MSIE #{version}"])
+  end
+
   def explicit_user_required
     self.current_note = current_user.free_or_accessible_notes.find_by_name(params[:id])
     unless current_user.accessible?(current_note)

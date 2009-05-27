@@ -21,7 +21,8 @@ class AttachmentsController < ApplicationController
 
   def show
     @attachment = current_note.attachments.find(params[:id])
-    opts = {:filename => @attachment.filename, :type => @attachment.content_type }
+    opts = {:filename => @attachment.display_name, :type => @attachment.content_type }
+    opts[:filename] = URI.encode(@attachment.display_name) if msie?
     opts[:disposition] = "inline" if params[:position] == "inline"
 
     send_file(@attachment.full_filename, opts)
