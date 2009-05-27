@@ -19,23 +19,24 @@
           - unless fullscreen_action?
             =render :partial => 'pages/label_traverse'
 
-          - if current_user.page_editable?(current_note)
+          - if !@page.deleted && current_user.page_editable?(current_note)
             #page-menu
               %ul.float
                 %li.link= link_to_unless_current(_("View"), [current_note, @page])
                 %li.link= link_to_unless_current(_("Edit"), new_note_page_history_path(current_note, @page))
                 %li.link= link_to_unless_current(_("History"), note_page_histories_path(current_note, @page))
-                %li
-                  -form_tag(note_page_path(current_note, @page), :method => "delete") do
-                    = submit_tag _("Page|Deleted") % {:entity => _("page")}, :confirm => _("Really delete?")
-                %li
-                  - form_for([current_note, @page]) do |f|
-                    = hidden_field :page, :published, :value=>(@page.published? ? 0 : 1)
-                    = submit_tag((@page.published? ? _("Page|Unpublished") : _("Page|Published")))
-                %li
-                  = select_tag("label_change", label_navi(current_note))
-                  - form_for([current_note, @page], :html=>{:id=>"page_update"}) do |f|
-                    = hidden_field :page, :label_index_id
+                - if current_user.accessible?(current_note)
+                  %li
+                    -form_tag(note_page_path(current_note, @page), :method => "delete") do
+                      = submit_tag _("Page|Deleted") % {:entity => _("page")}, :confirm => _("Really delete?")
+                  %li
+                    - form_for([current_note, @page]) do |f|
+                      = hidden_field :page, :published, :value=>(@page.published? ? 0 : 1)
+                      = submit_tag((@page.published? ? _("Page|Unpublished") : _("Page|Published")))
+                  %li
+                    = select_tag("label_change", label_navi(current_note))
+                    - form_for([current_note, @page], :html=>{:id=>"page_update"}) do |f|
+                      = hidden_field :page, :label_index_id
               .clear
               .status
                 = @page.published? ? _("Published") : _("Not yet")
@@ -50,9 +51,9 @@
             %h1.page-name
               .show
                 %span.title&= @page.display_name
-                - if current_user.page_editable?(current_note)
+                - if !@page.deleted && current_user.page_editable?(current_note)
                   %span.ipe-trigger.operation=_("Page Name|Edit")
-              - if current_user.page_editable?(current_note)
+              - if !@page.deleted && current_user.page_editable?(current_note)
                 .edit{:style=>"display:none"}
                   - form_for([current_note, @page]) do |f|
                     = f.text_field :display_name, :id => "ipe-page_display_name", :size => 20
