@@ -148,6 +148,10 @@ Given(/トップページを表示している/) do
   visit root_path
 end
 
+Given /ラベルを"([^\"]*)"に変更する/ do |new_label|
+  pending("JSでサブミットしているため手動で確認すること")
+end
+
 Then /^flashメッセージに"([^\"]*)"と表示されていること$/ do |message|
   response.body.should =~ /#{Regexp.escape(message.to_json)}/m
 end
