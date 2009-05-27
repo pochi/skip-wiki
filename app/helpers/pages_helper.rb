@@ -23,14 +23,23 @@ module PagesHelper
   end
 
   def each_with_histories(pages, &block)
-    finder_opt = {
+    history_opt = {
       :include => :user,
       :conditions => ["#{History.quoted_table_name}.page_id IN (?)", pages.map(&:id)],
     }
-    histories = History.heads.find(:all, finder_opt).inject({}) do |r, history|
+    histories = History.heads.find(:all, history_opt).inject({}) do |r, history|
       r.update(history.page_id => history)
     end
-    pages.each{|page| yield page, histories[page.id] }
+
+    label_opt = {:conditions =>{:page_id => pages.map(&:id)}, :include => :label_index}
+    labels = LabelIndexing.find(:all, label_opt ).inject({}) do |r, indexing|
+      r.update(indexing.page_id => indexing.label_index)
+    end
+
+    pages.each do |page|
+      page.set_label_index_target(labels[page.id])
+      yield page, histories[page.id]
+    end
   end
 
   def render_page_content(page, rev=nil)
