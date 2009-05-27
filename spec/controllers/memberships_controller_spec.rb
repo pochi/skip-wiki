@@ -7,18 +7,6 @@ describe MembershipsController do
     controller.should be_an_instance_of(MembershipsController)
   end
 
-  describe "GET /users/alice/memberships" do
-    before do
-      @alice = mock_model(User)
-      @alice.should_receive(:memberships).
-        and_return([mock_model(Membership), mock_model(Membership)])
-      User.should_receive(:find).with("alice").and_return(@alice)
-      get :index, :user_id=>"alice"
-    end
-
-    it { response.should be_success }
-  end
-
   describe "POST /groups/1/memberships" do
     fixtures :users, :groups
 
