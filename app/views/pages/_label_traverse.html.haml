@@ -1,14 +1,16 @@
-- label_indices = current_note.label_indices.has_pages
-- acordion_opt = {:header => "h3", :active => label_indices.index(@page.label_index), :autoHeight => false}
+:ruby
+  labels_and_pages = pages_indexed_by_label(current_note.label_indices,
+                                            current_user.page_editable?(current_note))
+
+  order, = labels_and_pages.enum_with_index.detect{|(l,ps),n| ps.include?(@page) }
+
+  acordion_opt = { :header => "h3", :autoHeight => false, :active => order || 0 }
 .label-navigation
 
   - if current_note.label_navigation_style == LabelIndex::NAVIGATION_STYLE_TOGGLE
     %h2
       %span.operation&= _("[Click to hide]")
-  - label_indices.each do |label|
-    - pages = current_user.page_editable?(current_note) ? label.pages : label.pages.published
-    - pages = pages.active
-    - next if pages.empty?
+  - labels_and_pages.each do |label, pages|
     %div.label{:style=>"background:#{h(label.color)}"}
       %h3= link_to h(label.display_name), note_pages_path(current_note, :label_index_id => label)
       %div

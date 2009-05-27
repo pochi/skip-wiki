@@ -110,4 +110,15 @@ module PagesHelper
                          :style=>"background:%s" % label_index.color)
     end
   end
+
+  def pages_indexed_by_label(labels, inlucde_draft = true)
+    pages = Page.scoped(:conditions => {:note_id => current_note.id}).active
+    pages = pages.published unless inlucde_draft
+
+    loaded = pages.find(:all, :include => :label_index)
+    labels.inject([]) do |r, label|
+      ps = loaded.select{|p| p.label_index == label}
+      ps.empty? ? r : r << [label, ps]
+    end
+  end
 end
