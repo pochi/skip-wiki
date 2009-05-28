@@ -36,14 +36,25 @@ describe SkipGroup do
 
     it{ subject.group.users.should == [@alice, @bob] }
 
+    describe "作成されたグループ" do
+      before do
+        @group = subject.group
+      end
+
+      it("nameが同じであること"){ @group.name.should == subject.name }
+      it("表示名が +(SKIP)であること"){ @group.display_name == subject.display_name + "(SKIP)" }
+    end
+
     context "更新する場合" do
       before do
         @charls = create_user(:name => "charls")
+        subject.group.name = "---broken---"
 
         subject.grant([@alice.identity_url, @charls.identity_url])
       end
 
       it{ subject.group.users.should == [@alice, @charls]}
+      it{ subject.group.name.should == subject.name }
     end
   end
 

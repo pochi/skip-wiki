@@ -10,7 +10,9 @@ class SkipGroup < ActiveRecord::Base
   has_one  :group, :as => "backend", :dependent => :destroy
 
   def grant(idurls_or_users)
-    if self.group.nil?
+    if self.group
+      group.update_attributes(:name => name, :display_name=>display_name + "(SKIP)")
+    else
       create_group(:name=>name, :display_name=>display_name + "(SKIP)")
     end
 
