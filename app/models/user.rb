@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates_named_id_of     :name
   validates_presence_of     :display_name, :identity_url
   validates_uniqueness_of   :name, :identity_url, :unless => :batch_mode
-  validates_length_of       :display_name, :within => 3..256
+  validates_length_of       :display_name, :within => 1..60
 
   has_many :memberships, :dependent => :destroy do
     def replace_by_type(klass, *groups)
