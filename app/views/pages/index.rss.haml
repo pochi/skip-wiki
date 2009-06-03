@@ -1,0 +1,13 @@
+!!! XML
+%rss{:version=>"2.0","xmlns:dc"=>"http://purl.org/dc/elements/1.1/","xmlns:content"=>"http://purl.org/rss/1.0/modules/content/","xml:lang"=>"ja"}
+  %channel
+    %title&= _("%{name}'s accessible pages.") % {:name => current_user.name}
+    %link&= pages_path
+    %description&== aioue
+    %dc:creator&= current_user.name
+    - @pages.each do |page|
+      %item
+        %title&== [NEW] #{page.display_name} on #{page.note.display_name}
+        %link&= note_page_url(page.note, page)
+        %dc:creator&= page.name
+        %pubDate&= page.updated_at.rfc822

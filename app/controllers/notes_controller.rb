@@ -107,10 +107,6 @@ class NotesController < ApplicationController
   end
 
   private
-  def authenticate_with_api_or_login_required
-    params[:user].blank? ? authenticate_with_session_or_oauth : check_secret_key
-  end
-
   def note_to_json(note)
     { :display_name=>note.display_name,
       :link_url=>note_path(note),

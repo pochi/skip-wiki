@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
     return nil if @__current_note == :none
     return @__current_note if @__current_note
 
-    scope = logged_in? ? current_user.free_or_accessible_notes : Note.free
+    scope = logged_in? ? current_user.free_or_eccessible_notes : Note.free
     @__current_note = @note || scope.find_by_name(params[:note_id]) || :none
     current_note
   end
@@ -90,5 +90,9 @@ class ApplicationController < ActionController::Base
       format.html{ render :template => "sessions/new", :layout => "application", :status => :unauthorized }
       format.rss { render :text => "Unauthorized", :status => :unauthorized }
     end
+  end
+
+  def authenticate_with_api_or_login_required
+    params[:user].blank? ? authenticate_with_session_or_oauth : check_secret_key
   end
 end

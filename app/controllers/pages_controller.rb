@@ -3,6 +3,8 @@ class PagesController < ApplicationController
   layout :select_layout
   helper_method :render_hiki
   hide_action :render_hiki
+  before_filter :authenticate, :except => %w[index]
+  before_filter :authenticate_with_api_or_login_required, :only => %w[index]
   before_filter :explicit_user_required, :except => %w[index show]
 
   def index
@@ -19,7 +21,11 @@ class PagesController < ApplicationController
         render(option)
       end
       format.js do
-        render :json => @pages.active.find_by_name(:all, :include => :note).map{|p| {:page=>page_to_json(p)} }
+        render :json => @pages.all(:include => :note).map{ |p| {:page => page_to_json(p)} }
+      end
+      format.rss do
+        @pages = @pages.paginate(paginate_option(Page).merge(:per_page => 20))
+        render :layout => false
       end
     end
   end
@@ -136,6 +142,7 @@ class PagesController < ApplicationController
       json[:path] = note_page_path(page.note, page)
       json[:updated_at] = page.updated_at.strftime("%Y/%m/%d %H:%M")
       json[:created_at] = page.created_at.strftime("%Y/%m/%d %H:%M")
+      json[:note] = page.note.attributes.slice("display_name")
     end
   end
 end
