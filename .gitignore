@@ -13,6 +13,7 @@ config/initial_settings.yml
 *.dump
 
 vendor/gems/*
+assets
 
 # sass generates below
 public/stylesheets/application.css

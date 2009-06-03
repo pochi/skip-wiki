@@ -1,11 +1,10 @@
 class Admin::LabelIndicesController < Admin::ApplicationController
-  layout "admin"
 
   def index
     @note = requested_note
     @topics = [[_("note"), admin_notes_path],
                ["#{@note.display_name}", edit_admin_note_path(@note)],
-                _("label index")]    
+                _("label index")]
     @child = true
   end
 

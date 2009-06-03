@@ -1,17 +1,15 @@
 module Admin::ApplicationHelper
 
-  def generate_topics_str(topics, combine)
-    topics.map do |topic|
-      if topic.is_a?(Array)
-        if topic.size > 1
-          link_to h(topic.shift), topic.shift
-        else
-          h(topic.shift)
-        end
-      else
-        h(topic)
-      end
-    end.join(combine)
+  def generate_topics_str(topics)
+    topics.map do |title, link|
+      link_to_if(link, h(title), link)
+    end.join(" ＞ ")
+  end
+
+  def generate_child_menu_str(menus)
+    menus.map do |title, link|
+      link_to_if(link, h(title), link)
+    end.join(" | ")
   end
 
   def note_child_menu
@@ -30,7 +28,7 @@ module Admin::ApplicationHelper
 
   def child_menu
     menu = @page ? page_child_menu : note_child_menu
-    generate_topics_str(menu, " | ")
+    generate_child_menu_str(menu)
   end
 
 end

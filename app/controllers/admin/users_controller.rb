@@ -1,5 +1,4 @@
 class Admin::UsersController < Admin::ApplicationController
-  layout "admin"
 
   # GET /admin
   def index
@@ -22,7 +21,7 @@ class Admin::UsersController < Admin::ApplicationController
     if @user.update_attributes(params[:user])
       flash[:notice] = _("User was successfully updated.")
       redirect_to admin_root_path
-    else 
+    else
       flash[:error] = _("validation error")
       redirect_to :action => 'edit'
     end

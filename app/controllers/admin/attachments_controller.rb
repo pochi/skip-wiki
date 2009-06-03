@@ -1,14 +1,18 @@
 class Admin::AttachmentsController < Admin::ApplicationController
-  layout "admin"
 
   def index
-    @attachments = Attachment.find(collect_ids).paginate(paginate_option(Attachment))
+    @attachments = (if requested_note
+                      requested_note.attachments
+                    else
+                      Attachment
+                    end).paginate(paginate_option(Attachment))
+
     @topics = [_("Attachment|Index")]
   end
 
   def show
     @attachment = Attachment.find(params[:id])
-    opts = {:filename => @attachment.filename, :type => @attachment.content_type }
+    opts = {:filename => @attachment.display_name, :type => @attachment.content_type }
     opts[:disposition] = "inline" if params[:position] == "inline"
 
     send_file(@attachment.full_filename, opts)
@@ -22,16 +26,6 @@ class Admin::AttachmentsController < Admin::ApplicationController
       redirect_to (requested_note ? admin_note_attachments_url(requested_note) : admin_attachments_url)
     rescue => ex
       flash[:error] = "Failed to delete attachment"
-    end
-  end
-
-public
-  def collect_ids
-    return :all if requested_note.nil?
-    returning([]) do |atcs|
-      requested_note.attachments.each do |attachment|
-        atcs << attachment.id
-      end
     end
   end
 

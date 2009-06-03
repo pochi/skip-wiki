@@ -4,7 +4,7 @@
 
   %head
     = render :partial => 'shared/common_header'
-  
+
   %body
     #header.page-layout
       = render :partial => 'shared/common_body_header'
@@ -26,7 +26,7 @@
         #content
           .admin-menu= render :partial => 'shared/admin/menu'
           .admin-content
-            %h1= generate_topics_str(@topics, " ＞ ")
+            %h1= generate_topics_str(@topics)
 
             .admin-main-content
               - if @search

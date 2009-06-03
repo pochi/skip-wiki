@@ -1,10 +1,7 @@
 class Admin::PagesController < Admin::ApplicationController
   include PagesModule::PagesUtil
-  layout "admin"
-  helper_method :render_hiki
-  hide_action :render_hiki
 
-  # GET /admin/notes/a_note/pages  
+  # GET /admin/notes/a_note/pages
   def index
     @pages = Page.admin(requested_note ? requested_note.id : nil).
                   admin_fulltext(params[:keyword]).
@@ -22,7 +19,7 @@ class Admin::PagesController < Admin::ApplicationController
   end
 
   def edit
-    @note = requested_note    
+    @note = requested_note
     @page = Page.find_by_name(params[:id])
     @topics = [[_("page"), admin_pages_path],
                ["#{@page.display_name}", admin_note_page_path(@note, @page)],
