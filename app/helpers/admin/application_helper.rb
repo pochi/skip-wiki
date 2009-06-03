@@ -25,6 +25,18 @@ module Admin::ApplicationHelper
      [_("Delete"), {:controller=>'admin/pages',:action=>'destroy',:note_id=>@note,:id=>@page }]]
   end
 
+  def need_child_menu?
+    except_conditions = @notes || @pages || @attachments
+    true_conditions =  @note || @page
+
+    if except_conditions
+      return false
+    elsif true_conditions
+      return true
+    else
+      return false
+    end
+  end
 
   def child_menu
     menu = @page ? page_child_menu : note_child_menu

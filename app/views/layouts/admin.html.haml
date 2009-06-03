@@ -31,7 +31,7 @@
             .admin-main-content
               - if @search
                 .admin-search-bar= render :partial => 'shared/admin/search_box', :locals => {:path => @search.shift, :label => @search.shift}
-              - elsif @child
+              - if need_child_menu?
                 .admin-help-bar= child_menu
               = yield
 

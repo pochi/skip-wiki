@@ -6,6 +6,5 @@ class Admin::GroupsController < Admin::ApplicationController
     @topics = [[_("note"), admin_notes_path],
                ["#{@note.display_name}", edit_admin_note_path(@note)],
                 _("group users")]
-    @child = true
   end
 end

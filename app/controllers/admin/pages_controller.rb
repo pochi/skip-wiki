@@ -15,7 +15,6 @@ class Admin::PagesController < Admin::ApplicationController
     @page = Page.find_by_name(params[:id])
     @topics = [[_("page"), admin_pages_path],
                "#{@page.display_name}"]
-    @child = true
   end
 
   def edit
@@ -24,7 +23,6 @@ class Admin::PagesController < Admin::ApplicationController
     @topics = [[_("page"), admin_pages_path],
                ["#{@page.display_name}", admin_note_page_path(@note, @page)],
                 _("edit property")]
-    @child = true
   end
 
   def update

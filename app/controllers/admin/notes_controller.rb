@@ -12,14 +12,12 @@ class Admin::NotesController < Admin::ApplicationController
     @note = Note.find_by_name(params[:id])
     @topics = [[_("note"), admin_notes_path],
                 "#{@note.display_name}"]
-    @child = true
   end
 
   def edit
     @note = Note.find_by_name(params[:id])
     @topics = [[_("note"), admin_notes_path],
                 "#{@note.display_name}"]
-    @child = true
   end
 
   # PUT /admin/notes/1
