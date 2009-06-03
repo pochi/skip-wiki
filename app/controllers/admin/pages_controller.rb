@@ -3,7 +3,8 @@ class Admin::PagesController < Admin::ApplicationController
 
   # GET /admin/notes/a_note/pages
   def index
-    @pages = Page.admin(requested_note ? requested_note.id : nil).
+    @selected_note = requested_note
+    @pages = Page.admin(@selected_note ? @selected_note.id : nil).
                   admin_fulltext(params[:keyword]).
                   paginate(paginate_option(Page))
     @topics = [_("page")]

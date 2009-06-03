@@ -2,6 +2,8 @@
   - form_tag(path, :method=>:get) do
     - val = params[:keyword].blank? ? label : params[:keyword]
     %span{:style=>"vertical-align:middle;"}
+    - if path == admin_pages_path
+      = select_tag(:note_id, options_for_select([_("Search from Note")].push(*Note.find(:all).map {|n| [n.display_name, n.name]}), @selected_note ? @selected_note.name : _("Search from Note")))
     = text_field_tag("keyword", val, :class=>"labeled-field")
     = submit_tag _('Search')
   :javascript

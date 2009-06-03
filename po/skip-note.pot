@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: skip-note 0.1.0\n"
-"POT-Creation-Date: 2009-05-27 00:22+0900\n"
+"POT-Creation-Date: 2009-06-04 01:38+0900\n"
 "PO-Revision-Date: 2009-05-23 17:53+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,15 +41,6 @@ msgid "Memberships was successfully updated"
 msgstr ""
 
 msgid "Search Note"
-msgstr ""
-
-msgid "Set up"
-msgstr ""
-
-msgid "Edit profile"
-msgstr ""
-
-msgid "Logout"
 msgstr ""
 
 msgid "Note was successfully updated."
@@ -402,18 +393,6 @@ msgstr ""
 msgid "History|Description"
 msgstr ""
 
-msgid "LabelIndex|Display name"
-msgstr ""
-
-msgid "LabelIndex|Color"
-msgstr ""
-
-msgid "LabelIndex|Note"
-msgstr ""
-
-msgid "LabelIndex|Default label"
-msgstr ""
-
 msgid "label indexing"
 msgstr ""
 
@@ -430,6 +409,18 @@ msgid "LabelIndexing|Updated at"
 msgstr ""
 
 msgid "LabelIndexing|Page order"
+msgstr ""
+
+msgid "LabelIndex|Display name"
+msgstr ""
+
+msgid "LabelIndex|Color"
+msgstr ""
+
+msgid "LabelIndex|Note"
+msgstr ""
+
+msgid "LabelIndex|Default label"
 msgstr ""
 
 msgid "No Labels"
@@ -549,10 +540,7 @@ msgstr ""
 msgid "FrontPage"
 msgstr ""
 
-msgid "the name `%{n}' is reserved"
-msgstr ""
-
-msgid "published page can't be renamed."
+msgid "can't be change, create new one."
 msgstr ""
 
 msgid "skip account"
@@ -1092,6 +1080,9 @@ msgid "Property"
 msgstr ""
 
 msgid "Admin menu"
+msgstr ""
+
+msgid "Search from Note"
 msgstr ""
 
 msgid "404 Not Found"

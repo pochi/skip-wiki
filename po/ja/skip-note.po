@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: skip-note 0.1.0\n"
-"POT-Creation-Date: 2009-05-27 00:22+0900\n"
+"POT-Creation-Date: 2009-06-04 01:38+0900\n"
 "PO-Revision-Date: 2008-11-04 16:29+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -399,22 +399,6 @@ msgstr "更新日時"
 msgid "History|Description"
 msgstr "編集コメント"
 
-#, fuzzy
-msgid "LabelIndex|Display name"
-msgstr "ページ名"
-
-#, fuzzy
-msgid "LabelIndex|Color"
-msgstr "ラベル識別子"
-
-#, fuzzy
-msgid "LabelIndex|Note"
-msgstr "ラベル識別子"
-
-#, fuzzy
-msgid "LabelIndex|Default label"
-msgstr "標準のラベルは削除できません"
-
 msgid "label indexing"
 msgstr ""
 
@@ -432,6 +416,22 @@ msgstr ""
 
 msgid "LabelIndexing|Page order"
 msgstr "ラベル識別子"
+
+#, fuzzy
+msgid "LabelIndex|Display name"
+msgstr "ページ名"
+
+#, fuzzy
+msgid "LabelIndex|Color"
+msgstr "ラベル識別子"
+
+#, fuzzy
+msgid "LabelIndex|Note"
+msgstr "ラベル識別子"
+
+#, fuzzy
+msgid "LabelIndex|Default label"
+msgstr "標準のラベルは削除できません"
 
 msgid "No Labels"
 msgstr "ラベルなし"
@@ -556,10 +556,7 @@ msgstr "公開する"
 msgid "FrontPage"
 msgstr "表紙"
 
-msgid "the name `%{n}' is reserved"
-msgstr "ページ識別子は「%{n}」意外にしてください。"
-
-msgid "published page can't be renamed."
+msgid "can't be change, create new one."
 msgstr ""
 
 msgid "skip account"
@@ -1107,6 +1104,9 @@ msgstr "プロパティ"
 msgid "Admin menu"
 msgstr "管理者メニュー"
 
+msgid "Search from Note"
+msgstr "ノートから検索"
+
 msgid "404 Not Found"
 msgstr ""
 
@@ -1131,6 +1131,9 @@ msgstr "ユーザ登録をしてください"
 msgid "Sign up"
 msgstr "登録する"
 
+#~ msgid "the name `%{n}' is reserved"
+#~ msgstr "ページ識別子は「%{n}」意外にしてください。"
+
 #~ msgid "Account|Login"
 #~ msgstr "ログイン名"
 
@@ -1143,14 +1146,14 @@ msgstr "登録する"
 #~ msgid "Account|Edit"
 #~ msgstr "編集"
 
-msgid "Set up"
-msgstr "システムの設定"
+#~ msgid "Set up"
+#~ msgstr "システムの設定"
 
-msgid "Edit profile"
-msgstr "自分の管理"
+#~ msgid "Edit profile"
+#~ msgstr "自分の管理"
 
-msgid "Logout"
-msgstr "ログアウト"
+#~ msgid "Logout"
+#~ msgstr "ログアウト"
 
 #~ msgid "Edit page name|Description"
 #~ msgstr "ページ名の編集は、この上にあるページ名をクリックしてください"
