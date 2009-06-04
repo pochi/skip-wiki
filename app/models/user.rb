@@ -72,5 +72,27 @@ class User < ActiveRecord::Base
   def access_token_for(app)
     tokens.detect{|t| t.is_a?(AccessToken) && t.client_application_id == app.id }
   end
+
+  # TODO 回帰テストを書く
+  def accessible_pages(group = nil)
+    writable_or_accessible_note_ids =
+      if group
+        Note.writable_or_accessible(self).owned_group(group).all.map(&:id)
+      else
+        Note.writable_or_accessible(self).all.map(&:id)
+      end
+    readable_note_ids =
+      if group
+        Note.readable.owned_group(group).all.map(&:id)
+      else
+        Note.readable.all.map(&:id)
+      end
+
+    Page.active.scoped({
+      :conditions => [
+        "(#{Page.quoted_table_name}.note_id IN (:writable_or_accessible_note_ids)) OR (#{Page.quoted_table_name}.note_id IN (:readable_note_ids) AND #{Page.quoted_table_name}.published = :published)",
+        {:writable_or_accessible_note_ids => writable_or_accessible_note_ids, :readable_note_ids => readable_note_ids, :published => true}]
+    })
+  end
 end
 

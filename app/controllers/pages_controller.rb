@@ -116,6 +116,7 @@ class PagesController < ApplicationController
   end
 
   private
+  # TODO 回帰テストを書く
   def accessible_pages(include_deleted = false, user = current_user, note = nil)
     if params[:note_id] && note ||= current_note
       if include_deleted && user.accessible?(note)
@@ -126,7 +127,11 @@ class PagesController < ApplicationController
         note.pages.active.published
       end
     else
-      Page.active.scoped(:conditions => ["#{Page.quoted_table_name}.note_id IN (?)", user.free_or_accessible_notes.all.map(&:id)])
+      if skip_gid = params[:skip_gid] && skip_group = SkipGroup.find_by_name(params[:skip_gid])
+        user.accessible_pages(skip_group.group)
+      else
+        user.accessible_pages
+      end
     end
   end
 

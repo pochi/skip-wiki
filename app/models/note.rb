@@ -34,7 +34,25 @@ class Note < ActiveRecord::Base
 
   has_many :attachments, :as => :attachable
 
-  named_scope :free, {:conditions=>PUBLIC_CONDITION}
+  named_scope :free, {:conditions => PUBLIC_CONDITION}
+
+  # TODO 回帰テストを書く
+  named_scope :writable_or_accessible, proc{|user|
+    note_ids = user.accessible_notes.all.map(&:id)
+    {
+      :conditions => ["#{table_name}.id IN (:note_ids) OR #{table_name}.publicity = :publicity", {:note_ids => note_ids, :publicity => PUBLICITY_WRITABLE}]
+    }
+  }
+
+  # TODO 回帰テストを書く
+  named_scope :readable, {
+    :conditions => ["#{table_name}.publicity = :publicity", {:publicity => PUBLICITY_READABLE}]
+  }
+
+  # TODO 回帰テストを書く
+  named_scope :owned_group, proc{|group|
+    {:conditions => ["#{table_name}.owner_group_id = (:group_id)", {:group_id => group.id}]}
+  }
 
   named_scope :recent, proc{|*args|
     {
