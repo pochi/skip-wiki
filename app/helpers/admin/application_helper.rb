@@ -13,7 +13,7 @@ module Admin::ApplicationHelper
   end
 
   def note_child_menu
-    [[_("group users"), admin_group_path(@note.owner_group)],
+    [[_("group users"), admin_group_path(@note.owner_group.name)],
      [_("label index"), admin_note_label_indices_path(@note)],
      [_("page"), admin_note_pages_path(@note)],
      [_("attachment"), admin_note_attachments_path(@note)]]

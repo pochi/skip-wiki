@@ -1,8 +1,8 @@
 class Admin::MembershipsController < ApplicationController
 
-  # TODO 諸橋さんのこぴっただけでよく理解していない 
+  # TODO 諸橋さんのこぴっただけでよく理解していない
   def create
-    group = current_user.groups.find(params[:group_id])
+    group = Group.find_by_name(params[:group_id])
     queries = params[:memberships].map{|_,q| q }
     valid_params = queries.select{|q| q[:enabled] && Integer(q[:group_id]) == group.id }
     begin
@@ -11,7 +11,7 @@ class Admin::MembershipsController < ApplicationController
         group.user_ids = ids
       end
       flash[:notice] = _("Memberships was successfully updated")
-      redirect_to(admin_group_path(group))
+      redirect_to(admin_group_path(group.name))
     rescue ActiveRecord::RecordNotSaved
       render :template => "admin/groups/show"
     end
