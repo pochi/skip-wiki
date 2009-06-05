@@ -38,7 +38,7 @@ describe Skip::GroupsController do
     describe "response [group]" do
       subject{ JSON.parse(response.body)["group"] }
 
-      it{ subject["members"].should be_instance_of Array }
+      it{ subject["members"].should be_instance_of(Array) }
       it{ subject["url"].should == skip_group_url("12345") }
     end
   end
@@ -78,9 +78,9 @@ describe Skip::GroupsController do
     describe "assigned group's users" do
       subject{ assigns[:skip_group].reload.group.users }
 
-      it{ should include @alice }
-      it{ should include @charls }
-      it{ should_not include @bob }
+      it{ should be_include(@alice) }
+      it{ should be_include(@charls) }
+      it{ should_not be_include(@bob) }
     end
   end
 
@@ -103,8 +103,8 @@ describe Skip::GroupsController do
     describe "assigned group's users" do
       subject{ assigns[:skip_group].group }
 
-      it{ @alice.groups.should_not include subject }
-      it{ @bob.groups.should_not include subject }
+      it{ @alice.groups.should_not be_include(subject) }
+      it{ @bob.groups.should_not be_include(subject) }
     end
   end
 

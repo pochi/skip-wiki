@@ -60,7 +60,7 @@ describe Attachment do
 
   describe "full_filename" do
     subject{ notes(:our_note).attachments.build(@valid_attributes).full_filename }
-    it{ should match Regexp.new("\\A#{SkipEmbedded::InitialSettings["asset_path"]}") }
+    it{ should match(Regexp.new("\\A#{SkipEmbedded::InitialSettings["asset_path"]}")) }
   end
 
   describe "each" do

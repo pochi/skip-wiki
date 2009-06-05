@@ -54,7 +54,7 @@ describe SessionsController do
       SkipEmbedded::OpFixation.sso_openid_provider_url = nil
       get :destroy
     end
-    it{ response.should redirect_to login_path }
+    it{ response.should redirect_to(login_path) }
   end
 
   describe "GET destroy #SSOの場合" do
@@ -62,7 +62,7 @@ describe SessionsController do
       SkipEmbedded::OpFixation.sso_openid_provider_url = "http://openid.example.com/"
       get :destroy
     end
-    it{ response.should redirect_to "http://openid.example.com/logout" }
+    it{ response.should redirect_to("http://openid.example.com/logout") }
   end
 
   describe ".translate_ax_response w/ axschema.org" do

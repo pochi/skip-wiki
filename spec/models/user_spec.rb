@@ -28,12 +28,12 @@ describe User do
       @alice.logical_destroy
     end
 
-    it{ User.active.should_not include @alice }
+    it{ User.active.should_not be_include(@alice) }
     describe "から復帰した場合" do
       before do
         @alice.recover
       end
-      it{ User.active.should include @alice }
+      it{ User.active.should be_include(@alice) }
     end
   end
 
@@ -261,7 +261,7 @@ describe User do
       end
 
       it do
-        lambda{ User.transaction{ User.sync!(@client, @data) } }.should be_completed_within 3.second
+        lambda{ User.transaction{ User.sync!(@client, @data) } }.should be_completed_within(3.second)
       end
     end
   end

@@ -127,7 +127,7 @@ describe SkipGroup do
           lambda{ SkipGroup.sync!(data) }
         end
 
-        it{ should be_completed_within 5.second }
+        it{ should be_completed_within(5.second) }
       end
     end
   end
