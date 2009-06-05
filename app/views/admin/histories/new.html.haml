@@ -1,42 +1,68 @@
-- content_for :header do
+- content_for(:header) do
   =stylesheet_link_tag "mypage"
   =stylesheet_link_tag "admin/admin"
   =javascript_include_tag("fckeditor/fckeditor.js")
+  =javascript_include_tag("linkPalette")
 
-#contents
-  - div_for(@page) do
-    #linkPalette
-      %span.trigger= _("Show link palette")
+=javascript_include_tag("iframe_upload")
 
-    - form_for(:history, @history, :url=>note_page_histories_path(current_note, @page)) do |f|
-      %dl
-        %dt
-          %label{:for=>"history_content"}&= h(_("Page|Content"))
-        %dd.content
-          .previewable
-            %ul
-              %li.show
-                %a.wii_button.show
-                  %span&= _("Preview")
+.page-header{:style=>"background-color:#{@page.label_index.color}; margin-top: 5px;"}
+  - if @note.label_navigation_style == LabelIndex::NAVIGATION_STYLE_TOGGLE
+    .show-label-navi{:title=>_("Show label|Description")}
+      %span.operation.show-label-navi= icon_tag('bullet_go')
+  %h1.page-name
+    .show
+      %span.title&= @page.display_name
+      %span.ipe-trigger.operation=_("Page Name|Edit")
+    .edit{:style=>"display:none"}
+      - form_for([@note, @page]) do |f|
+        = f.text_field :display_name, :id => "ipe-page_display_name", :size => 20
+        = submit_tag _("Update %{entity}") % {:entity => _("Page|Display name")}
+        %span.indicator{:style=>"display:none"}= image_tag "skip/indicator.gif"
+        %span.operation.ipe-cancel&= _("Cancel")
+    :javascript
+      $(function(){
+        $("select.#label_change").change(function(){
+          $("form.#page_update > #page_label_index_id").
+          val($("select.#label_change option:selected").val());
+          $("form.#page_update").submit();
+        });
+        $("h1").aresInplaceEditor(jQuery.extend({
+         callback:application.callbacks.pageDisplaynameEditor
+        }, #{page_display_name_ipe_option.to_json}))
+      });
 
-              %li.hide
-                %a.wii_button
-                  %span&= _("Hide")
+- div_for(@page) do
+  #linkPalette{:style=>"display:none"}= render :partial => 'histories/link_palette'
+  - form_for(:history, @history, :url=>admin_note_page_histories_path(@note, @page)) do |f|
+    %h2
+      %label{:for=>"history_content"}&= h(_("Page|Content"))
+      %span.operation.trigger= _("Link Palette")
+    %div.content
+      - if @page.format_type == "hiki"
+        .preview
+          %ul.float
+            %li.hide= link_to(_("Hide preview"), '#', :class => "operation")
+            %li.show= link_to(_("Show preview"), '#', :class => "operation")
+          .clear
+          .rendered.rich_style
+      = text_area_tag("history[content]", @page.content, :id=>"history_content", :size=>"100x20")
 
-            .rendered.rich_style
-            .clear
-          = text_area_tag("history[content]", @page.content, :id=>"history_content", :size=>"80x70")
-
-      = submit_tag(_("Update"))
-      = link_to(h(_("show page")), admin_note_page_path(current_note, @page), :class=>"back")
+    .submit
       %span.notice{:style=>"display:none"}&= _("Modified, need to save.")
+      = submit_tag(_("Update %{entity}") % {:entity => _("page")})
+      = link_to(h(_("show page")), admin_note_page_path(@note, @page), :class=>"back")
+    .clear
 
 
 :javascript
   $(document).ready(function(){
-    // jQuery(".previewable").preview({"url":"#{preview_new_note_page_path(current_note.id)}"});
-    jQuery("#history_content").editor(#{editor_opt(@page).to_json});
-    jQuery("#linkPalette").linkPalette(#{palette_opt(@page).to_json})
+    jQuery("div.content").skipEditor({
+      "currentFormatType" : "#{@page.format_type}",
+      "richEditor": {"name": "history_content", "basePath": "#{request.relative_url_root}/javascripts/fckeditor/", "height":350},
+      "hikiEditor": {"selector" : "#history_content", "preview":{"selector":"div.preview", "url": "#{preview_new_note_page_path(@note)}"} },
+      "linkPalette" : jQuery.extend({"selector":"#linkPalette"}, #{palette_opt(@page).to_json})
+    });
   });
 
   function FCKeditor_OnComplete( editorInstance ){
