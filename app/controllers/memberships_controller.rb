@@ -1,5 +1,5 @@
 class MembershipsController < ApplicationController
-  before_filter :authenticate, :except=>[:index]
+  skip_before_filter :authenticate, :only => [:index]
 
   # accessed only via /groups/:group_id/memberships
   #  OR raise error in find(params[:group_id])

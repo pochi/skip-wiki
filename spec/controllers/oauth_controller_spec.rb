@@ -165,7 +165,7 @@ describe OauthController, "getting an access token" do
   end
 end
 
-class OauthorizedController<ApplicationController
+class OauthorizedController < ApplicationController
   before_filter :authenticate_with_session_or_oauth, :only => :both
   before_filter :authenticate, :only => :interactive
   before_filter :authenticate_with_oauth, :only => :token_only

@@ -1,5 +1,4 @@
 class OauthClientsController < ApplicationController
-  before_filter :authenticate
   
   def index
     @client_applications = current_user.client_applications

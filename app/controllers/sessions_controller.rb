@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   include OpenIdAuthentication
   include Repim::RelyingParty
   include SkipEmbedded::OpenIdSso::SessionManagement
-  before_filter :authenticate, :except=>%w[new create]
+  skip_before_filter :authenticate, :only => %w[new create]
 
   use_attribute_exchange(["http://axschema.org", "http://schema.openid.net"],
                          :display_name => "/namePerson", :name => "/namePerson/friendly" )
