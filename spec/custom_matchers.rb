@@ -8,7 +8,9 @@ Spec::Matchers.define :be_completed_within do |sec|
   end
 
   description do
-    "completed in #{expected} sec.".tap{|x| x<<"(#{@real} sec in real)" if (@real && (sec > @real)) }
+    returning "completed in #{expected} sec." do |x|
+      x << "(#{@real} sec in real)" if (@real && (sec > @real))
+    end
   end
 
   failure_message_for_should do |actual|
