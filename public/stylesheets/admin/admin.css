@@ -20,16 +20,6 @@ div#content .admin-menu {
   width: 15%;
   margin-left: 30px;
   float: left;}
-div#content .admin-menu-bar {
-  margin-left: 30px;
-  float: left;
-  width: 70%;
-  border-bottom: 1px silver dotted;}
-div#content .admin-menu-title {
-  margin-top: 5px;
-  float: left;
-  width: 100%;}
-
 div#content .admin-content {
   float: left;
   margin-left: 30px;
@@ -120,22 +110,6 @@ div#content .admin_menu {
 div#content .admin-main-content {
   border: 1px solid silver;
   margin: 5px;}
-
-div#contents .admin-user-edit dl dt {
-  font-size: 1.1em;
-  font-weight: bold;
-  border-bottom: 10px;
-  border-bottom: 1px silver dotted;
-  margin-left:10px;
-  width: 90%;}
-
-div#contents .admin-user-edit input.input_text, div#contents .admin-user-edit input#user_admin {
-  margin-top: 3px;
-  margin-bottom: 5px;
-  margin-left: 30px;}
-
-div#content .admin-user-edit input.input_submit {
-  margin-top: 5px; }
 
 div#content .inplace-edit {
   width: 400px;}

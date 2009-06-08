@@ -1,12 +1,11 @@
 - content_for :header do
   =stylesheet_link_tag "jquery/ui.datepicker.css"
 
-- if @page.name_editable?
-  %tr
-    %th= form.label(:name, h(_("Page|Name")))
-    %td
-      %label.parrent_url= h(note_pages_url(current_note) + "/")
-      =form.text_field :name, :size => 10
+%tr
+  %th= form.label(:name, h(_("Page|Name")))
+  %td
+    %label.parrent_url= h(note_pages_url(current_note) + "/")
+    =form.text_field :name, :size => 10
 
 %tr
   %th= form.label(:published, h(_("Page|Published")))

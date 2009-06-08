@@ -1,28 +1,20 @@
-- content_for :header do
-  =stylesheet_link_tag "mypage"
-  =stylesheet_link_tag "admin/admin"
-
 #contents
-  .admin-user-edit
-    - form_for(@user, :url=>{:controller => 'admin/users', :action=>'update'}) do |f|
-      =f.error_messages      
-      
-      %dl
-        %dt
-          =f.label :name, _('User|Name')
-        %dd
-          =f.text_field :name
+  - div_for(@user, :class => "app-layout") do
+    - form_for(@user, :url=>admin_user_path(@user)) do |f|
+      =f.error_messages
+      = hidden_field_tag "_method", "PUT"
+      %table.skipwiki.input
+        %tr
+          %th=f.label :name, _('User|Name')
+          %td=f.text_field :name
+        %tr
+          %th=f.label :name, _('User|Display name')
+          %td=f.text_field :display_name
+        %tr
+          %th=f.label :admin, _('User|Admin')
+          %td
+            =f.check_box(:admin)
+            =_("This user set admin")
 
-        %dt
-          =f.label :name, _('User|Display name')
-        %dd
-          =f.text_field :display_name
-        %dt
-          =f.label :admin, _('User|Admin')
-        %dd
-          =f.check_box(:admin) 
-          =_("This user set admin")
+      = submit_tag _("Update")
 
-      %div
-        = f.submit _("Update")
-  
