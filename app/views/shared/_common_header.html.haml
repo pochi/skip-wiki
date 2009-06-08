@@ -12,9 +12,10 @@
 = stylesheet_link_tag 'skip.rich_style'
 = stylesheet_link_tag "application"
 = stylesheet_link_tag 'round-button'
+= stylesheet_link_tag :skip_embedded_sprites
 
 = javascript_include_tag "jquery-1.3.2.min", "jquery-ui-1.7.custom.min", "jrails"
-= javascript_include_tag :skip
+= javascript_include_tag :skip_embedded
 = javascript_include_file 'application'
 = yield :header
 
