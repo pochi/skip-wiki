@@ -44,7 +44,10 @@ class User < ActiveRecord::Base
     keeps, removes = find(:all).partition{|u| id2var[u.identity_url] }
 
     removes.each(&:destroy)
-    keeps.each{|k| k.update_attributes!(id2var.delete(k.identity_url)) }
+    keeps.each do |k|
+      k.update_attributes!(id2var.delete(k.identity_url))
+      skip.publish_access_token(k) unless k.access_token_for(skip)
+    end
     created = id2var.map{|_id_,var| create_with_token!(skip, var){|u|u.batch_mode=true}.first }
     [created, keeps, removes]
   end

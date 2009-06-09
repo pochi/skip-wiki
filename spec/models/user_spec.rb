@@ -239,6 +239,7 @@ describe User do
           remained_users_token = User.find_by_name("user-no-3").access_token_for(@client)
           remained_users_token.attributes.should == @remained_token_attr
         end
+
         it "4人のユーザが作成されていること" do
           @created.should have(4).items
         end
@@ -247,7 +248,48 @@ describe User do
           @updated.should have(3).items
         end
 
-        it "2人のユーザが更新されていること" do
+        it "2人のユーザが削除されていること" do
+          @deleted.should have(2).items
+        end
+      end
+
+      describe 'アクセストークンを持たないユーザを含む場合の再更新' do
+        before do
+          data = (3..9).map do |x|
+            {:name => "user-no-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+          end
+          id = User.last.id += 1
+          user_without_access_token  = {:name => "user-no-#{id}", :display_name => "User.#{id}", :identity_url => "http://op.example.com/user/#{id}"}
+          data << user_without_access_token
+          @user_without_access_token = User.create!(user_without_access_token) do |u|
+            u.identity_url = user_without_access_token[:identity_url]
+          end
+          @remained_token_attr = User.find_by_name("user-3").access_token_for(@client).attributes
+          @created, @updated, @deleted = User.sync!(@client, data)
+        end
+
+        it{ User.should have(8).records }
+
+        it '保持されているユーザのAccessTokenが存在しない場合は新たに作成されること' do
+          User.should satisfy{
+            @user_without_access_token.access_token_for(@client)
+          }
+        end
+
+        it '保存されているユーザのAccessTokenが存在する場合はAccessTokenが変わらないこと' do
+          remained_users_token = User.find_by_name("user-no-3").access_token_for(@client)
+          remained_users_token.attributes.should == @remained_token_attr
+        end
+
+        it "4人のユーザが作成されていること" do
+          @created.should have(4).items
+        end
+
+        it "4人のユーザが更新されていること" do
+          @updated.should have(4).items
+        end
+
+        it "2人のユーザが削除されていること" do
           @deleted.should have(2).items
         end
       end
