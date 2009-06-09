@@ -29,7 +29,7 @@
         var file = f.find("input[type=file]");
         if(file.val().length > 0){
           var indicator = f.find("td.indicator img").show();
-          submit = function(){ f.submit(); f.get(0).reset(); indicator.hide(); file.focus(); timer = null};
+          submit = function(){ f.submit(); f.get(0).reset(); indicator.hide(); file.focus(); timer = null; };
           timer = setTimeout(submit, 5*1000);
         }else{
           return;
@@ -38,7 +38,7 @@
     }
     var afterLoadCallback = function(){
       if(submitCallback){submitCallback.call();}
-      callback.call(this);
+      callback.call(this, targetIFrame);
     };
 
     var root = jQuery(this);
@@ -57,4 +57,3 @@
     targetIFrame.get(0).contentWindow.name = config["target"];
   };
 })(jQuery);
-

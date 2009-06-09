@@ -1,5 +1,3 @@
-= javascript_include_tag %w[iframe_upload.js]
-
 - div_for(current_note, :class=>"app-layout") do
   %h2&= _("note attachments")
   - if current_user.page_editable?(current_note)
