@@ -36,21 +36,20 @@ class Note < ActiveRecord::Base
 
   named_scope :free, {:conditions => PUBLIC_CONDITION}
 
-  # TODO 回帰テストを書く
   named_scope :writable_or_accessible, proc{|user|
+    return {} if user.blank?
     note_ids = user.accessible_notes.all.map(&:id)
     {
       :conditions => ["#{table_name}.id IN (:note_ids) OR #{table_name}.publicity = :publicity", {:note_ids => note_ids, :publicity => PUBLICITY_WRITABLE}]
     }
   }
 
-  # TODO 回帰テストを書く
   named_scope :readable, {
     :conditions => ["#{table_name}.publicity = :publicity", {:publicity => PUBLICITY_READABLE}]
   }
 
-  # TODO 回帰テストを書く
   named_scope :owned_group, proc{|group|
+    return {} unless group
     {:conditions => ["#{table_name}.owner_group_id = (:group_id)", {:group_id => group.id}]}
   }
 

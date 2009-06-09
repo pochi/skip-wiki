@@ -58,6 +58,62 @@ describe Note do
     end
   end
 
+  describe '.writable_or_accessible' do
+    fixtures :notes, :users
+    describe 'ユーザの指定がある場合' do
+      describe 'ユーザのアクセス可能なノートが取得できる場合' do
+        before do
+          @user = User.first
+          @user.stub_chain(:accessible_notes, :all).and_return([stub_model(Note, :id => 101)])
+        end
+        it 'should hit 1 notes' do
+          Note.writable_or_accessible(@user).should have(1).items
+        end
+      end
+      describe 'ユーザのアクセス可能なノートが取得できない場合' do
+        before do
+          @user = User.first
+          @user.stub_chain(:accessible_notes, :all).and_return([])
+        end
+        it 'だれでも書けるノートのみ取得されること' do
+          Note.writable_or_accessible(@user).should have(0).items
+        end
+      end
+    end
+    describe 'ユーザの指定がない場合' do
+      fixtures :notes
+      it "(nil) should hit 2 notes" do
+        Note.writable_or_accessible(nil).should have(2).items
+      end
+    end
+  end
+
+  describe '.readable' do
+    fixtures :notes
+    it '誰でもかけるノートのみ取得されること' do
+      Note.readable.should have(1).items
+    end
+  end
+
+  describe '.owned_group' do
+    describe 'グループの指定がある場合' do
+      before do
+        skip_group = SkipGroup.create!(:name => 'skip', :display_name => 'SKIPのグループ', :gid => 'skip')
+        @group = skip_group.create_group(:name => skip_group.name, :display_name => skip_group.display_name + '(SKIP)')
+        @group_owned_note = Note.create!(@valid_attributes.merge!(:owner_group => @group))
+      end
+      it '指定グループに所属するノートのみ取得されること' do
+        Note.owned_group(@group).should == [@group_owned_note]
+      end
+    end
+    describe 'グループの指定がない場合' do
+      fixtures :notes
+      it "(nil) should hit 2 notes" do
+        Note.owned_group(nil).should have(2).items
+      end
+    end
+  end
+
   describe "pages.add(attrs, user) (hiki)" do
     fixtures :users
     before(:each) do
