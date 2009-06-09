@@ -24,7 +24,7 @@
  * http://docs.fckeditor.net/FCKeditor_2.x/Developers_Guide/Configuration/Configuration_Options
  */
 
-FCKConfig.CustomConfigurationsPath = FCKConfig.BasePath + '../../skip_fckeditor_config.js' ;
+FCKConfig.CustomConfigurationsPath = FCKConfig.BasePath + '../../skip_embedded/skip_fckeditor_config.js' ;
 
 FCKConfig.EditorAreaCSS = '' ;
 FCKConfig.EditorAreaStyles = '' ;
