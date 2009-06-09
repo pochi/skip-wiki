@@ -41,9 +41,13 @@ class User < ActiveRecord::Base
     id2var = users_update_data.inject({}) do |r, data|
       r[data[:identity_url]] = data; r
     end
-    keeps, removes = find(:all).partition{|u| id2var[u.identity_url] }
+    removes_or_keeps = find(:all).select{|u| id2var[u.identity_url] }
+    removes, keeps = removes_or_keeps.partition{|u| id2var[u.identity_url][:delete?] }
 
-    removes.each(&:destroy)
+    removes.each do |r|
+      r.destroy
+      id2var.delete(r.identity_url)
+    end
     keeps.each do |k|
       k.update_attributes!(id2var.delete(k.identity_url))
       skip.publish_access_token(k) unless k.access_token_for(skip)

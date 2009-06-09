@@ -198,62 +198,27 @@ describe User do
 
     describe ".sync!" do
       before do
-        @removes = User.find(:all) # fixture users
+        @unsyncs = User.find(:all) # fixture users
         data = (1..5).map do |x|
           {:name => "user-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
         end
-        User.sync!(@client, data)
+        @created, @updated, @deleted = User.sync!(@client, data)
       end
-      it{ User.should have(5).records }
+      it{ User.should have(8).records }
 
-      it "同期に含まれないユーザは消されていること" do
+      it "同期に含まれないユーザは消されていないこと" do
         User.should satisfy{
-          @removes.all?{|r| User.find_by_id(r.id).nil? }
+          @unsyncs.all?{|r| User.find_by_id(r.id) }
         }
       end
 
       it "同期されたすべてのユーザのアクセストークンが生成されていること" do
         User.should satisfy{
-          User.find(:all).all?{|u| u.access_token_for(@client) }
+          (@created + @updated).all?{|u| u.access_token_for(@client) }
         }
       end
 
       describe "nameの命名規則を変更し、一部レコードを保持したまま再更新" do
-        before do
-          data = (3..9).map do |x|
-            {:name => "user-no-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
-          end
-          @remained_token_attr = User.find_by_name("user-3").access_token_for(@client).attributes
-          @created, @updated, @deleted = User.sync!(@client, data)
-        end
-
-        it{ User.should have(7).records }
-
-        it "既存ユーザの名前が更新されていること" do
-          User.should satisfy{
-            User.find(:all).all?{|u| u.name =~ /\Auser-no-\d\Z/ }
-          }
-        end
-
-        it "保持されているユーザのAccessTokenは変わらないこと" do
-          remained_users_token = User.find_by_name("user-no-3").access_token_for(@client)
-          remained_users_token.attributes.should == @remained_token_attr
-        end
-
-        it "4人のユーザが作成されていること" do
-          @created.should have(4).items
-        end
-
-        it "3人のユーザが更新されていること" do
-          @updated.should have(3).items
-        end
-
-        it "2人のユーザが削除されていること" do
-          @deleted.should have(2).items
-        end
-      end
-
-      describe 'アクセストークンを持たないユーザを含む場合の再更新' do
         before do
           data = (3..9).map do |x|
             {:name => "user-no-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
@@ -268,11 +233,11 @@ describe User do
           @created, @updated, @deleted = User.sync!(@client, data)
         end
 
-        it{ User.should have(8).records }
+        it{ User.should have(13).records }
 
-        it '保持されているユーザのAccessTokenが存在しない場合は新たに作成されること' do
+        it "同期されたすべてのユーザのアクセストークンが生成されていること" do
           User.should satisfy{
-            @user_without_access_token.access_token_for(@client)
+            (@created + @updated).all?{|u| u.access_token_for(@client) }
           }
         end
 
@@ -287,6 +252,36 @@ describe User do
 
         it "4人のユーザが更新されていること" do
           @updated.should have(4).items
+        end
+
+        it "0人のユーザが削除されていること" do
+          @deleted.should have(0).items
+        end
+      end
+
+      describe '2件削除フラグを立てて、一部レコードを保持したまま再更新' do
+        before do
+          data = (2..3).map do |x|
+            {:name => "user-no-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}", :delete? => true}
+          end
+          data = data + (4..5).map do |x|
+            {:name => "user-No-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+          end
+          @created, @updated, @deleted = User.sync!(@client, data)
+        end
+
+        it "同期されたすべてのユーザのアクセストークンが生成されていること" do
+          User.should satisfy{
+            (@created + @updated).all?{|u| u.access_token_for(@client) }
+          }
+        end
+
+        it "0人のユーザが作成されていること" do
+          @created.should have(0).items
+        end
+
+        it "2人のユーザが更新されていること" do
+          @updated.should have(2).items
         end
 
         it "2人のユーザが削除されていること" do
