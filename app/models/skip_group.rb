@@ -36,12 +36,12 @@ class SkipGroup < ActiveRecord::Base
 
     keeps.each do |k|
       data = indexed_data.delete(k.gid)
-      k.update_attributes!(data.except(:members))
+      k.update_attributes!(data.except(:members, :delete?))
       k.grant(data[:members].map{|m| user_cache[m] })
     end
 
     created = indexed_data.map do |gid, group|
-      returning create!(group.except(:members)) do |skip_group|
+      returning create!(group.except(:members, :delete?)) do |skip_group|
         skip_group.grant( data[:members].map{|k| user_cache[k] } )
       end
     end

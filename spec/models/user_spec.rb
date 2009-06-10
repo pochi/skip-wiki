@@ -200,7 +200,7 @@ describe User do
       before do
         @unsyncs = User.find(:all) # fixture users
         data = (1..5).map do |x|
-          {:name => "user-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+          {:name => "user-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}", :delete? => false}
         end
         @created, @updated, @deleted = User.sync!(@client, data)
       end
@@ -221,7 +221,7 @@ describe User do
       describe "nameの命名規則を変更し、一部レコードを保持したまま再更新" do
         before do
           data = (3..9).map do |x|
-            {:name => "user-no-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}"}
+            {:name => "user-no-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}", :delete? => false}
           end
           id = User.last.id += 1
           user_without_access_token  = {:name => "user-no-#{id}", :display_name => "User.#{id}", :identity_url => "http://op.example.com/user/#{id}"}

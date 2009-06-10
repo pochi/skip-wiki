@@ -67,10 +67,10 @@ describe SkipGroup do
         User.create!(:name=>"user-#{i}", :display_name=>"User.#{i}"){|u| u.identity_url="http://op.example.com/user/user-#{i}"}
       }
       SkipGroup.sync!([
-        {:gid => "12345", :name => "name1", :display_name => "SKIP Group.1", :members => identity_url_gen(*%w[a b c])},
-        {:gid => "12346", :name => "name2", :display_name => "SKIP Group.2", :members => identity_url_gen(*%w[c d e])},
-        {:gid => "12347", :name => "name3", :display_name => "SKIP Group.3", :members => identity_url_gen(*%w[e f g])},
-        {:gid => "12348", :name => "name4", :display_name => "SKIP Group.4", :members => identity_url_gen(*%w[g h i])},
+        {:gid => "12345", :name => "name1", :display_name => "SKIP Group.1", :members => identity_url_gen(*%w[a b c]), :delete? => false},
+        {:gid => "12346", :name => "name2", :display_name => "SKIP Group.2", :members => identity_url_gen(*%w[c d e]), :delete? => false},
+        {:gid => "12347", :name => "name3", :display_name => "SKIP Group.3", :members => identity_url_gen(*%w[e f g]), :delete? => false},
+        {:gid => "12348", :name => "name4", :display_name => "SKIP Group.4", :members => identity_url_gen(*%w[g h i]), :delete? => false},
       ])
     end
     it{ SkipGroup.should have(4).records }
@@ -125,7 +125,7 @@ describe SkipGroup do
 
         data = (1..100).map do |i|
           members = (i..(i+5)).map{|j| "http://op.example.com/user/user-#{j}" }
-          {:gid => 1000 + i, :name => "name%04d" % i, :display_name => "SKIP-Group-#{i}", :members => members}
+          {:gid => 1000 + i, :name => "name%04d" % i, :display_name => "SKIP-Group-#{i}", :members => members, :delete? => false}
         end
         lambda{ SkipGroup.sync!(data) }
       end
