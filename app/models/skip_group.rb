@@ -24,16 +24,20 @@ class SkipGroup < ActiveRecord::Base
 
   def self.sync!(data)
     indexed_data = data.inject({}){|r, data| r[data[:gid]] = data; r }
-    keeps, removes = find(:all).partition{|g| indexed_data[g[:gid]] }
+    removes_or_keeps = find(:all).select{|g| indexed_data[g.gid] }
+    removes, keeps = removes_or_keeps.partition{|g| indexed_data[g.gid][:delete?] }
 
-    removes.each(&:destroy)
+    removes.each do |r|
+      r.destroy
+      indexed_data.delete(r.gid)
+    end
 
     user_cache = User.all.inject({}){|h,u|h[u.identity_url] = u; h }
 
-    keeps.each do |keep|
-      data = indexed_data.delete(keep.gid)
-      keep.update_attributes!(data.except(:members))
-      keep.grant(data[:members].map{|k| user_cache[k] })
+    keeps.each do |k|
+      data = indexed_data.delete(k.gid)
+      k.update_attributes!(data.except(:members))
+      k.grant(data[:members].map{|m| user_cache[m] })
     end
 
     created = indexed_data.map do |gid, group|

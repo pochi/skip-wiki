@@ -85,6 +85,8 @@ describe SkipGroup do
         SkipGroup.sync!([
           {:gid => "12345", :name => "name1", :display_name => "SKIP-Group.1", :members => identity_url_gen(*%w[a b c])},
           {:gid => "12346", :name => "name2", :display_name => "SKIP-Group.2", :members => identity_url_gen(*%w[c d e f])},
+          {:gid => "12347", :name => "name3", :display_name => "SKIP-Group.3", :members => identity_url_gen(*%w[e f g]), :delete? => true},
+          {:gid => "12348", :name => "name4", :display_name => "SKIP-Group.4", :members => identity_url_gen(*%w[g h i]), :delete? => true},
           {:gid => "22347", :name => "name23", :display_name => "SKIP-Group.23", :members => identity_url_gen(*%w[e f g])},
           {:gid => "22348", :name => "name24", :display_name => "SKIP-Group.24", :members => identity_url_gen(*%w[a b c])},
           {:gid => "22349", :name => "name25", :display_name => "SKIP-Group.25", :members => identity_url_gen(*%w[a b c])},
@@ -113,22 +115,22 @@ describe SkipGroup do
       it "グループの各属性(name)が更新されていること" do
         SkipGroup.all.should be_all{|g| g.name =~ /\Aname\d+\Z/ }
       end
+    end
 
-      describe "100件のベンチマーク" do
-        subject do
-          (1..(100+5)).each{|i|
-            User.create!(:name=>"user-#{i}", :display_name=>"User.#{i}"){|u| u.identity_url="http://op.example.com/user/user-#{i}"}
-          }
+    describe "100件のベンチマーク" do
+      subject do
+        (1..(100+5)).each{|i|
+          User.create!(:name=>"user-#{i}", :display_name=>"User.#{i}"){|u| u.identity_url="http://op.example.com/user/user-#{i}"}
+        }
 
-          data = (1..100).map do |i|
-            members = (i..(i+5)).map{|j| "http://op.example.com/user/user-#{j}" }
-            {:gid => 1000 + i, :name => "name%04d" % i, :display_name => "SKIP-Group-#{i}", :members => members}
-          end
-          lambda{ SkipGroup.sync!(data) }
+        data = (1..100).map do |i|
+          members = (i..(i+5)).map{|j| "http://op.example.com/user/user-#{j}" }
+          {:gid => 1000 + i, :name => "name%04d" % i, :display_name => "SKIP-Group-#{i}", :members => members}
         end
-
-        it{ should be_completed_within(5.second) }
+        lambda{ SkipGroup.sync!(data) }
       end
+
+      it{ should be_completed_within(5.second) }
     end
   end
 end
