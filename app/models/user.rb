@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   has_many :builtin_groups, :foreign_key => "owner_id"
 
   has_many :client_applications
-  has_many :tokens, :class_name=>"OauthToken",:order=>"authorized_at DESC",:include=>[:client_application]
+  has_many :tokens, :class_name => "OauthToken", :order => "authorized_at DESC", :include => [:client_application], :dependent => :destroy
 
   scope_do :named_acl
   named_acl :notes
@@ -37,6 +37,10 @@ class User < ActiveRecord::Base
     {:conditions => ["name LIKE ? OR display_name LIKE ?", w, w]}
   }
 
+  def after_logical_destroy
+    tokens.delete_all
+  end
+
   def self.sync!(skip, users_update_data)
     id2var = users_update_data.inject({}) do |r, data|
       r[data[:identity_url]] = data; r
@@ -45,7 +49,7 @@ class User < ActiveRecord::Base
     removes, keeps = removes_or_keeps.partition{|u| id2var[u.identity_url][:delete?] }
 
     removes.each do |r|
-      r.destroy
+      r.logical_destroy
       id2var.delete(r.identity_url)
     end
     keeps.each do |k|

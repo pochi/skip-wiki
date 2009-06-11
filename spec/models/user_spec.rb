@@ -284,8 +284,17 @@ describe User do
           @updated.should have(2).items
         end
 
-        it "2人のユーザが削除されていること" do
+        it "2人のユーザが論理的に削除されていること" do
           @deleted.should have(2).items
+          User.should satisfy{
+            @deleted.all?{|u| u.deleted }
+          }
+        end
+
+        it "削除されたユーザのアクセストークンが削除されていること" do
+          User.should satisfy{
+            @deleted.all?{|u| u.access_token_for(@client).nil? }
+          }
         end
       end
     end
