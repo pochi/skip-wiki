@@ -50,9 +50,6 @@ ActionController::Routing::Routes.draw do |map|
       note.resources :label_indices
     end
 
-    admin_map.resources :groups do |group|
-      group.resources :memberships
-    end
 
   end
 
