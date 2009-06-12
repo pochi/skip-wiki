@@ -8,12 +8,13 @@
       %th.edit&= _('Page|Edit')
       %th.delete&= _('Page|Delete')
       %th.clippy= _("Copy URL")
+
   %tbody
     - each_with_histories(pages) do |page, history|
       - @note = Note.find(page.note_id)
       %tr{:class => cycle('even', 'odd')}
         %td.note_name= @note.display_name
-        %td.name= link_to h(page.display_name), admin_note_page_url(@note, page)
+        %td.name= link_to h(page.display_name), note_page_url(@note, page)
         %td&= history.user.name
         %td.publication
           - if page.published?
@@ -22,5 +23,5 @@
             %span.not_yet&= _("Not yet")
         %td.edit= link_to _("Edit"), admin_note_page_path(@note,page)
         %td.delete= link_to _("Delete"), {:controller=>'admin/pages',:action=>'destroy',:note_id=>@note,:id=>page}, :confirm=>_("Are you sure?"), :method=>:delete
-        %td.clippy= clippy(admin_note_page_url(@note, page))
+        %td.clippy= clippy(note_page_url(@note, page))
 

@@ -52,6 +52,21 @@ div#content #contents {
 #content_for_layout table.skipwiki tr td {
   border-bottom: 0px;}
 
+#content_for_layout table.skipwiki th.display_name {
+  width: 40%;}
+
+#content_for_layout table.skipwiki th.updated_title {
+  width: 30%;}
+
+#content_for_layout table.skipwiki th.description {
+  width: 40%;}
+
+#content_for_layout table.skipwiki th.login {
+  width: 20%;}
+
+#content_for_layout table.skipwiki th.admin {
+  width: 10%;}
+
 div#content .user_search {
   margin-left: 5px;
   float: left;
