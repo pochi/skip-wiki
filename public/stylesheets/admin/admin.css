@@ -52,6 +52,9 @@ div#content #contents {
 #content_for_layout table.skipwiki tr td {
   border-bottom: 0px;}
 
+#content_for_layout table.skipwiki tr th {
+  text-align: left;}
+
 #content_for_layout table.skipwiki th.display_name {
   width: 40%;}
 
@@ -66,6 +69,15 @@ div#content #contents {
 
 #content_for_layout table.skipwiki th.admin {
   width: 10%;}
+
+#content_for_layout table.skipwiki th.delete {
+  width: 5%;}
+
+#content_for_layout table.skipwiki th.size {
+  width: 10%;}
+
+#content_for_layout table.skipwiki th.download {
+  width: 13%;}
 
 div#content .user_search {
   margin-left: 5px;
