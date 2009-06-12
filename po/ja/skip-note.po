@@ -211,10 +211,10 @@ msgid " and "
 msgstr "と"
 
 msgid "%{user_str} are accessible to the note"
-msgstr "%{user_str}がこのノートのにアクセスできます。"
+msgstr "%{user_str}がこのノートにアクセスできます。"
 
 msgid "%{group_str}'s members are accessible to the note"
-msgstr "%{group_str}グループのメンバーがこのノートのアクセスできます。"
+msgstr "%{group_str}グループのメンバーがこのノートにアクセスできます。"
 
 msgid "Access by member only"
 msgstr "メンバーのみが読み書きできる"
