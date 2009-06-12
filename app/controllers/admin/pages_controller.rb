@@ -4,6 +4,7 @@ class Admin::PagesController < Admin::ApplicationController
   # GET /admin/notes/a_note/pages
   def index
     @selected_note = requested_note
+    @per_page = (params[:per_page] || 10).to_i
     @pages = Page.admin(@selected_note ? @selected_note.id : nil).
                   admin_fulltext(params[:keyword]).
                   paginate(paginate_option(Page))

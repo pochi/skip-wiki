@@ -6,7 +6,7 @@ class Admin::AttachmentsController < Admin::ApplicationController
                     else
                       Attachment
                     end).paginate(paginate_option(Attachment))
-
+    @per_page = (params[:per_page] || 10).to_i
     @topics = [_("Attachment|Index")]
   end
 

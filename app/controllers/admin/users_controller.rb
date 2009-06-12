@@ -2,7 +2,9 @@ class Admin::UsersController < Admin::ApplicationController
 
   # GET /admin
   def index
-    @users = User.fulltext(params[:keyword])
+    @users = User.fulltext(params[:keyword]).
+                  paginate(paginate_option(User))
+    @per_page = (params[:per_page] || 10).to_i
     @topics = [_("user")]
     @search = [admin_users_path, _("Search User")]
   end

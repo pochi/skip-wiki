@@ -4,7 +4,10 @@
       %p.no-result&= _("The query find no pages.")
     - else
       = render(:partial => "admin/pages/pages")
-      = will_paginate(@pages)
+      .paginate
+        = will_paginate(@pages, :prev_label => '&#171;前', :next_label => '次&#187;', :container => false)
+        = page_entries_info_ja(@pages)
+        = paginate_links(@per_page)
 
 
 

@@ -4,6 +4,7 @@ class Admin::NotesController < Admin::ApplicationController
   def index
     @notes = Note.fulltext(params[:keyword]).
                   paginate(paginate_option)
+    @per_page = (params[:per_page] || 10).to_i
     @topics = [_("note")]
     @search = [admin_notes_path, _("Search Note")]
   end

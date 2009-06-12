@@ -27,16 +27,40 @@ describe Admin::PagesController do
   end
 
   describe "GET /notes/our_note/pages" do
-    it "ノートとキーワードでScopeされたページ一覧が取得できていること" do
+    before do
+      controller.should_receive(:requested_note).and_return(@current_note)
       controller.should_receive(:paginate_option).with(Page).and_return("hoge")
 
       Page.should_receive(:admin).with(@current_note.id).and_return(mock_scope)
       mock_scope.should_receive(:admin_fulltext).with("keyword").and_return(mock_scope)
       mock_scope.should_receive(:paginate).with('hoge').and_return([mock_page])
+    end
 
+    it "ノートとキーワードでScopeされたページ一覧が取得できていること" do
       get :index, :note_id=>@current_note.name, :keyword => "keyword"
       assigns(:pages).should == [mock_page]
     end
+
+    it "パラメータにper_pageが設定されていない場合、デフォルトで10が設定されていること" do
+      get :index, :note_id=>@current_note, :keyword => "keyword"
+      assigns(:per_page).should == 10
+    end
+
+    it "パラメータにper_pageが10で設定されている場合、10が設定されていること" do
+      get :index, :note_id=>@current_note, :keyword => "keyword", :per_page => 10
+      assigns(:per_page).should == 10
+    end
+
+    it "パラメータにper_pageが25で設定されている場合、25が設定されていること" do
+      get :index, :note_id=>@current_note, :keyword => "keyword", :per_page => 25
+      assigns(:per_page).should == 25
+    end
+
+    it "パラメータにper_pageが50で設定されている場合、50が設定されていること" do
+      get :index, :note_id=>@current_note, :keyword => "keyword", :per_page => 50
+      assigns(:per_page).should == 50
+    end
+
   end
 
   describe "GET /notes/our_note/pages/our_note_page_1" do
@@ -121,6 +145,6 @@ describe Admin::PagesController do
         response.should redirect_to(edit_admin_note_page_path(@current_note,mock_page))
       end
 
-    end  
+    end
   end
 end

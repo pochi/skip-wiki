@@ -12,6 +12,28 @@ module Admin::ApplicationHelper
     end.join(" | ")
   end
 
+  def paginate_links(selected=nil)
+    url_param = params.dup
+    links = [10,25,50].collect {|n| link_to_if(n != selected.to_i, n, url_for(url_param.merge(:per_page => n))) }
+    return "| 1ページに: " + links.join(" , ")
+  end
+
+  def page_entries_info_ja(collection, options = {})
+    entry_name = options[:entry_name] ||
+      (collection.empty?? 'entry' : collection.first.class.name.underscore.sub('_', ' '))
+
+    if collection.total_pages == 0
+      "候補が見つかりません"
+    else
+      %{(<b>%d&nbsp;-&nbsp;%d</b> 件 / <b>%d</b> 件)} % [
+        collection.offset + 1,
+        collection.offset + collection.length,
+        collection.total_entries
+      ]
+    end
+  end
+
+
   # group_users => Wikiにアクセスできるユーザ一覧
   def note_child_menu
     [#[_("group users"), admin_group_path(@note.owner_group.name)],

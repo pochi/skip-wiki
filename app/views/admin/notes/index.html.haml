@@ -12,5 +12,9 @@
           %td.description&= note.description
           %td.edit= link_to _("Edit"), edit_admin_note_path(note)
           %td.delete= link_to _("Delete"), {:controller=>'admin/notes',:action=>'destroy',:id=>note}, :confirm=>_("Are you sure?"), :method=>:delete
-    = will_paginate(@notes)
+    .paginate
+      = will_paginate(@notes, :prev_label => '&#171;前', :next_label => '次&#187;', :container => false)
+      = page_entries_info_ja(@notes)
+      = paginate_links(@per_page)
+
 

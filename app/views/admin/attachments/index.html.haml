@@ -19,5 +19,9 @@
             %td&= at.updated_at.strftime("%Y/%m/%d %H:%M")
             %td= link_to _("Download"), @note ? admin_note_attachment_path(@note, at) : admin_attachment_path(at)
             %td= link_to _("Delete"), (@note ? admin_note_attachment_path(@note, at) : admin_attachment_path(at)), :confirm => _("Are you sure?"), :method => :delete
-      = will_paginate(@attachments)
+    .paginate
+      = will_paginate(@attachments, :prev_label => '&#171;前', :next_label => '次&#187;', :container => false)
+      = page_entries_info_ja(@attachments)
+      = paginate_links(@per_page)
+
 

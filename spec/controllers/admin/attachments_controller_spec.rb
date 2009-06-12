@@ -32,6 +32,33 @@ describe Admin::AttachmentsController do
         get :index
         assigns(:attachments).should == mock_attachments
       end
+
+      it "パラメータにper_pageが設定されていない場合、デフォルトで10が設定されていること" do
+        get :index
+        assigns(:per_page).should == 10
+      end
+
+      it "パラメータにper_pageが10で設定されている場合、10が設定されていること" do
+        get :index, :per_page => 10
+        assigns(:per_page).should == 10
+      end
+
+      it "パラメータにper_pageが25で設定されている場合、25が設定されていること" do
+        get :index, :per_page => 25
+        assigns(:per_page).should == 25
+      end
+
+      it "パラメータにper_pageが50で設定されている場合、50が設定されていること" do
+        get :index, :per_page => 50
+        assigns(:per_page).should == 50
+      end
+
+      # TODO: Investigate how to write gettext's text
+      it "@topicsにメニューが設定されていること" do
+        get :index
+        assigns(:topics).should_not be_nil
+      end
+
     end
 
     describe "requested_noteが取得できていいない場合" do

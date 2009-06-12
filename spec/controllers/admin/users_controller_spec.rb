@@ -11,11 +11,53 @@ describe Admin::UsersController do
     @mock_user ||= mock_model(User, stubs)
   end
 
+  def mock_scope(stubs={})
+    @mock_scope ||= mock_model(ActiveRecord::NamedScope::Scope, stubs)
+  end
+
   describe "GET /admin/users/index" do
+    before do
+      controller.should_receive(:paginate_option).with(User).and_return("hoge")
+      User.should_receive(:fulltext).with("keyword").and_return(mock_scope)
+      mock_scope.should_receive(:paginate).with("hoge").and_return([mock_user])
+    end
+
     it "Userが全件取得できていること" do
-      User.should_receive(:find).with(:all).and_return([mock_user])
-      get :index
+      get :index, :keyword => "keyword"
       assigns(:users).should == [mock_user]
+    end
+
+    it "パラメータにper_pageが設定されていない場合、デフォルトで10が設定されていること" do
+      get :index, :keyword => "keyword"
+      assigns(:per_page).should == 10
+    end
+
+    it "パラメータにper_pageが10で設定されている場合、10が設定されていること" do
+      get :index, :keyword => "keyword", :per_page => 10
+      assigns(:per_page).should == 10
+    end
+
+    it "パラメータにper_pageが25で設定されている場合、25が設定されていること" do
+      get :index, :keyword => "keyword", :per_page => 25
+      assigns(:per_page).should == 25
+    end
+
+    it "パラメータにper_pageが50で設定されている場合、50が設定されていること" do
+      get :index, :keyword => "keyword", :per_page => 50
+      assigns(:per_page).should == 50
+    end
+
+    # TODO: Investigate how to write gettext's text
+    it "@topicsにメニューが設定されていること" do
+      get :index, :keyword => "keyword"
+      assigns(:topics).should_not be_nil
+    end
+
+    it "@serarchに検索パスが設定されていること" do
+      get :index, :keyword => "keyword"
+      assigns(:search).class.should == Array
+      assigns(:search).size.should == 2
+      assigns(:search).shift.should == admin_users_path
     end
   end
 
@@ -28,7 +70,7 @@ describe Admin::UsersController do
 
     it "Userが1件取得できていること" do
       assigns(:user).should == mock_user
-    end 
+    end
 
     it "ぱんくずリストが設定されていること" do
       assigns(:topics).class.should == Array

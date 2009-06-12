@@ -38,6 +38,10 @@ div#content .admin-help-bar {
   font-size: 14px;
   border-bottom: 1px dotted silver;}
 
+div#content .paginate {
+  margin-top: 10px;
+  margin-left: 50px;
+  font-size: 14px; }
 
 div#content #contents .updated-note {
   margin-top: 100px;

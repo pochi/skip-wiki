@@ -12,5 +12,9 @@
           %td.login&= user.display_name
           %td.admin&= _('User|Admin') if user.admin?
           %td.openid_url&= user.identity_url
+    .paginate
+      = will_paginate(@users, :prev_label => '&#171;前', :next_label => '次&#187;', :container => false)
+      = page_entries_info_ja(@users)
+      = paginate_links(@per_page)
 
 
