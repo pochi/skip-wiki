@@ -9,12 +9,6 @@ class Admin::NotesController < Admin::ApplicationController
     @search = [admin_notes_path, _("Search Note")]
   end
 
-  def show
-    @note = Note.find_by_name(params[:id])
-    @topics = [[_("note"), admin_notes_path],
-                "#{@note.display_name}"]
-  end
-
   def edit
     @note = Note.find_by_name(params[:id])
     @topics = [[_("note"), admin_notes_path],
@@ -24,12 +18,21 @@ class Admin::NotesController < Admin::ApplicationController
   # PUT /admin/notes/1
   def update
     @note = Note.find_by_name(params[:id])
-    if @note.update_attributes(params[:note])
-      flash[:notice] = _('Note was successfully updated.')
-      redirect_to edit_admin_note_path(params[:id])
-    else
-      flash[:error] = _('validation error')
-      redirect_to :action => 'edit'
+    respond_to do |format|
+      if @note.update_attributes(params[:note])
+        format.html {
+          flash[:notice] = _('Note was successfully updated.')
+          redirect_to edit_admin_note_path(params[:id])
+        }
+        format.xml { head :ok }
+        format.js { head :ok }
+      else
+        format.html {
+          flash[:error] = _('validation error')
+          redirect_to :action => 'index'
+        }
+        format.xml { render :xml => @note.errors, :status => :unprocessable_entity }
+      end
     end
   end
 

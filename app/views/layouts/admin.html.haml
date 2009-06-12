@@ -1,13 +1,11 @@
 !!! XML
 !!!
-- content_for :header do
-  =stylesheet_link_tag "mypage"
-  =stylesheet_link_tag "admin/admin"
-
 %html{html_attrs("ja")}
 
   %head
     = render :partial => 'shared/common_header'
+    =stylesheet_link_tag "mypage"
+    =stylesheet_link_tag "admin/admin"
 
   %body
     #header.page-layout
@@ -30,7 +28,7 @@
         #content
           .admin-menu= render :partial => 'shared/admin/menu'
           .admin-content
-            %h1= generate_topics_str(@topics)
+            %h1= generate_topics_str(@topics) if @topics
 
             .admin-main-content
               - if @search

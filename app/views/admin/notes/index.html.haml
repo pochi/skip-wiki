@@ -4,17 +4,32 @@
       %tr
         %th.updated_title&= _('Note|Display name')
         %th.description&= _('Note|Discription')
-        %th.edit= _('Edit')
+        %th.label&= _('label index')
+        %th.page&= _('page')
+        %th.attachment&= _('attachment')
         %th.delete&= _('Delete')
       - for note in @notes
         %tr{:class => cycle('even', 'odd')}
           %td.updated_title&= note.display_name
-          %td.description&= note.description
-          %td.edit= link_to _("Edit"), edit_admin_note_path(note)
+          %td.inplace-edit
+            - form_opt = {:url=>admin_note_path(note.name)}
+            .show
+              %span.note_description= note.description
+              %span.op.ipe-trigger&= _("Click to edit")
+            .edit{:style=>"display:none"}
+              - form_for :note, note, form_opt.merge(:html=>{:method=>"PUT",:style=>"display:visible"}) do |f|
+                = f.text_field :description, :size=>24, :id=>"#{note.id}_description"
+                = f.submit _("Update")
+                %span.indicator{:style=>"display:none"}= image_tag("skip/indicator.gif")
+                %span.op.ipe-cancel&= _("Cancel")
+          %td.labels= link_to _('label index'), admin_note_label_indices_path(note)
+          %td.page= link_to _('page'), admin_note_pages_path(note)
+          %td.attachment= link_to _('attachment'), admin_note_attachments_path(note)
           %td.delete= link_to _("Delete"), {:controller=>'admin/notes',:action=>'destroy',:id=>note}, :confirm=>_("Are you sure?"), :method=>:delete
     .paginate
       = will_paginate(@notes, :prev_label => '&#171;前', :next_label => '次&#187;', :container => false)
       = page_entries_info_ja(@notes)
       = paginate_links(@per_page)
 
-
+:javascript
+  jQuery(function(){ $("div#updated-note").manageNote() });

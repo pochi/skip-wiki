@@ -234,6 +234,18 @@
     });
   };
 
+  jQuery.fn.manageNote = function(config){
+    var table = jQuery(this).find("table");
+
+    function update(td, _req, _stat){
+      var name = td.find("[name='note[description]']").val();
+      td.find("span.note_description").text(name);
+      return false;
+    }
+
+    jQuery.each(table.find("td.inplace-edit"), function(){jQuery(this).aresInplaceEditor({callback:update}) });
+  }
+
   jQuery.fn.manageLabel = function(config){
     var table = jQuery(this).find("table");
 

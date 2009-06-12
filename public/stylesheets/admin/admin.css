@@ -41,6 +41,7 @@ div#content .admin-help-bar {
 div#content .paginate {
   margin-top: 10px;
   margin-left: 50px;
+  margin-bottom: 5px;
   font-size: 14px; }
 
 div#content #contents .updated-note {
@@ -56,6 +57,10 @@ div#content #contents {
 #content_for_layout table.skipwiki tr td {
   border-bottom: 0px;}
 
+#content_for_layout table.skipwiki tr td span.op.ipe-trigger{
+  color: #0080DD;
+  font-size: 10px;}
+
 #content_for_layout table.skipwiki tr th {
   text-align: left;}
 
@@ -63,15 +68,18 @@ div#content #contents {
   width: 40%;}
 
 #content_for_layout table.skipwiki th.updated_title {
-  width: 30%;}
+  width: 20%;}
 
 #content_for_layout table.skipwiki th.description {
-  width: 40%;}
+  width: 50%;}
 
 #content_for_layout table.skipwiki th.login {
   width: 20%;}
 
 #content_for_layout table.skipwiki th.admin {
+  width: 10%;}
+
+#content_for_layout table.skipwiki th.attachment {
   width: 10%;}
 
 #content_for_layout table.skipwiki th.delete {

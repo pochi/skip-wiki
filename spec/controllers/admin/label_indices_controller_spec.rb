@@ -16,7 +16,7 @@ describe Admin::LabelIndicesController do
     before do
       controller.should_receive(:requested_note).and_return(mock_note)
       mock_note.should_receive(:display_name).and_return('hoge')
-      get :index      
+      get :index
     end
 
     it "noteが取得できていること" do
@@ -25,7 +25,7 @@ describe Admin::LabelIndicesController do
 
     it "ぱんくずリストが設定されていること" do
       assigns[:topics].class.should == Array
-      assigns[:topics].size.should == 3
+      assigns[:topics].size.should == 2
     end
   end
 
