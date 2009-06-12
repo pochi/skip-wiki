@@ -1,0 +1,118 @@
+div#content .admin-header .user-bar div#admin_title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  float: left; }
+
+body li{
+  margin-left: 30px; }
+
+body h3{
+  margin: 0.5em 0px !important;}
+
+div#content .admin-header .title-bar div#user_menu {
+  padding-top: 2px;
+  float: left; }
+
+div#content .admin-menu {
+  margin-top: 10px;
+  border: solid 1px silver;
+  width: 15%;
+  margin-left: 30px;
+  float: left;}
+div#content .admin-content {
+  float: left;
+  margin-left: 30px;
+  width: 70%; }
+
+div#content .admin-header {
+  border-bottom: 1px solid silver; }
+
+div#content .admin-search-bar {
+  height: 30px;
+  border-bottom: 1px dotted silver;}
+
+div#content .admin-help-bar {
+  height: 25px;
+  margin-top: 5px;
+  font-size: 14px;
+  border-bottom: 1px dotted silver;}
+
+
+div#content #contents .updated-note {
+  margin-top: 100px;
+  float: left; }
+
+div#content #contents {
+  margin-top: 10px; }
+
+div#content .user_search {
+  margin-left: 5px;
+  float: left;
+  margin-top: 5px; }
+
+div#content .admin-header {
+  margin-top: 3px; }
+
+div#content .admin-header .user-bar div#user_menu {
+  float: left;
+  margin-top: 15px;}
+
+div#content .admin-header .user-bar div#user_menu .user-navi {
+  position: absolute;
+  left: 300px;
+  z-index: 1;
+  background: white;
+  border: 2px solid gray;
+  display: none; }
+  div#content .admin-header .user-bar div#user_menu .user-navi ul {
+    font-size: 10px;
+    font-weight: normal;
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+    div#content .admin-header .user-bar div#user_menu .user-navi ul li {
+      margin: 3px;
+      border-bottom: 1px solid silver; }
+    div#content .admin-header .user-bar div#user_menu .user-navi ul li:last-child, div#content .admin-header .user-bar div#user_menu .user-navi ul li:last-child {
+      border-bottom: 0; }
+
+div#content #contents .note {
+  width: 90%;
+  position: relative;
+  font-size: 16px; }
+
+div#content #contents .note .query {
+  margin: 2em auto;
+  width: 70%;
+  background: #eeeeee; }
+div#content #contents .query > a {
+  float: right;
+  font-size: 10px; }
+div#content #contents .query > form {
+  clear: right; }
+  .index .query > form dt, .index .query > form input[type=text] {
+    font-size: 13px; }
+  .index .query > form div.commit {
+    float: right; }
+
+div#content #contents div.page {
+  border-top: 0px;}
+
+div#content .admin_menu_title {
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #F0F0FF;
+  border-bottom: 1px solid silver; }
+
+div#content .admin_menu {
+  margin-bottom: 5px;}
+div#content .admin-main-content {
+  border: 1px solid silver;
+  margin: 5px;}
+
+div#content .inplace-edit {
+  width: 400px;}
+ul.float{
+  margin-left: 50px; }
+

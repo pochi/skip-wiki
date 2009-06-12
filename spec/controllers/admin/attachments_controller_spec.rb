@@ -23,11 +23,9 @@ describe Admin::AttachmentsController do
   describe "GET /admin/attachments/index" do
     describe "requested_noteが取得できている場合" do
       before do
-        # TODO should_receiveにすると２回呼ばれていると怒られる
         # mock_note.should_receive(:attachments).and_return(mock_attachments)
-        ids = mock_attachments.map {|at| at.id}
-        controller.should_receive(:collect_ids).and_return(ids)
-        Attachment.should_receive(:find).with(ids).and_return(mock_attachments)
+        controller.stub!(:requested_note).and_return(mock_note)
+        mock_note.should_receive(:attachments).and_return(mock_attachments)
       end
 
       it "requested_noteにひもづく添付ファイルが取得できていること" do
@@ -60,5 +58,5 @@ describe Admin::AttachmentsController do
       response.should redirect_to(admin_note_attachments_url)
     end
   end
- 
+
 end

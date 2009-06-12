@@ -1,12 +1,8 @@
-- content_for :header do
-  =stylesheet_link_tag "mypage"
-  =stylesheet_link_tag "admin/admin"
-
 #contents
   - div_for(@note) do
     .property
       %h3
-        =h _("Note Properties") 
+        =h _("Note Properties")
         ="("+@note.display_name+")"
         %span= link_to(h(_"edit note properties"), edit_admin_note_path(@note.id))
       %p.explain
