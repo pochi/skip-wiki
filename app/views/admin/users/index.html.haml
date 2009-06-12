@@ -1,7 +1,3 @@
-- content_for :header do
-  =stylesheet_link_tag "mypage"
-  =stylesheet_link_tag "admin/admin"
-
 #contents
   #updated-note
     %table.skipwiki.notes-index
@@ -9,12 +5,12 @@
         %th.login&= _('User|Name')
         %th.login&= _('User|Display name')
         %th.admin&= _('User|Admin')
-        %th.edit&= _('User|Edit')
+        %th.openid_url&= _('OpenID URL')
       - @users.each do |user|
         %tr.item_line
           %td.name&= user.name
           %td.login&= user.display_name
           %td.admin&= _('User|Admin') if user.admin?
-          %td.edit= link_to _("Edit"), edit_admin_user_path(user)
+          %td.openid_url&= user.identity_url
 
 
