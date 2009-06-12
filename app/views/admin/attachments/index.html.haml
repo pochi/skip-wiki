@@ -12,7 +12,7 @@
           %th.download= _("Download")
           %th.delete= _("Delete")
         - @attachments.each do |at|
-          %tr
+          %tr{:class => cycle('even', 'odd')}
             %td&= at.attachable.display_name
             %td&= at.display_name
             %td&= number_to_human_size(at.size)

@@ -7,7 +7,7 @@
         %th.admin&= _('User|Admin')
         %th.openid_url&= _('OpenID URL')
       - @users.each do |user|
-        %tr.item_line
+        %tr{:class => cycle('even', 'odd')}
           %td.name&= user.name
           %td.login&= user.display_name
           %td.admin&= _('User|Admin') if user.admin?

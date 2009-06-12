@@ -46,6 +46,12 @@ div#content #contents .updated-note {
 div#content #contents {
   margin-top: 10px; }
 
+#content_for_layout table.skipwiki tr.odd {
+  background-color: #F5F5F5;}
+
+#content_for_layout table.skipwiki tr td {
+  border-bottom: 0px;}
+
 div#content .user_search {
   margin-left: 5px;
   float: left;

@@ -11,7 +11,7 @@
   %tbody
     - each_with_histories(pages) do |page, history|
       - @note = Note.find(page.note_id)
-      %tr
+      %tr{:class => cycle('even', 'odd')}
         %td.note_name= @note.display_name
         %td.name= link_to h(page.display_name), admin_note_page_url(@note, page)
         %td&= history.user.name
