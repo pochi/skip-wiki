@@ -105,7 +105,7 @@ div#header {
   div#header div#search {
     position: absolute;
     bottom: 10px;
-    right: 0px; }
+    right: 10px; }
     div#header div#search input.labeled-field {
       border: 1px solid silver;
       font-size: 13px;
@@ -252,6 +252,9 @@ input.input_text {
   font-size: 13px; }
   .labeled-field.focus {
     color: #000000; }
+
+.invisible {
+  display: none; }
 
 iframe#ie-select-fix {
   border: 0;
