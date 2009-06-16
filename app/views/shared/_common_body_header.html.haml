@@ -3,7 +3,7 @@
     #application_link
     #menu
       - if logged_in?
-        %b{:style=>"color:block"}&= _("Login ID: %{name}") % {:name => current_user.name }
+        %b{:style=>"color:block"}&= current_user.name
         = "| #{link_to _("Set up"), admin_root_path}" if current_user.admin?
         = "| #{link_to(_("Edit profile"), user_path(current_user))}"
         = "| #{link_to(_("Logout"), logout_path)}"
