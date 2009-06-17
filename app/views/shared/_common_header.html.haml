@@ -1,4 +1,7 @@
-%link{:rel=>"shortcut icon", :href=>url_for("/favicon.ico")}
+- if SkipEmbedded::OpFixation.sso_enabled? && skip_url = SkipEmbedded::InitialSettings["skip_collaboration"]["skip_url"]
+  %link{:rel => "shortcut icon", :href => URI.join(skip_url, "custom/favicon.ico")}
+- else
+  %link{:rel => "shortcut icon", :href => url_for("/favicon.ico")}
 :javascript
   var relative_url_root = '#{controller.request.relative_url_root}';
 %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}
