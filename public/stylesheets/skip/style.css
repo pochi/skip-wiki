@@ -198,17 +198,6 @@ div.errorExplanation li {
         -khtml-opacity: 0.5;
         opacity: 0.5;
 }
-/* グローバルナビ */
-#global_navi {
- text-align: right;
- margin: 0;
- padding: 5px;
- border-bottom: 1px dashed silver;
- background-image: url(./../../images/skip/gradient.png);
- font-family: Verdana,Arial,Helvetica,sans-serif;
- font-size: 1p3x;
-
-}
 
 a:hover {
   color: blue;
