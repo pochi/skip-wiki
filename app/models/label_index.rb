@@ -14,7 +14,7 @@ class LabelIndex < ActiveRecord::Base
   scope_do :has_children
   has_children :pages
 
-  validates_presence_of :display_name
+  # validates_presence_of :display_name
   validates_uniqueness_of :display_name, :scope=>:note_id
 
   before_destroy :deletable?
