@@ -35,7 +35,7 @@ msgid "Edit"
 msgstr "編集"
 
 msgid "label index"
-msgstr "ラベル"
+msgstr "分類"
 
 msgid "Memberships was successfully updated"
 msgstr "ログインしました。"
@@ -186,7 +186,7 @@ msgstr ""
 "す。%{category_key}は%{category_val}です。"
 
 msgid "Note|Label navigation style"
-msgstr "ラベルバーの表示方法"
+msgstr "分類バーの表示方法"
 
 msgid "Note|List attachments"
 msgstr "添付ファイル一覧へのアクセス"
@@ -271,7 +271,7 @@ msgid "Delete %{entity}"
 msgstr "%{entity}を削除"
 
 msgid "label change"
-msgstr "ラベルを変更"
+msgstr "分類を変更"
 
 msgid "Attachment|Attachable"
 msgstr ""
@@ -415,7 +415,7 @@ msgid "LabelIndexing|Updated at"
 msgstr ""
 
 msgid "LabelIndexing|Page order"
-msgstr "ラベル識別子"
+msgstr "分類識別子"
 
 #, fuzzy
 msgid "LabelIndex|Display name"
@@ -423,25 +423,25 @@ msgstr "ページ名"
 
 #, fuzzy
 msgid "LabelIndex|Color"
-msgstr "ラベル識別子"
+msgstr "分類識別子"
 
 #, fuzzy
 msgid "LabelIndex|Note"
-msgstr "ラベル識別子"
+msgstr "分類識別子"
 
 #, fuzzy
 msgid "LabelIndex|Default label"
-msgstr "標準のラベルは削除できません"
+msgstr "標準の分類は削除できません"
 
 msgid "No Labels"
-msgstr "ラベルなし"
+msgstr "分類なし"
 
 msgid "Can not delete default label"
-msgstr "標準のラベルは削除できません"
+msgstr "標準の分類は削除できません"
 
 msgid "Move or delete related pages before delete the label"
 msgstr ""
-"関連付けられたページがあります。関連付いているページを別ラベルに移してから削"
+"関連付けられたページがあります。関連付いているページを別分類に移してから削"
 "除してください。"
 
 msgid "Select group"
@@ -454,7 +454,7 @@ msgid "Select publicity"
 msgstr "公開範囲を選択"
 
 msgid "Select label navigation style"
-msgstr "ラベルバーの表示方法を選択"
+msgstr "分類バーの表示方法を選択"
 
 msgid "Input name"
 msgstr "名前を入力"
@@ -639,7 +639,7 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "add labels"
-msgstr "ラベルを追加"
+msgstr "分類を追加"
 
 msgid "Create"
 msgstr "作成"
@@ -792,7 +792,7 @@ msgid "Back to Hisotries"
 msgstr "履歴一覧に戻る"
 
 msgid "Label index for %{note}"
-msgstr "「%{note}」のラベル一覧"
+msgstr "「%{note}」の分類一覧"
 
 msgid "Pages related to %{label}"
 msgstr "%{label}のついたページ一覧"
@@ -819,7 +819,7 @@ msgid "Last updated at %{time}"
 msgstr "最終更新日時：%{time}"
 
 msgid "Show label|Description"
-msgstr "ラベルツールバーを表示する"
+msgstr "分類ツールバーを表示する"
 
 msgid "Page Name|Edit"
 msgstr "[編集]"
@@ -855,7 +855,7 @@ msgid "more..."
 msgstr "もっと見る..."
 
 msgid "Note|LabelNavigationStyle"
-msgstr "ラベルバー表示"
+msgstr "分類バー表示"
 
 msgid "Updated notes"
 msgstr "更新されたノート"
@@ -1005,13 +1005,13 @@ msgid "Oldly updated"
 msgstr "更新日時が古い順"
 
 msgid "LabelIndices"
-msgstr "ラベル識別子"
+msgstr "分類識別子"
 
 msgid "Page|Label indices"
-msgstr "ラベル識別子"
+msgstr "分類識別子"
 
 msgid "edit labels"
-msgstr "ラベル名を編集"
+msgstr "分類名を編集"
 
 msgid "Deleted"
 msgstr "削除済み"
@@ -1159,7 +1159,7 @@ msgstr "ログアウト"
 #~ msgstr "ページ名の編集は、この上にあるページ名をクリックしてください"
 
 #~ msgid "Label navigation"
-#~ msgstr "ラベルツールバー"
+#~ msgstr "分類ツールバー"
 
 #~ msgid ">"
 #~ msgstr ">"
@@ -1197,10 +1197,10 @@ msgstr "ログアウト"
 #~ msgstr "%{title}の添付ファイル"
 
 #~ msgid "Labeled as %{label}"
-#~ msgstr "ラベル: %{label}"
+#~ msgstr "分類: %{label}"
 
 #~ msgid "show label navigation"
-#~ msgstr "ラベルバーを表示"
+#~ msgstr "分類バーを表示"
 
 #~ msgid "%{fn}'s groups index"
 #~ msgstr "%{fn}さんの所属グループ一覧"
@@ -1287,22 +1287,22 @@ msgstr "ログアウト"
 #~ msgstr "知らせる"
 
 #~ msgid "LabelIndex %{display_name} was successfully created."
-#~ msgstr "ラベル「%{note}」を作成しました。"
+#~ msgstr "分類「%{note}」を作成しました。"
 
 #~ msgid "Previous in %{label}"
-#~ msgstr "%{label}ラベルの前のページ"
+#~ msgstr "%{label}分類の前のページ"
 
 #~ msgid "First in the label."
-#~ msgstr "このラベルでの最初のページです"
+#~ msgstr "この分類での最初のページです"
 
 #~ msgid "Next in %{label}"
-#~ msgstr "%{label}ラベルの次のページ"
+#~ msgstr "%{label}分類の次のページ"
 
 #~ msgid "Last in the label."
-#~ msgstr "このラベルでの最後のページです"
+#~ msgstr "この分類での最後のページです"
 
 #~ msgid "all labels"
-#~ msgstr "すべてのラベル"
+#~ msgstr "すべての分類"
 
 #, fuzzy
 #~ msgid "Page"

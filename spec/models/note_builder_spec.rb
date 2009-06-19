@@ -32,8 +32,8 @@ describe NoteBuilder do
     @note.owner_group.should be_new_record
   end
 
-  it "owner_group should have 10 label_indices" do
-    @note.should have(10).label_indices
+  it "owner_group should have 1 label_indices" do
+    @note.should have(1).label_indices
   end
 
 
@@ -86,7 +86,7 @@ describe NoteBuilder do
     end
 
     it "should have(10) label_indices" do
-      @note.should have(10).label_indices
+      @note.should have(1).label_indices
     end
 
     it "front_pageはまだnew_recordであること" do

@@ -14,15 +14,12 @@ class LabelIndex < ActiveRecord::Base
   scope_do :has_children
   has_children :pages
 
-  # validates_presence_of :display_name
   validates_uniqueness_of :display_name, :scope=>:note_id
 
   before_destroy :deletable?
 
-  attr_accessible :display_name, :color, :note
-
-  def self.no_label
-    new(:display_name => _("No Labels"), :color => "#ffffff"){|l| l.default_label = true }
+  def self.first_label
+    new(:color => "#b0e0e6", :display_name => "", :default_label => true)
   end
 
   private

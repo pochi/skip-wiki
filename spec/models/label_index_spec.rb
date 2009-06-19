@@ -64,4 +64,16 @@ describe LabelIndex do
 
     it("@p1のorder_in_labelは1であること"){ @p1.order_in_label.should == 1 }
   end
+
+  describe "#first_label" do
+    it "should be an instance of LabelIndex" do
+      LabelIndex::first_label.class.should == LabelIndex
+    end
+    it "should be displayname is empty" do
+      LabelIndex::first_label.display_name.should be_empty
+    end
+    it "should be default_label is true" do
+      LabelIndex::first_label.default_label.should be_true
+    end
+  end
 end

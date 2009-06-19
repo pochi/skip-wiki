@@ -92,7 +92,7 @@ class Note < ActiveRecord::Base
   end
 
   def default_label
-    label_indices.detect(&:default_label)
+    (label_indices.is_a?(Array) ? label_indices : label_indices.to_a).detect(&:default_label)
   end
 
   def wikipedia?
