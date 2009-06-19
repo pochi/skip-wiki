@@ -29,8 +29,7 @@
               =f.radio_button(:group_backend_type, "SkipGroup")
               =f.label :group_backend_type, h(_"SKIPグループ"), :for=>"note_group_backend_type_skipgroup"
             %td
-              // FIXME
-              =f.select :group_backend_id, current_user.memberships.select{|m| m.group.backend_type == "SkipGroup" }.map{|m| [m.group.display_name, m.group.id] }
+              =f.select :group_backend_id, current_user.memberships.select{|m| m.group.backend_type == "SkipGroup" }.map{|m| [m.group.display_name, m.group.backend_id] }
 
     -render_wizard(1, :select_category) do
       .wizard_content
