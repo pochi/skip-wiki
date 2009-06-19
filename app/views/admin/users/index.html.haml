@@ -5,12 +5,14 @@
         %th.login&= _('User|Name')
         %th.login&= _('User|Display name')
         %th.admin&= _('User|Admin')
+        %th.deleted&= _('User|Deleted')
         %th.openid_url&= _('OpenID URL')
       - @users.each do |user|
         %tr{:class => cycle('even', 'odd')}
           %td.name&= user.name
           %td.login&= user.display_name
           %td.admin&= _('User|Admin') if user.admin?
+          %td.deleted&= _('Deleted') if user.deleted?
           %td.openid_url&= user.identity_url
     .paginate
       = will_paginate(@users, :prev_label => '&#171;前', :next_label => '次&#187;', :container => false)
