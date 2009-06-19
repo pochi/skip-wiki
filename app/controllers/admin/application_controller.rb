@@ -9,11 +9,11 @@ class Admin::ApplicationController < ApplicationController
       redirect_to root_url
       return false
     end
+    return true
   end
 
   def requested_note
-    return nil if params[:note_id].nil?
-    @note = Note.find_by_name(params[:note_id])
+    return params[:note_id].nil? ? nil : @note = Note.find_by_name(params[:note_id])
   end
 
 end
