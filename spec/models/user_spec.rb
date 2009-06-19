@@ -297,6 +297,30 @@ describe User do
           }
         end
       end
+
+      describe '削除済みの新規レコードで再更新' do
+        before do
+          data = (10..10).map do |x|
+            {:name => "user-no-#{x}", :display_name => "User.#{x}", :identity_url => "http://op.example.com/user/#{x}", :delete? => true}
+          end
+          @created, @updated, @deleted = User.sync!(@client, data)
+        end
+
+        it "0人のユーザが作成されていること" do
+          @created.should have(0).items
+        end
+
+        it "0人のユーザが更新されていること" do
+          @updated.should have(0).items
+        end
+
+        it "1人のユーザが論理的に削除されていること" do
+          @deleted.should have(1).items
+          User.should satisfy{
+            @deleted.all?{|u| u.deleted }
+          }
+        end
+      end
     end
 
     describe ".sync! のベンチ(100件)" do
