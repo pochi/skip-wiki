@@ -19,6 +19,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
 
+  MENU_ITEM_NUM = 10
+
   layout :select_layout
 
   private
@@ -31,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def explicit_user_required
-    self.current_note = current_user.free_or_accessible_notes.find_by_name(params[:id])
+    self.current_note = current_user.free_or_accessible_notes.find_by_name(params[:note_id])
     unless current_user.accessible?(current_note)
       render_not_found
     end
@@ -52,6 +54,7 @@ class ApplicationController < ActionController::Base
     return @__current_note if @__current_note
 
     scope = logged_in? ? current_user.free_or_accessible_notes : Note.free
+    params[:note_id] ||= Note.wikipedia.name
     @__current_note = @note || scope.find_by_name(params[:note_id]) || :none
     current_note
   end
@@ -95,4 +98,10 @@ class ApplicationController < ActionController::Base
   def authenticate_with_api_or_login_required
     params[:user].blank? ? authenticate_with_session_or_oauth : check_secret_key
   end
+
+  def setup_menu
+    @notes = current_user.free_or_accessible_notes.recent(MENU_ITEM_NUM + 1)
+    @pages = Page.active.scoped(:conditions=>["note_id IN (?)", @notes.map(&:id)]).recent(MENU_ITEM_NUM + 1)
+  end
+
 end

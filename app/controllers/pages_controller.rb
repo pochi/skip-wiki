@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   skip_before_filter :authenticate, :only => %w[index]
   before_filter :authenticate_with_api_or_login_required, :only => %w[index]
   before_filter :explicit_user_required, :except => %w[index show]
+  before_filter :setup_menu, :except => %w[index create update]
 
   def index
     @pages = accessible_pages(true).fulltext(params[:keyword]).
@@ -150,4 +151,5 @@ class PagesController < ApplicationController
       json[:note] = page.note.attributes.slice("display_name")
     end
   end
+
 end

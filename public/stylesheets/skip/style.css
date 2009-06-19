@@ -446,7 +446,7 @@ div.box_space div.box_space_title {
   color: #0033cc;
   font-size: 15px;
   font-weight: bold;
-  background-image: url(./../images/label_bar.png);
+  background-image: url(./../../images/label_bar.png);
 }
 /* タイトル中のサイズの小さい文字 */
 div.box_space div.box_space_title span.small {

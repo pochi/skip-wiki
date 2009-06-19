@@ -18,7 +18,7 @@
   pre
     :font-family monospace
     :background #CCFFFF
-    :padding 10px
+    :padding 1px
     :border 1px dashed gray
 
   #current-note
@@ -33,7 +33,7 @@
   select
     :border 1px solid silver
 
-div#top
+div#content_top
   :border-bottom 1px solid #ccc
   ul
     :float right
@@ -82,6 +82,25 @@ div#top
     :background-color yellow
   img
     :vertical-align middle
+
+#right_menu
+  :padding-top 2px
+  :padding-right 2px
+  :width 150px
+  :float right
+
+  select
+    :width 140px
+    :font-size= !small_font_size
+  p.page_title
+  p.note_title
+    :padding-left 5px
+    :font-size= !small_font_size
+    :color gray
+    :border-bottom 1px dotted silver
+
+#left_contents
+  :margin-right 160px
 
 #select_my_note
   :position relative
@@ -168,18 +187,18 @@ div#top
     :clear both
 
   .page-content
-    :margin-left 0
-    :width 100% !important
+    :margin-left 10px
     :border 0 none
+    ul
+      :margin 0 0 0 25px
+      :padding 0
+
   .page-content.two_pain
     :margin-left= !navigation_width+1
     :border-left 1px solid silver
     :border-right 1px solid silver
     :border-bottom 1px solid silver
     :padding 2px 2px 5px 10px
-    ul
-      :margin 0 0 0 25px
-      :padding 0
 
 #footer
   :text-align center
@@ -973,6 +992,10 @@ p.history-info
   span.val
     :color #00cccc
 
+div#header
+  :border-bottom 1px dashed #ccc
+  :padding-bottom 4px
+
 #content .attachments
   :padding 5px
   table
@@ -1013,3 +1036,6 @@ p.history-info
 
 .admin_menu ul
   :margin-left 3em
+
+div.clear_left
+  :clear left

@@ -73,8 +73,13 @@ class User < ActiveRecord::Base
   end
 
   def page_editable?(note)
-    note.public_writable? || accessible?(note)
+    note.wikipedia? || accessible?(note)
   end
+
+  def note_editable?(note)
+    note.wikipedia? ? admin? : accessible?(note)
+  end
+
 
   def build_note(note_params)
     NoteBuilder.new(self, note_params).note

@@ -82,10 +82,6 @@ class Note < ActiveRecord::Base
     accessibilities.map(&:group)
   end
 
-  def public_writable?
-    Note::PUBLICITY_WRITABLE == publicity
-  end
-
   def public_readable?
     [Note::PUBLICITY_READABLE, Note::PUBLICITY_WRITABLE].include?(publicity)
   end
@@ -96,5 +92,13 @@ class Note < ActiveRecord::Base
 
   def default_label
     label_indices.detect(&:default_label)
+  end
+
+  def wikipedia?
+    publicity == Note::PUBLICITY_WRITABLE
+  end
+
+  def self.wikipedia
+    find_by_publicity(Note::PUBLICITY_WRITABLE)
   end
 end
