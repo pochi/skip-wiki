@@ -12,6 +12,12 @@ describe LabelIndex do
     LabelIndex.create!(@valid_attributes)
   end
 
+  it "shoulud create a new instance with filled in displayname is empty" do
+    empty_attributes = {:display_name => "", :note => mock_model(Note)}
+    @label = LabelIndex.new(empty_attributes)
+    @label.should be_valid
+  end
+
   describe ".has_pages" do
     fixtures :notes, :pages
     before do
