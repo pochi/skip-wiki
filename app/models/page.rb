@@ -46,7 +46,7 @@ class Page < ActiveRecord::Base
   }
 
   named_scope :admin, proc{|*note_id|
-    return {} if note_id[0].nil?    
+    return {} if note_id[0].nil?
     {:conditions => ["#{quoted_table_name}.note_id IN (?)", note_id]}
   }
 

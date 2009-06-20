@@ -23,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :notes do |note|
+    note.init "/init", :controller => "notes", :action => "init"
     note.resources :label_indices
     note.resources :pages, :member => {:recovery => :post}, :new => {:preview => :post} do |page|
       page.resources :histories, :collection=>{:diff=>:get}

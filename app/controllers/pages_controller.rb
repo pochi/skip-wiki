@@ -33,8 +33,16 @@ class PagesController < ApplicationController
 
   def show
     @note = current_note
-    @page = accessible_pages.find_by_name(params[:id], :include=>:note)
-    @page || render_not_found
+    if @note.pages.size == 0 && current_user.note_editable?(@note)
+      flash[:notice] = "最初にトップページを作成しましょう"
+      redirect_to note_init_path(@note)
+    else
+      @page = accessible_pages.find_by_name(params[:id], :include=>:note)
+      @page || render_not_found
+    end
+  end
+
+  def initilaize
   end
 
   def new

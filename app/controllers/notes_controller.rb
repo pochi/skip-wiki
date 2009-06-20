@@ -3,8 +3,7 @@ require 'skip_embedded/web_service_util/server'
 class NotesController < ApplicationController
   skip_before_filter :authenticate, :only => %w[index]
   before_filter :authenticate_with_api_or_login_required, :only => %w[index]
-  before_filter :explicit_user_required, :except => %w[index new create dashboard]
-  DASHBOARD_ITEM_NUM = 10
+  before_filter :explicit_user_required, :except => %w[index new create]
   include SkipEmbedded::WebServiceUtil::Server
 
   layout :select_layout
@@ -25,9 +24,11 @@ class NotesController < ApplicationController
     end
   end
 
-  def dashboard
-    @notes = current_user.free_or_accessible_notes.recent(DASHBOARD_ITEM_NUM + 1)
-    @pages = Page.active.scoped(:conditions=>["note_id IN (?)", @notes.map(&:id)]).recent(DASHBOARD_ITEM_NUM + 1)
+  def init
+    @note = current_note
+    @page = @note.pages.build
+    @page.name = Page::FRONTPAGE_NAME
+    @page.label_index_id = @note.label_indices.first.id
   end
 
   # GET /notes/1
@@ -66,7 +67,6 @@ class NotesController < ApplicationController
     respond_to do |format|
       begin
         @note.save!
-        builder.front_page.save!
         flash[:notice] = _("Note `%{note}' was successfully created.") % {:note => @note.display_name}
         format.html { redirect_to(note_page_path(@note, "FrontPage")) }
         format.xml  { render :xml => @note, :status => :created, :location => @note }
@@ -125,7 +125,7 @@ class NotesController < ApplicationController
 
   def select_layout
     case params[:action]
-    when *%w[index new dashboard] then super
+    when *%w[index new init] then super
     else "notes"
     end
   end
