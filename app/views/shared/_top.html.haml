@@ -5,7 +5,6 @@
 #note-menu
   - if logged_in?
     %ul.float
-      %li= link_to(_("note pages"), note_pages_path(current_note))
       - if current_note.list_attachments || current_user.page_editable?(current_note)
         %li= link_to(_("note attachments"), note_attachments_path(current_note))
       - if current_user.page_editable?(current_note)
