@@ -37,7 +37,7 @@
         });
 
 
-  %h1.page-name
+  .page-name
     .show
       %span.title&= @page.display_name
       - if !@page.deleted && current_user.page_editable?(current_note)
@@ -56,7 +56,7 @@
             val($("select.#label_change option:selected").val());
             $("form.#page_update").submit();
           });
-          $("h1").aresInplaceEditor(jQuery.extend({
+          $(".page-name").aresInplaceEditor(jQuery.extend({
             callback:application.callbacks.pageDisplaynameEditor
           }, #{page_display_name_ipe_option.to_json}))
         });

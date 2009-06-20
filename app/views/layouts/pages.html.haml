@@ -36,7 +36,7 @@
       #content_top= render :partial => 'shared/top'
 
       #floating{:style=>"z-index:1"}= yield :floating
-      #main
+      #main{:style=>"padding:0"}
         #content_for_layout
           #content
             = render :partial => 'pages/page_content'

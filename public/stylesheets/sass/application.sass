@@ -167,45 +167,40 @@ div.init_note
     :margin-left = !content_margin
 
   .page-header
-    :margin-left 0
-    :border-bottom 1px dotted silver
+    :padding 5px 0
+    :border-left 1px solid silver
+    :border-right 1px solid silver
+    :border-bottom 1px solid silver
 
-    h1
-      :margin 0 0 3px 10px
-      :padding 5px 0
-      span.title
-        :padding-left 4px
-        :font-size = !modern_page_font_size + 8px
-      span.labeled
-        :font-size = !small_font_size
-        :margin auto 3px
-      .edit
-        input[type=text]
-          :font-size = !modern_page_font_size
-    div
-      span
-        :font-size 12px
+    .page-name
+      :height 35px
 
-  .page-header.two_pain
-    :margin-left= !navigation_width+1
+    span.title
+      :padding left 4px
+      :font-size = !modern_page_font_size + 15px
+    span.labeled
+      :font-size = !small_font_size
+      :margin auto 3px
+    .edit
+      input[type=text]
+        :font-size = !modern_page_font_size
 
   #new_page
     :width 100%
     :clear both
 
   .page-content
-    :margin-left 10px
-    :border 0 none
-    ul
-      :margin 0 0 0 25px
-      :padding 0
-
-  .page-content.two_pain
-    :margin-left= !navigation_width+1
     :border-left 1px solid silver
     :border-right 1px solid silver
     :border-bottom 1px solid silver
     :padding 2px 2px 5px 10px
+    ul
+      :margin 0 0 0 25px
+      :padding 0
+
+  .two_pain
+    :margin-left= !navigation_width+1
+    :_margin-left= !navigation_width
 
 #footer
   :text-align center
