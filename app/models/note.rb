@@ -98,7 +98,8 @@ class Note < ActiveRecord::Base
     publicity == Note::PUBLICITY_WRITABLE
   end
 
-  def self.wikipedia
-    find_by_publicity(Note::PUBLICITY_WRITABLE)
+  def self.wikipedia_name
+    note = find_by_publicity(Note::PUBLICITY_WRITABLE)
+    note ? note.name : ""
   end
 end

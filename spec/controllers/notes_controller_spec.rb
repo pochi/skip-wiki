@@ -119,7 +119,6 @@ describe NotesController do
         mock_note.should_receive(:save!)
         mock_note.should_receive(:display_name).and_return("the note's display name")
         builder.should_receive(:note).and_return(mock_note)
-        builder.should_receive(:front_page).and_return(mock_model(Page, "save!"=>true))
       end
 
       it "should expose a newly created note as @note" do
@@ -180,7 +179,7 @@ describe NotesController do
       end
 
     end
-    
+
     describe "with invalid params" do
 
       it "should update the requested note" do
@@ -212,7 +211,7 @@ describe NotesController do
       mock_note.should_receive(:destroy)
       delete :destroy, :id => "37"
     end
-  
+
     it "should redirect to the notes list" do
       Note.stub!(:find_by_name).and_return(mock_note(:destroy => true))
       delete :destroy, :id => "1"
