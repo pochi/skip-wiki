@@ -51,7 +51,7 @@ describe SessionsController do
 
   describe "GET destroy #SSOでない場合" do
     before do
-      SkipEmbedded::OpFixation.sso_openid_provider_url = nil
+      SkipEmbedded::OpFixation.skip_url = nil
       get :destroy
     end
     it{ response.should redirect_to(login_path) }
@@ -59,7 +59,7 @@ describe SessionsController do
 
   describe "GET destroy #SSOの場合" do
     before do
-      SkipEmbedded::OpFixation.sso_openid_provider_url = "http://openid.example.com/"
+      SkipEmbedded::OpFixation.skip_url = "http://openid.example.com/"
       get :destroy
     end
     it{ response.should redirect_to("http://openid.example.com/logout") }

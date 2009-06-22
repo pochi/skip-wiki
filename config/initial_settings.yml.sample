@@ -41,45 +41,24 @@ production:
   skip_collaboration:
     secret_key: "---FIXME----BEFORE---DEPLOYMENT---"
     skip_url: "http://product.skip.local"
-    fulltext_search:
-      endpoint:  "http://product.skip.local/search/full_text_search"
-      query_name: "full_text_query"
-    fixed_op:
-      #disabled: true
-      fixed_openid_server_url: "http://sso.test.example.com"
-      acceptable_op_urls: []
   <<: *label_defaults
-  asset_path: "/Users/moro/tmp/skip-wiki-assets/production"
+  asset_path: "tmp/skip-wiki-assets/production"
 
 development:
   skip_collaboration:
     secret_key: "1f3c30382d9f2060baf14f0cdb102fe2"
     skip_url: "http://test.skip.local"
-    fulltext_search:
-      endpoint:  "http://localhost:3002/search/full_text_search"
-      query_name: "full_text_query"
-    fixed_op:
-      disabled: true
-      fixed_openid_server_url: "http://sso.test.example.com"
-      acceptable_op_urls: []
   <<: *label_defaults
   quota:
     <<: *quota
-  asset_path: "/Users/moro/tmp/skip-wiki-assets/development"
+  asset_path: "tmp/skip-wiki-assets/development"
 
 test:
   skip_collaboration:
     secret_key: "1f3c30382d9f2060baf14f0cdb102fe2"
     skip_url: "http://test.skip.local"
-    fulltext_search:
-      endpoint:  "/search/full_text_search"
-      query_name: "full_text_query"
-    fixed_op:
-      disabled: true
-      fixed_openid_server_url: "http://sso.test.example.com"
-      acceptable_op_urls: []
   <<: *label_defaults
   quota:
     <<: *quota
-  asset_path: "/Users/moro/tmp/skip-wiki-assets/test"
+  asset_path: "tmp/skip-wiki-assets/test"
 

@@ -13,5 +13,5 @@
   #logo
     = link_to image_tag("logo.gif", :alt=>"SKIP Wiki - Logo"), root_path
   .banner
-  - if SkipEmbedded::InitialSettings["skip_collaboration"]["fulltext_search"]
+  - if SkipEmbedded::InitialSettings["skip_collaboration"]["skip_url"]
     = render(:partial => "shared/skip_full_text_search_form")

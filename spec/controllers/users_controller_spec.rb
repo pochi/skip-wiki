@@ -11,6 +11,7 @@ describe UsersController do
   fixtures :users
   describe "post :create" do
     before do
+      SkipEmbedded::OpFixation.should_receive(:sso_enabled?).and_return false
       params = {"user"=>{"name"=>"ascii", "display_name"=>"Human Name"}}
       session[:identity_url] = "http://openid.example.com/ascii"
 

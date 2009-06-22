@@ -57,11 +57,11 @@ table {
 div#header {
   position: relative;
   height: 70px;
-  margin-bottom: 2px;
+  border-bottom: 1px solid #ccc;
   z-index: 1; }
   div#header div#global_top {
     border-bottom: 1px solid #ccc;
-    height: 20px;
+    height: 18px;
     margin: 4px 5px; }
     div#header div#global_top a {
       color: #00c;
@@ -86,9 +86,6 @@ div#header {
           color: #fff;
           background-color: #36c; }
     div#header div#global_top div#menu {
-      position: absolute;
-      top: 0;
-      right: 0;
       border: none;
       font-size: 12px;
       text-align: right; }

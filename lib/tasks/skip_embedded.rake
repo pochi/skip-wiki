@@ -3,16 +3,38 @@
 #   # Task goes here
 # end
 namespace :skip_embedded do
-  namespace :download_thridparty do
+  require 'skip_embedded'
+
+  desc "fetch clippy and jquery"
+  task :thirdparty => %w[thirdparty:clippy thirdparty:jquery]
+
+  namespace :thirdparty do
+    require 'open-uri'
+
     desc "fetch clppy.swf from 'http://github.com/mojombo/clippy/raw/master/build/clippy.swf'"
     task :clippy do
-      require 'open-uri'
       source = "http://github.com/mojombo/clippy/raw/master/build/clippy.swf"
       dest   = File.expand_path("public/flash", Rails.root)
 
       fetch(source, dest)
     end
 
+    desc "fetch #{SkipEmbedded::Dependencies[:jquery]} from 'http://jqueryjs.googlecode.com/files/#{SkipEmbedded::Dependencies[:jquery]}'"
+    task :jquery do
+      source =  "http://jqueryjs.googlecode.com/files/#{SkipEmbedded::Dependencies[:jquery]}"
+      dest   = File.expand_path("public/javascripts", Rails.root)
+
+      fetch(source, dest)
+    end
+=begin
+    desc "fetch jquery-ui-1.7.1.custom.zip from 'http://jqueryui.com/download/jquery-ui-1.7.1.custom.zip'"
+    task :jqueryui do
+      source =  'http://jqueryui.com/download/jquery-ui-1.7.1.custom.zip'
+      dest   = File.expand_path("tmp/", Rails.root)
+
+      fetch(source, dest)
+    end
+=end
     private
     def fetch(source, dest, filename_from_url = true)
       if File.directory?(dest) || filename_from_url
