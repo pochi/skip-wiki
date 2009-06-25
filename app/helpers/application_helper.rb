@@ -66,6 +66,11 @@ jQuery(function(){
     ], selected)
   end
 
+  def recent_pages user, menu_item_num=11
+    notes = user.free_or_accessible_notes
+    Page.active.scoped(:conditions=>["note_id IN (?)", notes.map(&:id)]).recent(menu_item_num)
+  end
+
   private
   def locale
     GetText.locale

@@ -4,13 +4,11 @@ describe PagesController do
   fixtures :notes
   before do
     @current_note = notes(:our_note)
-    @current_note.stub!(:recent).and_return([@current_note])
     controller.stub!(:authenticate).and_return(true)
     controller.stub!(:current_note).and_return(@current_note)
 
     @user = mock_model(User)
     @user.stub!(:page_editable?).with(@current_note).and_return true
-    @user.stub!(:free_or_accessible_notes).and_return @current_note
     controller.stub!(:current_user).and_return(@user)
   end
 

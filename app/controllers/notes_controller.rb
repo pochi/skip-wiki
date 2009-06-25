@@ -4,6 +4,7 @@ class NotesController < ApplicationController
   skip_before_filter :authenticate, :only => %w[index]
   before_filter :authenticate_with_api_or_login_required, :only => %w[index]
   before_filter :explicit_user_required, :except => %w[index new create]
+  before_filter :is_wiki_initialized?, :except => %w[index new create]
   include SkipEmbedded::WebServiceUtil::Server
 
   layout :select_layout
@@ -22,13 +23,6 @@ class NotesController < ApplicationController
         render :layout => false
       end
     end
-  end
-
-  def init
-    @note = current_note
-    @page = @note.pages.build
-    @page.name = Page::FRONTPAGE_NAME
-    @page.label_index_id = @note.label_indices.first.id
   end
 
   # GET /notes/1
@@ -125,7 +119,7 @@ class NotesController < ApplicationController
 
   def select_layout
     case params[:action]
-    when *%w[index new init] then super
+    when *%w[index new] then super
     else "notes"
     end
   end

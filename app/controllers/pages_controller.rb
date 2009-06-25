@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   skip_before_filter :authenticate, :only => %w[index]
   before_filter :authenticate_with_api_or_login_required, :only => %w[index]
   before_filter :explicit_user_required, :except => %w[index show]
-  before_filter :setup_menu, :except => %w[index create update]
+  before_filter :is_wiki_initialized?, :except => %w[create]
 
   def index
     @pages = accessible_pages(true).fulltext(params[:keyword]).
@@ -33,16 +33,8 @@ class PagesController < ApplicationController
 
   def show
     @note = current_note
-    if @note.pages.size == 0 && current_user.note_editable?(@note)
-      flash[:notice] = "最初にトップページを作成しましょう"
-      redirect_to note_init_path(@note)
-    else
-      @page = accessible_pages.find_by_name(params[:id], :include=>:note)
-      @page || render_not_found
-    end
-  end
-
-  def initilaize
+    @page = accessible_pages.find_by_name(params[:id], :include=>:note)
+    @page || render_not_found
   end
 
   def new

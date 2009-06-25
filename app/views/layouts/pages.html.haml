@@ -20,7 +20,7 @@
         .box_space_title
           新着ページ
         .box_space_body
-          - @pages.each do |page|
+          - recent_pages(current_user).each do |page|
             %p.page_title= link_to h(page.display_name), note_page_path(page.note, page)
             %p.note_title&= "#{page.note.display_name}"
 

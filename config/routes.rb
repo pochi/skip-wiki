@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller=>"pages", :action=>"show", :id => "FrontPage"
+  map.root :controller=>"notes", :action => "show", :id => Note.wikipedia.name
 
   map.logout   '/logout',   :controller => 'sessions', :action => 'destroy'
   map.login    '/login',    :controller => 'sessions', :action => 'new'
@@ -23,7 +23,6 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :notes do |note|
-    note.init "/init", :controller => "notes", :action => "init"
     note.resources :label_indices
     note.resources :pages, :member => {:recovery => :post}, :new => {:preview => :post} do |page|
       page.resources :histories, :collection=>{:diff=>:get}

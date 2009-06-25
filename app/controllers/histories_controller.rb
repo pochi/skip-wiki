@@ -2,7 +2,6 @@ class HistoriesController < ApplicationController
   layout "pages"
   include IframeUploader
   include PagesModule::PagesUtil
-  before_filter :setup_menu, :except => %w[create update]
 
   def index
     @page = history_accessible_pages.find_by_name(params[:page_id])

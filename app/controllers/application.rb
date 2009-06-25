@@ -19,8 +19,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
 
-  MENU_ITEM_NUM = 10
-
   layout :select_layout
 
   private
@@ -33,9 +31,21 @@ class ApplicationController < ActionController::Base
   end
 
   def explicit_user_required
-    self.current_note = current_user.free_or_accessible_notes.find_by_name(params[:note_id])
+    # TODO 引数のパラメータは正しくないかも。アクセスされる全ての箇所でnote_idがない場合idがnote_idであることを前提としている
+    self.current_note = current_user.free_or_accessible_notes.find_by_name(params[:note_id]||params[:id])
     unless current_user.accessible?(current_note)
       render_not_found
+    end
+  end
+
+  def is_wiki_initialized?
+    @note = current_note
+    if @note.pages.size == 0 && current_user.note_editable?(@note)
+      @page = @note.pages.build
+      @page.name = Page::FRONTPAGE_NAME
+      @page.label_index_id = @note.label_indices.first.id
+      flash[:notice] = "最初にトップページを作成しましょう"
+      render :action => "init", :layout => "notes"
     end
   end
 
@@ -54,7 +64,6 @@ class ApplicationController < ActionController::Base
     return @__current_note if @__current_note
 
     scope = logged_in? ? current_user.free_or_accessible_notes : Note.free
-    params[:note_id] ||= Note.wikipedia_name
     @__current_note = @note || scope.find_by_name(params[:note_id]) || :none
     current_note
   end
@@ -97,11 +106,6 @@ class ApplicationController < ActionController::Base
 
   def authenticate_with_api_or_login_required
     params[:user].blank? ? authenticate_with_session_or_oauth : check_secret_key
-  end
-
-  def setup_menu
-    @notes = current_user.free_or_accessible_notes.recent(MENU_ITEM_NUM + 1)
-    @pages = Page.active.scoped(:conditions=>["note_id IN (?)", @notes.map(&:id)]).recent(MENU_ITEM_NUM + 1)
   end
 
 end

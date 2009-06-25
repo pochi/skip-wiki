@@ -77,6 +77,7 @@ class User < ActiveRecord::Base
   end
 
   def note_editable?(note)
+    # TODO wikipediaのbuildin_groupsにadminユーザ飲みが入るならばaccessible?だけで良いはず
     note.wikipedia? ? admin? : accessible?(note)
   end
 
