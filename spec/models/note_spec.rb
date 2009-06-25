@@ -227,6 +227,83 @@ describe Note do
     end
   end
 
+  describe ".create_for_owner" do
+    fixtures :users
+    before do
+      @user = users(:quentin)
+      LabelIndex.create!(:display_name => "label1", :color => "#ffffcc")
+    end
+    describe "対応するノートが存在しない" do
+      describe "オーナーがグループで存在する場合" do
+        before do
+          sg = SkipGroup.create!(:name => "ruby", :display_name => "Rubyグループ", :gid => "ruby")
+          g = Group.create!(:backend => sg, :name => sg.name, :display_name => sg.display_name)
+          g.users << @user
+        end
+        it "Noteが作成されること" do
+          lambda do
+            Note.create_for_owner "group_ruby", @user
+          end.should change(Note, :count).by(1)
+        end
+        it "Labelが作成されること"
+        it "引数のユーザが作成したノートにアクセスできること" do
+          note = Note.create_for_owner "group_ruby", @user
+          @user.accessible?(note).should be_true
+        end
+      end
+      describe "オーナーがユーザの場合" do
+        it "Noteが作成されること" do
+          lambda do
+            Note.create_for_owner "user_quentin", @user
+          end.should change(Note, :count).by(1)
+        end
+        it "Labelが作成されること"
+        it "引数のユーザが作成したノートにアクセスできること" do
+          note = Note.create_for_owner "user_quentin", @user
+          @user.accessible?(note).should be_true
+        end
+      end
+      describe "オーナーが存在するが、ユーザに権限がない場合(ユーザ)" do
+        it "Noteが作成されないこと" do
+          lambda do
+            Note.create_for_owner "user_ruby", @user
+          end.should_not change(Note, :count)
+        end
+        it "nilが返ること" do
+          Note.create_for_owner("user_ruby", @user).should be_nil
+        end
+      end
+      describe "オーナーが存在するが、ユーザに権限がない場合(グループ)" do
+        before do
+          sg = SkipGroup.create!(:name => "ruby", :display_name => "Rubyグループ", :gid => "ruby")
+          g = Group.create!(:backend => sg, :name => sg.name, :display_name => sg.display_name)
+        end
+        it "Noteが作成されないこと" do
+          lambda do
+            Note.create_for_owner "group_ruby", @user
+          end.should_not change(Note, :count)
+        end
+        it "nilが返ること" do
+          Note.create_for_owner("group_ruby", @user).should be_nil
+        end
+      end
+      describe "オーナーが存在しない場合" do
+        it "Noteが作成されないこと" do
+          lambda do
+            Note.create_for_owner "hoge", @user
+          end.should_not change(Note, :count)
+        end
+        it "nilが返ること" do
+          Note.create_for_owner("hoge", @user).should be_nil
+        end
+      end
+    end
+    describe "対応するノートが存在する" do
+      it "Noteが作成されないこと"
+      it "nilを返すこと"
+    end
+  end
+
   def build_note
     @user.build_note(
       :name => "value for name",
@@ -238,4 +315,5 @@ describe Note do
       :group_backend_id => ""
     )
   end
+
 end

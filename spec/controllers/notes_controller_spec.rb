@@ -222,3 +222,53 @@ describe NotesController do
   end
 
 end
+
+describe NotesController, "初期作成されていないNoteへのアクセスの場合" do
+  fixtures :users
+  before do
+    controller.stub!(:current_user).and_return(@user = users(:quentin))
+    controller.stub!(:explicit_user_required).and_return(true)
+  end
+
+  def mock_note(stubs={})
+    @mock_note ||= mock_model(Note, stubs)
+  end
+
+  describe "保存先は存在するがNoteが初期化されていない場合" do
+    before do
+      controller.stub(:current_note).and_return(nil)
+      @user.stub(:note_editable?).and_return(true)
+      Note.should_receive(:create_for_owner).with("user_quentin", @user).and_return(mock_note)
+      mock_note.stub_chain(:pages, :build).and_return(@page = mock_model(Page))
+      mock_note.stub_chain(:pages, :size).and_return(0)
+      mock_note.stub_chain(:label_indices, :first, :id).and_return(1)
+    end
+    it "pages/initを描画すること" do
+      get :show, :id => "user_quentin"
+      response.should render_template("pages/init")
+    end
+    it "wikiが作成されていること" do
+      get :show, :id => "user_quentin"
+      assigns[:note].should == mock_note
+    end
+    it "@pageがassignされていること" do
+      get :show, :id => "user_quentin"
+      assigns[:page].should == @page
+    end
+  end
+
+  describe "保存先が存在し、Noteが初期化されてる場合" do
+    before do
+      controller.stub(:current_note).and_return(mock_note)
+      mock_note.stub_chain(:pages, :size).and_return(1)
+    end
+    it "note/showを描画すること" do
+      get :show, :id => "user_quentin"
+      response.should render_template("notes/show")
+    end
+  end
+
+  describe "保存先が存在せず、Noteも存在しない場合" do
+    # explicit_user_required で先に検証される
+  end
+end

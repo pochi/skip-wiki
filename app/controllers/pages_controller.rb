@@ -5,8 +5,8 @@ class PagesController < ApplicationController
   hide_action :render_hiki
   skip_before_filter :authenticate, :only => %w[index]
   before_filter :authenticate_with_api_or_login_required, :only => %w[index]
-  before_filter :explicit_user_required, :except => %w[index show]
   before_filter :is_wiki_initialized?, :except => %w[create]
+  before_filter :explicit_user_required, :except => %w[index show]
 
   def index
     @pages = accessible_pages(true).fulltext(params[:keyword]).

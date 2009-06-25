@@ -40,11 +40,12 @@ class ApplicationController < ActionController::Base
   end
 
   def is_wiki_initialized?
-    @note = current_note
-    if @note.pages.size == 0 && current_user.note_editable?(@note)
-      @page = @note.pages.build
-      @page.name = Page::FRONTPAGE_NAME
-      @page.label_index_id = @note.label_indices.first.id
+    # TODO リファクタ
+    unless @note = current_note
+      self.current_note = @note = Note.create_for_owner((params[:note_id]||params[:id]), current_user)
+    end
+    if @note and @note.pages.size == 0 and current_user.note_editable?(@note)
+      @page = @note.pages.build(:name => Page::FRONTPAGE_NAME, :label_index_id => @note.label_indices.first.id)
       flash[:notice] = "最初にトップページを作成しましょう"
       render :template => "pages/init", :layout => "notes"
     end
@@ -65,7 +66,7 @@ class ApplicationController < ActionController::Base
     return @__current_note if @__current_note
 
     scope = logged_in? ? current_user.free_or_accessible_notes : Note.free
-    @__current_note = @note || scope.find_by_name(params[:note_id]) || :none
+    @__current_note = @note || scope.find_by_name(params[:note_id]||params[:id]) || :none
     current_note
   end
 

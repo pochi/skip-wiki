@@ -3,8 +3,8 @@ require 'skip_embedded/web_service_util/server'
 class NotesController < ApplicationController
   skip_before_filter :authenticate, :only => %w[index]
   before_filter :authenticate_with_api_or_login_required, :only => %w[index]
-  before_filter :explicit_user_required, :except => %w[index new create]
   before_filter :is_wiki_initialized?, :except => %w[index new create]
+  before_filter :explicit_user_required, :except => %w[index new create]
   include SkipEmbedded::WebServiceUtil::Server
 
   layout :select_layout
