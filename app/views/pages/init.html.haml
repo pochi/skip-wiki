@@ -4,7 +4,7 @@
 .init_note
   = error_messages_for :page
 
-  - form_for(@page) do |f|
+  - form_for([@note,@page]) do |f|
     = f.hidden_field :name
     = f.hidden_field :label_index_id
     .title_desc

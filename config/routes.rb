@@ -1,5 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller=>"notes", :action => "show", :id => Note.wikipedia.name
+  if Note.wikipedia
+    map.root :controller=>"notes", :action => "show", :id => Note.wikipedia.name
+  else
+    map.root :controller=>"notes", :action => "show", :id => "wikipedia"
+  end
 
   map.logout   '/logout',   :controller => 'sessions', :action => 'destroy'
   map.login    '/login',    :controller => 'sessions', :action => 'new'

@@ -1,0 +1,36 @@
+#!script/runner
+# coding: "utf-8"
+
+owner = User.scoped({:conditions => {:admin => true}}).first
+bg = BuiltinGroup.new({
+                        :owner => owner
+                      })
+g = Group.new({
+                :backend => bg,
+                :name => owner.name,
+                :display_name => owner.display_name,
+              })
+
+g.users << owner
+
+l = LabelIndex.new({
+                     :display_name => "wikipedia",
+                     :color => "#b0e0e6",
+                     :default_label => true
+                   })
+
+n = Note.new({
+               :name => "wikipedia",
+               :display_name => "wikipedia",
+               :publicity => Note::PUBLICITY_WRITABLE,
+               :owner_group => g,
+               :description => "no page wiki",
+               :label_indices => [l]
+             })
+
+n.save!
+
+Accessibility.new({
+                    :note => n,
+                    :group => g
+                  }).save!

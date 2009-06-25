@@ -5,6 +5,7 @@ describe NotesController do
   before do
     controller.stub!(:current_user).and_return(@user = users(:quentin))
     controller.stub!(:explicit_user_required).and_return(true)
+    controller.stub!(:is_wiki_initialized?).and_return(true)
   end
 
   def mock_note(stubs={})

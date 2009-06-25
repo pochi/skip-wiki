@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
       @page.name = Page::FRONTPAGE_NAME
       @page.label_index_id = @note.label_indices.first.id
       flash[:notice] = "最初にトップページを作成しましょう"
-      render :action => "init", :layout => "notes"
+      render :template => "pages/init", :layout => "notes"
     end
   end
 
