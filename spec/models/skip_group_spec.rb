@@ -117,6 +117,24 @@ describe SkipGroup do
       end
     end
 
+    describe '削除済みの新規レコードで再更新' do
+      before do
+        @created, @updated, @deleted = SkipGroup.sync!([
+            {:gid => "33456", :name => "name33", :display_name => "SKIP-Group.33", :members => identity_url_gen(*%w[e f g]), :delete? => true},
+            {:gid => "33457", :name => "name34", :display_name => "SKIP-Group.34", :members => identity_url_gen(*%w[a b c]), :delete? => true}
+        ])
+      end
+      it '0個のグループが作成されていること' do
+        @created.should have(0).items
+      end
+      it '0個のグループが更新されていること' do
+        @updated.should have(0).items
+      end
+      it '0個グループが削除されていること' do
+        @deleted.should have(0).items
+      end
+    end
+
     describe "100件のベンチマーク" do
       subject do
         (1..(100+5)).each{|i|
