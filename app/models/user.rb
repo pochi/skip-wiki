@@ -41,17 +41,32 @@ class User < ActiveRecord::Base
     tokens.delete_all
   end
 
+  # TODO 複雑なのでリファクタする
   def self.sync!(skip, users_update_data)
-    id2var = users_update_data.inject({}) do |r, data|
+    delete_data, keep_or_create_data = users_update_data.partition{|d| d[:delete?]}
+
+    id2var = delete_data.inject({}) do |r, data|
       r[data[:identity_url]] = data; r
     end
-    removes_or_keeps = find(:all).select{|u| id2var[u.identity_url] }
-    removes, keeps = removes_or_keeps.partition{|u| id2var[u.identity_url][:delete?] }
 
+    removes = find(:all).select{|u| id2var[u.identity_url] }
     removes.each do |r|
       r.logical_destroy
-      id2var.delete(r.identity_url)
+      delete_data.delete_if {|d| d[:identity_url] == r.identity_url}
     end
+    delete_data.each do |d|
+      user = create!(d.except(:delete?)) do |u|
+        u.identity_url = d[:identity_url]
+      end
+      user.logical_destroy
+      removes << user
+    end
+
+    id2var = keep_or_create_data.inject({}) do |r, data|
+      r[data[:identity_url]] = data; r
+    end
+
+    keeps = find(:all).select{|u| id2var[u.identity_url] }
     keeps.each do |k|
       k.update_attributes!(id2var.delete(k.identity_url).except(:delete?))
       skip.publish_access_token(k) unless k.access_token_for(skip)
