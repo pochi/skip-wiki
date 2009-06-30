@@ -75,7 +75,7 @@ describe Admin::AttachmentsController do
 
   describe "DELETE /admin/notes/our_note/attachments/our_attachment" do
     it "添付ファイルにリクエストが飛んでいること" do
-      Attachment.should_receive(:find).with("our_attachment").and_return(mock_attachment)
+      Attachment.should_receive(:find).with("our_attachment").and_return(mock_attachment(:destroy=>true))
       delete :destroy, :note_id=>"our_note", :id=>"our_attachment"
     end
 

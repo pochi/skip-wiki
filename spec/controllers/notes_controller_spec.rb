@@ -238,10 +238,10 @@ describe NotesController, "初期作成されていないNoteへのアクセス�
     before do
       controller.stub(:current_note).and_return(nil)
       @user.stub(:note_editable?).and_return(true)
-      Note.should_receive(:create_for_owner).with("user_quentin", @user).and_return(mock_note)
-      mock_note.stub_chain(:pages, :build).and_return(@page = mock_model(Page))
-      mock_note.stub_chain(:pages, :size).and_return(0)
+      pages = mock("pages", :build => (@page=mock_model(Page)), :size => 0)
+      mock_note.stub(:pages).and_return(pages)
       mock_note.stub_chain(:label_indices, :first, :id).and_return(1)
+      Note.should_receive(:create_for_owner).with("user_quentin", @user).and_return(mock_note)
     end
     it "pages/initを描画すること" do
       get :show, :id => "user_quentin"

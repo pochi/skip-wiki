@@ -4,6 +4,7 @@ describe SessionsController do
   fixtures :users
   before do
     SessionsController.user_klass = User
+    SessionsController.with_single_access = false
     controller.session[:user_id] = users(:quentin).id
   end
 
