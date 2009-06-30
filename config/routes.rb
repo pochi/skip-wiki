@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  if Note.wikipedia
+  begin
     map.root :controller=>"notes", :action => "show", :id => Note.wikipedia.name
-  else
+  rescue => e
     map.root :controller=>"notes", :action => "show", :id => "wikipedia"
   end
 
