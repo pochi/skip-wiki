@@ -40,7 +40,7 @@
       = render :partial => 'shared/common_body_footer'
 
     - if SkipEmbedded::OpFixation.sso_enabled? && skip_url = SkipEmbedded::InitialSettings["skip_collaboration"]["skip_url"]
-      = javascript_include_tag("#{skip_url}services/skip_header.js")
+      = javascript_include_tag("#{skip_url}services/skip_reflect_customized.js")
 
     - javascript_tag do
       =yield :javascript_initializer
