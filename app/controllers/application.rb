@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     # TODO 回帰テストを書く
     # TODO 引数のパラメータは正しくないかも。アクセスされる全ての箇所でnote_idがない場合idがnote_idであることを前提としている
     self.current_note = current_user.free_or_accessible_notes.find_by_name(params[:note_id]||params[:id])
-    unless current_user.page_editable?(current_note)
+    unless current_note and current_user.page_editable?(current_note)
       render_not_found
     end
   end

@@ -122,8 +122,10 @@ class Note < ActiveRecord::Base
                       :display_name => _("%sのwiki") % name,
                       :description => _("%sのwikiです。") % name,
                       # TODO 設定するラベルを検討する
-                      :label_indices => [LabelIndex.first],
-                      :owner_group => group
+                      :label_indices => [LabelIndex.no_label],
+                      :owner_group => group,
+                      # TODO 設定するカテゴリを検討する
+                      :category => Category.first
                     })
     note.accessibilities << Accessibility.new(:group => note.owner_group)
     note.save!

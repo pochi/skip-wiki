@@ -228,7 +228,7 @@ describe Note do
   end
 
   describe ".create_for_owner" do
-    fixtures :users
+    fixtures :users, :categories
     before do
       @user = users(:quentin)
       LabelIndex.create!(:display_name => "label1", :color => "#ffffcc")
@@ -245,7 +245,10 @@ describe Note do
             Note.create_for_owner "group_ruby", @user
           end.should change(Note, :count).by(1)
         end
-        it "Labelが作成されること"
+        it "Labelが作成されること" do
+          note = Note.create_for_owner "user_quentin", @user
+          note.label_indices.size.should > 0
+        end
         it "引数のユーザが作成したノートにアクセスできること" do
           note = Note.create_for_owner "group_ruby", @user
           @user.accessible?(note).should be_true
@@ -257,7 +260,10 @@ describe Note do
             Note.create_for_owner "user_quentin", @user
           end.should change(Note, :count).by(1)
         end
-        it "Labelが作成されること"
+        it "Labelが作成されること" do
+          note = Note.create_for_owner "user_quentin", @user
+          note.label_indices.size.should > 0
+        end
         it "引数のユーザが作成したノートにアクセスできること" do
           note = Note.create_for_owner "user_quentin", @user
           @user.accessible?(note).should be_true
