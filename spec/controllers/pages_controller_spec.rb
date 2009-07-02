@@ -83,7 +83,7 @@ describe PagesController do
       controller.should_receive(:explicit_user_required).and_return true
 
       page_param = {:published => "1", :name => "page_1", :display_name => "page_1", :format_type => "html", :content_html => "<p>foobar</p>"}.with_indifferent_access
-      @current_note.label_indices << LabelIndex.no_label
+      @current_note.label_indices << LabelIndex::first_label
 
       @page = @current_note.pages.add(page_param, @user)
       @page.published = false
