@@ -28,6 +28,7 @@ class Note < ActiveRecord::Base
         page.edit(content, user)
         page.attributes = attrs.except(:content, :content_hiki, :content_html)
         page.label_index_id ||= proxy_owner.default_label.id
+        page.attachment_ids = attrs[:attachment_ids] || []
       end
     end
   end

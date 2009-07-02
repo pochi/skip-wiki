@@ -14,7 +14,7 @@ describe AttachmentsController do
     before do
       @attachments = [
         @note.attachments.create!(:uploaded_data => fixture_file_upload("data/at_small.png", "image/png", true),
-                                  :display_name  => "user iconとかの画像です"),
+                                  :display_name  => "user iconとかの画像です", :user_id => 1),
       ]
       xhr :get, :index, :note_id=>notes(:our_note)
     end
@@ -49,7 +49,7 @@ describe AttachmentsController do
   describe "DELETE /destroy" do
     before do
       @attachment = @note.attachments.create!(:uploaded_data => fixture_file_upload("data/at_small.png", "image/png", true),
-                                              :display_name  => "user iconとかの画像です")
+                                              :display_name  => "user iconとかの画像です", :user_id => 1)
       delete :destroy, :note_id=>notes(:our_note), :id => @attachment.id
     end
 

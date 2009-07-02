@@ -8,11 +8,13 @@ class Page < ActiveRecord::Base
   attr_reader :new_history
   attr_writer :label_index_id
   attr_writer :order_in_label
+  attr_accessor :attachment_ids
 
   belongs_to :note
   has_many :histories, :order => "histories.revision DESC"
   has_many :label_indexings
   has_one  :label_index, :through => :label_indexings
+  has_many :attachments, :as => :attachable
 
   validates_named_id_of  :name
   validates_uniqueness_of :name, :scope => :note_id
@@ -91,7 +93,12 @@ SQL
   chainable_scope :labeled, :authored, :fulltext
 
   attr_protected :note_id, :deleted
-  after_save :reset_history_caches, :update_label_index
+
+  def after_save
+    reset_history_caches
+    update_label_index
+    attach
+  end
 
   def self.front_page(attrs = {})
     attrs = {
@@ -196,5 +203,15 @@ SQL
   def frontpage_cant_destroy
     return true if note.nil?
     !(front_page?)
+  end
+
+  def attach
+    returning attachments = Attachment.scoped(:conditions => ['id IN (?)', attachment_ids]).all do
+      attachments.each do |attachment|
+        attachment.attachable_id = self.id
+        attachment.attachable_type = self.class.to_s
+        attachment.save!
+      end
+    end
   end
 end

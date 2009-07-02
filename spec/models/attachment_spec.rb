@@ -9,6 +9,7 @@ describe Attachment do
 
     @valid_attributes = {
       :uploaded_data => @uploaded_data,
+      :user_id => 1
     }
   end
 

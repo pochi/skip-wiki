@@ -222,7 +222,6 @@ describe Page do
     end  
   end
 
-
   describe "fulltext()で実際に検索する場合" do
     before do
       @page = Page.new(@valid_attributes)
@@ -350,6 +349,54 @@ describe Page do
 
     it "note_id=1に関連するページが取得できること" do
       Page.admin(1).should == [@page]
+    end
+  end
+
+  describe '#attach' do
+    fixtures :users
+    before do
+      user = users(:quentin)
+      @note = create_note
+      valid_attributes = {
+        :last_modied_user_id => "1",
+        :name => "value_for_name",
+        :display_name => "value for display_name",
+        :format_type => "hiki",
+        :published => true,
+        :deleted_at => Time.now,
+        :lock_version => "1"
+      }
+      @page = @note.pages.add(valid_attributes, user)
+      @attachment = @note.attachments.create!(:content_type => 'content_type', :filename => 'filename', :display_name => 'display_name', :size => 1, :user_id => user.id, :uploaded_data => fixture_file_upload("data/at_small.png", "image/png", true))
+    end
+    describe '対象の添付ファイルが存在する場合' do
+      before do
+        @page.attachment_ids = [@attachment.id]
+        @page.save_without_validation!
+        @attachment.reload
+      end
+      it '対象のページに添付ファイルが関連付けられること' do
+        @attachment.attachable_id.should == @page.id
+        @attachment.attachable_type == Page
+      end
+    end
+
+    def create_note options = {}
+      group = mock_model(Group)
+      note_valid_attributes = {
+        :name => "value_for_name",
+        :display_name => "value for display_name",
+        :description => "value for description.",
+        :publicity => Note::PUBLICITY_MEMBER_ONLY,
+        :deleted_on => Time.now,
+        :category_id => "1",
+        :owner_group => group,
+        :group_backend_type => "BuiltinGroup",
+      }.merge(options)
+      user = users(:quentin)
+      note = NoteBuilder.new(user, note_valid_attributes).note
+      note.save!
+      note
     end
   end
 end

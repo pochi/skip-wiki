@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   has_many :client_applications
   has_many :tokens, :class_name => "OauthToken", :order => "authorized_at DESC", :include => [:client_application], :dependent => :destroy
 
+  has_many :attachments
+
   scope_do :named_acl
   named_acl :notes
 

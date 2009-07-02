@@ -18,8 +18,9 @@ class Attachment < ActiveRecord::Base
      "の保存領域の利用容量が最大値を越えてしまうためアップロードできません。"
 
   belongs_to :attachable, :polymorphic => true
+  belongs_to :user
 
-  attr_accessible :display_name, :uploaded_data
+  attr_accessible :display_name, :uploaded_data, :user_id
 
   validates_presence_of :display_name
   validates_as_attachment

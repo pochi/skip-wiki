@@ -25,6 +25,7 @@ describe SkipNoteFulltextSearch::AttachmentCacheBuilder, :type => :model do
     params = {
       :display_name => "hogehoge",
       :uploaded_data => fixture_file_upload("data/at_small.png", "image/png", true),
+      :user_id => 1
     }
     @attachment = notes(:our_note).attachments.create(params)
     @builder = SkipNoteFulltextSearch::AttachmentCacheBuilder.new(@attachment)
