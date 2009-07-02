@@ -18,9 +18,9 @@
     %span.operation&= _("edit labels")
   %td
     %ul.label-indices
-      - current_note.label_indices.each do |index|
-        %li
-          = form.radio_button :label_index_id, index.id
-          %label{:for=>"page_label_index_id_#{index.id}"}= labelize(index)
+      = form.select("label_index_id", label_navi_for_new_page(current_note))
+      %br
+        = text_field_tag :name, "insert label name if you want to new label", :size => 36
+        = text_field_tag :color, "insert color what you want"
     .clear
 

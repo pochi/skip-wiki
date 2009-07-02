@@ -121,6 +121,12 @@ module PagesHelper
     end
   end
 
+  def label_navi_for_new_page(note)
+    note.label_indices.collect do |label_index|
+      [label_index.display_name, label_index.id]
+    end
+  end
+
   def pages_indexed_by_label(labels, inlucde_draft = true)
     pages = Page.scoped(:conditions => {:note_id => current_note.id}).active
     pages = pages.published unless inlucde_draft
