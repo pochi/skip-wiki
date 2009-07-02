@@ -139,13 +139,13 @@ describe NoteBuilder, "new_with_owner" do
       builder.note.should be_is_a(Note)
     end
   end
-  describe "不正なユーザによるWikiの場合" do
+  describe "不正なユーザによるユーザのWikiの場合" do
     it "nilが返ること" do
       builder = NoteBuilder.new_with_owner(@quentin, "user_mat_aki")
       builder.should be_nil
     end
   end
-  describe "グループのWikiの場合" do
+  describe "グループのWiki作成の場合" do
     it "NoteBuilder.newに正しいパラメータで渡ること" do
       group = mock_model(Group)
       @quentin.stub_chain(:groups, :skip_group_name).and_return([group])
@@ -164,11 +164,41 @@ describe NoteBuilder, "new_with_owner" do
       NoteBuilder.new_with_owner(@quentin, "group_rails")
     end
   end
-  describe "不正なユーザによるWikiの場合" do
+  describe "不正なユーザによるグループのWiki作成の場合" do
     it "nilが返ること" do
       @quentin.stub_chain(:groups, :skip_group_name).and_return([])
 
       builder = NoteBuilder.new_with_owner(@quentin, "group_mat_aki")
+      builder.should be_nil
+    end
+  end
+  describe "wikipediaの場合" do
+    before do
+      @quentin.stub(:admin?).and_return(true)
+    end
+
+    it "NoteBuilder.newに正しいパラメータで渡ること" do
+      valid_attr = {
+        :name => "wikipedia",
+        :display_name => "wikipedia",
+        :description => "wikipedia",
+        :publicity => 1,
+        # TODO カテゴリどうするのか検討
+        :category_id => "1",
+        :group_backend_type => "BuiltinGroup",
+      }
+      NoteBuilder.should_receive(:new).with(@quentin, valid_attr)
+      NoteBuilder.new_with_owner(@quentin, "wikipedia")
+    end
+    it "note作成できるnotebuilderが返ってくること" do
+      builder = NoteBuilder.new_with_owner(@quentin, "wikipedia")
+      builder.note.save.should be_true
+      builder.note.should be_is_a(Note)
+    end
+  end
+  describe "不正なユーザによるwikipediaの作成の場合" do
+    it "nilが返ること" do
+      builder = NoteBuilder.new_with_owner(@quentin, "wikipedia")
       builder.should be_nil
     end
   end

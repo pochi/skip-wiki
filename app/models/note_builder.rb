@@ -36,7 +36,7 @@ class NoteBuilder
       :name => note_owner_str,
       :display_name => "#{name}'s wiki",
       :description => "#{name}'s wiki",
-      :publicity => 0,
+      :publicity => Note::PUBLICITY_READABLE,
       # TODO カテゴリどうするのか検討
       :category_id => "1"
     }
@@ -46,6 +46,12 @@ class NoteBuilder
     elsif type == "group"
       return nil unless group = user.groups.skip_group_name(name).first
       attr.merge!(:group_backend_type => "SkipGroup", :group_backend => group)
+    elsif type == "wikipedia"
+      return nil unless user.admin?
+      attr.merge!( :display_name => "wikipedia",
+                   :description => "wikipedia",
+                   :publicity => Note::PUBLICITY_WRITABLE,
+                   :group_backend_type => "BuiltinGroup" )
     else
       return nil
     end

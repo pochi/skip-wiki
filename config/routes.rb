@@ -1,8 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   begin
-    map.root :controller=>"notes", :action => "show", :id => Note.wikipedia.name
+    map.root :controller=>"pages", :action => "show", :note_id => Note.wikipedia.name, :id => "FrontPage"
   rescue => e
-    map.root :controller=>"notes", :action => "show", :id => "wikipedia"
+    map.root :controller=>"pages", :action => "show", :note_id => "wikipedia", :id => "FrontPage"
   end
 
   map.logout   '/logout',   :controller => 'sessions', :action => 'destroy'
