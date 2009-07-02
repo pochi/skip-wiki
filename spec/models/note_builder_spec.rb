@@ -113,3 +113,63 @@ describe NoteBuilder do
     end
   end
 end
+
+describe NoteBuilder, "new_with_owner" do
+  fixtures :users
+  before do
+    @quentin = users(:quentin)
+  end
+  describe "ユーザのWikiの場合" do
+    it "NoteBuilder.newに正しいパラメータで渡ること" do
+      valid_attr = {
+        :name => "user_quentin",
+        :display_name => "quentin's wiki",
+        :description => "quentin's wiki",
+        :publicity => 0,
+        # TODO カテゴリどうするのか検討
+        :category_id => "1",
+        :group_backend_type => "BuiltinGroup",
+      }
+      NoteBuilder.should_receive(:new).with(@quentin, valid_attr)
+      NoteBuilder.new_with_owner(@quentin, "user_quentin")
+    end
+    it "note作成できるnotebuilderが返ってくること" do
+      builder = NoteBuilder.new_with_owner(@quentin, "user_quentin")
+      builder.note.save.should be_true
+      builder.note.should be_is_a(Note)
+    end
+  end
+  describe "不正なユーザによるWikiの場合" do
+    it "nilが返ること" do
+      builder = NoteBuilder.new_with_owner(@quentin, "user_mat_aki")
+      builder.should be_nil
+    end
+  end
+  describe "グループのWikiの場合" do
+    it "NoteBuilder.newに正しいパラメータで渡ること" do
+      group = mock_model(Group)
+      @quentin.stub_chain(:groups, :skip_group_name).and_return([group])
+
+      valid_attr = {
+        :name => "group_rails",
+        :display_name => "rails's wiki",
+        :description => "rails's wiki",
+        :publicity => 0,
+        # TODO カテゴリどうするのか検討
+        :category_id => "1",
+        :group_backend_type => "SkipGroup",
+        :group_backend => group
+      }
+      NoteBuilder.should_receive(:new).with(@quentin, valid_attr)
+      NoteBuilder.new_with_owner(@quentin, "group_rails")
+    end
+  end
+  describe "不正なユーザによるWikiの場合" do
+    it "nilが返ること" do
+      @quentin.stub_chain(:groups, :skip_group_name).and_return([])
+
+      builder = NoteBuilder.new_with_owner(@quentin, "group_mat_aki")
+      builder.should be_nil
+    end
+  end
+end

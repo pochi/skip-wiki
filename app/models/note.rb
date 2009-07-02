@@ -104,32 +104,9 @@ class Note < ActiveRecord::Base
   end
 
   def self.create_for_owner note_id, current_user
-    type, name  = note_id.split("_",2)
-
-    if type == "user"
-      return nil unless name == current_user.name
-      b_group = BuiltinGroup.new({:owner => current_user})
-      group = Group.new(:backend => b_group, :name => current_user.name, :display_name => current_user.display_name)
-      group.users << current_user
-    elsif type == "group"
-      group = SkipGroup.find_by_name(name).group
-      return nil if group.nil? or !group.users.include?(current_user)
-    else
-      return nil
+    if builder = NoteBuilder.new_with_owner(current_user, note_id)
+      builder.note.save!
+      builder.note
     end
-
-    note = Note.new({
-                      :name => note_id,
-                      :display_name => _("%sのwiki") % name,
-                      :description => _("%sのwikiです。") % name,
-                      # TODO 設定するラベルを検討する
-                      :label_indices => [LabelIndex.no_label],
-                      :owner_group => group,
-                      # TODO 設定するカテゴリを検討する
-                      :category => Category.first
-                    })
-    note.accessibilities << Accessibility.new(:group => note.owner_group)
-    note.save!
-    note
   end
 end
