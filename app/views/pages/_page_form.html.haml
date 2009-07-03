@@ -20,7 +20,7 @@
     %ul.label-indices
       = form.select("label_index_id", label_navi_for_new_page(current_note))
       %br
-        = text_field_tag :name, "insert label name if you want to new label", :size => 36
-        = text_field_tag :color, "insert color what you want"
+        = text_field_tag 'label[display_name]'
+        = text_field_tag 'label[color]'
     .clear
 

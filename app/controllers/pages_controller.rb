@@ -47,6 +47,11 @@ class PagesController < ApplicationController
     begin
       ActiveRecord::Base.transaction do
         @page = @note.pages.add(params[:page], current_user)
+        if params[:label]
+          label = LabelIndex.create(params[:label].merge!({:default_label => false}))
+          @note.label_indices << label
+          @page.label_index_id = label.id
+        end
         @page.save!
       end
       flash[:notice] = _("The page %{page} is successfully created") % {:page=>@page.display_name}

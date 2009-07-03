@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PagesController do
   fixtures :notes
+
   before do
     @current_note = notes(:our_note)
     controller.stub!(:authenticate).and_return(true)
@@ -42,20 +43,50 @@ describe PagesController do
   end
 
   describe "POST /notes/hoge/pages [SUCCESS]" do
-    before do
-      controller.should_receive(:explicit_user_required).and_return true
+    describe "既存のラベルからページを作成した場合" do
+      before do
+        controller.should_receive(:explicit_user_required).and_return true
 
-      page_param = {:name => "page_1", :display_name => "page_1", :format_type => "html", :content => "<p>foobar</p>"}.with_indifferent_access
+        page_param = {:name => "page_1", :display_name => "page_1", :format_type => "html", :content => "<p>foobar</p>"}.with_indifferent_access
 
-      @current_note.pages.should_receive(:add).
-        with(page_param, @user).and_return(page = mock_model(Page, page_param))
-      page.should_receive(:save!).and_return(true)
+        @current_note.pages.should_receive(:add).
+          with(page_param, @user).and_return(page = mock_model(Page, page_param))
+        page.should_receive(:save!).and_return(true)
 
-      post :create, :note_id => @current_note.name, :page => page_param
+        post :create, :note_id => @current_note.name, :page => page_param
+      end
+
+      it "responseは/notes/our_note/pages/page_1へのリダイレクトであること" do
+        response.should redirect_to(note_page_path(@current_note, assigns(:page)))
+      end
     end
 
-    it "responseは/notes/our_note/pages/page_1へのリダイレクトであること" do
-      response.should redirect_to(note_page_path(@current_note, assigns(:page)))
+    describe "新しいラベルを設定してページを作成する場合" do
+      before do
+        controller.should_receive(:explicit_user_required).and_return true
+        @label = mock_model(LabelIndex, label_param)
+        @label.should_receive(:[]=).with("note_id", @current_note.id).
+          and_return(@label)
+        @label.should_receive(:save).and_return(true)
+        @current_note.pages.should_receive(:add).
+          with(page_param, @user).and_return(page = mock_model(Page, page_param))
+        page.should_receive(:save!).and_return(true)
+        page.should_receive(:label_index_id=).with(@label.id).
+          and_return(page)
+      end
+
+      it "LabelIndexに対してcreateが呼ばれること" do
+        LabelIndex.should_receive(:create).with(label_param).
+          and_return(@label)
+        post :create, :note_id => @current_note.name, :page => page_param, :label => label_param
+      end
+
+      def page_param
+        {:name => "page_1", :display_name => "page_1", :format_type => "html", :content => "<p>foobar</p>"}.with_indifferent_access
+      end
+      def label_param
+        {'display_name' => "hoge", 'color' => "#FFFFFF", 'default_label' => false }
+      end
     end
   end
 
